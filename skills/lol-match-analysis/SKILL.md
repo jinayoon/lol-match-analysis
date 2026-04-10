@@ -286,6 +286,190 @@ Create the `reviews/` directory first with a Bash `mkdir -p` call if it doesn't 
 
 ---
 
+## Step 7 — Generate the HTML report
+
+After saving the markdown, also write a self-contained `.html` file at the same path (same base name, `.html` extension). It must work by opening it in any browser with no server — all assets loaded from URLs, no local dependencies.
+
+### 7a — Resolve ddragon version and asset URLs
+
+```bash
+VERSION=$(curl -s https://ddragon.leagueoflegends.com/api/versions.json \
+  | python3 -c "import sys,json; print(json.load(sys.stdin)[0])")
+# e.g. "16.7.1" — matches the game patch
+```
+
+Asset URL patterns:
+- **Champion portrait tile** (26×26 in tables, 20×20 inline):
+  `https://ddragon.leagueoflegends.com/cdn/$VERSION/img/champion/{Name}.png`
+  Name must be ddragon-formatted: no spaces, special chars removed (e.g. `MissFortune`, `KSante`, `AurelionSol`, `Wukong` → `MonkeyKing`).
+- **Champion loading screen art** (120×120 in hero header):
+  `https://ddragon.leagueoflegends.com/cdn/img/champion/loading/{Name}_0.jpg`
+  No version segment in this URL.
+- **Spell icon** (22×22 inline, 26×26 in ability strip):
+  `https://ddragon.leagueoflegends.com/cdn/$VERSION/img/spell/{SpellFile}.png`
+  Get `SpellFile` from ddragon champion JSON `spells[i].image.full` (e.g. `BraumW.png`, `BraumRWrapper.png`). Fetch:
+  `curl -s "https://ddragon.leagueoflegends.com/cdn/$VERSION/data/en_US/champion/{Name}.json"`
+- **Item icon** (24–30px):
+  `https://ddragon.leagueoflegends.com/cdn/$VERSION/img/item/{itemId}.png`
+  Item IDs come from the already-fetched `/tmp/lol_items.json`. If an item isn't in that file, look it up on `https://wiki.leagueoflegends.com/en-us/{ItemName}` rather than guessing.
+
+Always add `onerror="this.style.display='none'"` to every `<img>` tag.
+
+### 7b — Design system (CSS variables)
+
+```css
+:root {
+  --bg:      #0e0f14;   /* page background */
+  --surface: #16181f;   /* cards */
+  --surface2:#1e2029;   /* table headers, inline code bg */
+  --border:  #2a2d3a;
+  --text:    #dde1f0;
+  --muted:   #7b8099;
+  --blue:    #4e9eff;
+  --gold:    #c89b3c;
+  --green:   #3dca7e;
+  --red:     #e55c5c;
+  --yellow:  #f0b429;
+  --purple:  #9b7fe8;
+}
+```
+
+Severity → color: HIGH = `--red`, MEDIUM = `--yellow`, LOW/positive = `--green`, net-positive-medium = `#7eca9c`.
+
+### 7c — Page structure
+
+Build these sections in order:
+
+**1. Hero header** — two-column flex:
+- Left: champion loading screen art (120×120, border-radius 10px, 2px gold border) with a strip of 4 ability icons (26×26) beneath it. Each ability icon has a `title="{Key} — {Spell Name}"` attribute.
+- Right: `<h1>` title, subtitle line (player · champion · W/L · duration · patch · match ID in monospace badge), then the Honest Verdict and Game Summary as stacked cards.
+
+**2. Quick stats grid** — `repeat(auto-fill, minmax(110px, 1fr))`. Each box: large value + small label. Color overrides: green for vision/KP%, red for deaths/time-dead.
+
+**3. Team overview table** — 10 rows, both teams. Champion name cell includes a 26×26 portrait icon. Analyzed player row: gold background tint (`#c89b3c18`) + YOU badge. Primary carry: ★ suffix.
+
+**4. Match timeline** — see §7d.
+
+**5. Findings by phase** — a phase divider label before each phase, then one card per finding:
+- 3px left border colored by severity
+- Meta row: timestamp badge (monospace), severity badge, phase/lens badge
+- Title line, body paragraph, Fix line (`Fix: ` prefix in `--blue` for errors; green italic for positives)
+- Inline 20×20 champion portrait wherever a champion name appears in body/fix text
+- Inline 22×22 spell icon + key badge (`E`, `W`, etc.) wherever a specific ability is referenced
+
+**6. Swing moments** — 3 cards, each with a colored left border (red/gold/green), a 22×22 champion icon in the title row, a timestamp badge, and a 2–3 sentence body.
+
+**7. 3 Things to Work On** — yellow-left-bordered cards. For any item timing finding, include an item chip row with icons:
+```html
+<div style="display:flex;gap:6px;margin:8px 0;flex-wrap:wrap">
+  <div style="display:flex;align-items:center;gap:5px;background:var(--surface2);
+              border:1px solid var(--border);border-radius:6px;padding:4px 8px;font-size:.78rem">
+    <img src="{itemIconUrl}" style="width:24px;height:24px;border-radius:3px" onerror="this.style.display='none'">
+    <span>{Item Name}</span>
+    <span style="color:var(--muted);font-size:.7rem">✓ {actual time}</span>
+  </div>
+  <span style="color:var(--muted);align-self:center">→</span>
+  <!-- next item chip, mark with yellow border + red time if delayed -->
+</div>
+```
+
+### 7d — Interactive timeline
+
+The full-width bar represents 0:00 → game duration. All marker positions are:
+```
+left% = (event_start_seconds / total_game_seconds) * 100
+```
+
+Phase band widths:
+```
+early_pct = (14 * 60) / total_seconds * 100   → "Early (0–14)"
+mid_pct   = ((25 - 14) * 60) / total_seconds * 100  → "Mid (14–25)"
+late_pct  = 100 - early_pct - mid_pct          → "Late (25+)"
+```
+
+**HTML skeleton:**
+```html
+<div class="timeline-wrap">  <!-- NO overflow:hidden here — tooltips must escape freely -->
+  <div class="tl-phases" style="display:flex;height:22px;border-radius:4px;overflow:hidden;margin-bottom:8px">
+    <div style="width:{early_pct}%;background:#2563eb30;display:flex;align-items:center;
+                justify-content:center;font-size:.65rem;color:rgba(255,255,255,.45)">Early (0–14)</div>
+    <div style="width:{mid_pct}%;background:#7c3aed30;...">Mid (14–25)</div>
+    <div style="width:{late_pct}%;background:#c026d330;...">Late (25+)</div>
+  </div>
+  <!-- vertical phase-divider lines at early/mid and mid/late percentages -->
+  <div style="position:relative">
+    <div style="height:6px;background:var(--border);border-radius:3px"></div>  <!-- ruler -->
+    <div style="position:relative;height:56px">   <!-- markers row -->
+      <!-- one marker per notable event -->
+    </div>
+    <div style="display:flex;justify-content:space-between;font-size:.65rem;color:var(--muted)">
+      <span>0:00</span> ... <span>{total}</span>
+    </div>
+  </div>
+</div>
+```
+
+**Each event marker:**
+```html
+<div style="position:absolute;top:6px;left:{pct}%;transform:translateX(-50%);cursor:pointer;z-index:10">
+  <div style="width:12px;height:12px;border-radius:50%;background:{severityColor};
+              border:2px solid var(--bg);transition:transform .15s"
+       onmouseover="this.style.transform='scale(1.5)'"
+       onmouseout="this.style.transform='scale(1)'"></div>
+  <div style="width:1px;height:10px;background:rgba(255,255,255,.2);margin:0 auto"></div>
+  <div class="tooltip" style="display:none;position:absolute;bottom:130%;left:50%;
+       transform:translateX(-50%);background:#1e2029;border:1px solid var(--border);
+       border-radius:6px;padding:9px 12px;font-size:.75rem;width:220px;
+       box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:100;pointer-events:none;line-height:1.5;
+       {flip: bottom:auto;top:130% if left% > 65}">
+    <div style="color:var(--muted);font-size:.7rem">{MM:SS} — {location}</div>
+    <div style="font-weight:600;margin:3px 0">
+      <img src="{champIcon}" style="width:16px;height:16px;border-radius:3px;vertical-align:middle;
+           margin-right:4px" onerror="this.style.display='none'">{title}
+    </div>
+    <div style="font-size:.68rem;color:{severityColor}">{severity label}</div>
+    <div style="margin-top:5px;color:#b0b8d0;font-size:.72rem">{one-line summary}</div>
+  </div>
+</div>
+```
+
+Tooltip show/hide via inline JS on the parent div:
+```html
+onmouseenter="this.querySelector('.tooltip').style.display='block'"
+onmouseleave="this.querySelector('.tooltip').style.display='none'"
+```
+
+Pin size: 14–16px for HIGH/key positive events; 12px default. Flip tooltip (bottom→top of marker) when `left% > 65` to avoid running off the right edge.
+
+**CRITICAL:** `.timeline-wrap` must NOT have `overflow:hidden`. The phase band `<div>` gets `overflow:hidden` for its own rounded corners, but the outer wrapper must let tooltips escape.
+
+### 7e — Icon placement reference
+
+| Where | Icon | Size |
+|---|---|---|
+| Hero header: champion | Loading screen art | 120×120 |
+| Hero header: ability strip | Spell icons Q/W/E/R | 26×26 |
+| Team table: champion column | Portrait tile | 26×26 |
+| Finding body/fix: champion named | Portrait tile | 20×20 inline |
+| Finding fix: ability named | Spell icon + key badge | 22×22 + badge |
+| Timeline tooltip: title | Portrait tile | 16×16 inline |
+| Swing moment: card title | Portrait tile | 22×22 |
+| Work-on: item chip | Item icon | 24×24 |
+| Work-on: inline item mention | Item icon | 22×22 inline |
+
+Key badge style: `font-size:.65rem;font-weight:700;background:#4e9eff22;color:var(--blue);border-radius:3px;padding:1px 4px;font-family:monospace`
+
+### 7f — File save
+
+Same directory and base name as the markdown:
+```
+/Users/jinayoon/Projects/lol analysis/reviews/[YYYY-MM-DD]_[HHMM]_[Champion].html
+```
+
+Tell the user both files were saved once done.
+
+---
+
 ## Tone and standards
 
 - Every finding must cite a timestamp, a number, or a player name. No vague claims.
