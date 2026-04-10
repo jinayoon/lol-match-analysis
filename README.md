@@ -25,18 +25,17 @@ I find it most helpful to generate and read the analysis right after a game whil
 
 ### Mac
 
-**1. Install Node.js**
-Download and install it from [nodejs.org](https://nodejs.org) (LTS version). This is required to run Claude Code.
-
-**2. Install Claude Code**
+**1. Install Claude Code**
 Open Terminal (search "Terminal" in Spotlight) and paste:
 ```bash
-npm install -g @anthropic-ai/claude-code
+curl -fsSL https://claude.ai/install.sh | bash
 ```
-Then run `claude` and follow the login prompt to connect your Claude account.
+
+**2. Connect your account**
+Type `claude` and hit enter. It'll open a browser to log in — follow the prompts, then come back to Terminal. Once you're in, type `/exit` to close the session.
 
 **3. Install the skill**
-Still in Terminal, paste:
+Back in Terminal, paste:
 ```bash
 mkdir -p ~/.claude/skills/lol-match-analysis && curl -o ~/.claude/skills/lol-match-analysis/SKILL.md "https://raw.githubusercontent.com/jinayoon/lol-match-analysis/main/skills/lol-match-analysis/SKILL.md"
 ```
@@ -45,39 +44,43 @@ mkdir -p ~/.claude/skills/lol-match-analysis && curl -o ~/.claude/skills/lol-mat
 Go to [developer.riotgames.com](https://developer.riotgames.com), log in with your League account, and copy the key on your dashboard. Free, takes 30 seconds. *(Keys expire every 24h — grab a fresh one each session.)*
 
 **5. Run it**
-In Terminal, type `/lol-match-analysis` and hit enter. It'll ask for your API key and Riot ID (`Name#TAG`), then analyze your last game automatically.
+Type `claude` to start a session, then type `/lol-match-analysis` and hit enter. It'll ask for your API key and Riot ID (`Name#TAG`), then analyze your last game automatically.
 
 ---
 
 ### Windows
 
-**1. Install Node.js**
-Download and install it from [nodejs.org](https://nodejs.org) (LTS version). This is required to run Claude Code.
+**1. Install Git for Windows**
+Download and install it from [git-scm.com](https://git-scm.com/downloads/win). Required for Claude Code to work on Windows.
 
 **2. Install Claude Code**
 Open PowerShell (search "PowerShell" in the Start menu) and paste:
 ```powershell
-npm install -g @anthropic-ai/claude-code
+irm https://claude.ai/install.ps1 | iex
 ```
-Then run `claude` and follow the login prompt to connect your Claude account.
 
-**3. Install the skill**
-Still in PowerShell, paste:
+**3. Connect your account**
+Type `claude` and hit enter. It'll open a browser to log in — follow the prompts, then come back to PowerShell. Once you're in, type `/exit` to close the session.
+
+**4. Install the skill**
+Back in PowerShell, paste:
 ```powershell
 New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.claude\skills\lol-match-analysis"; Invoke-WebRequest -Uri "https://raw.githubusercontent.com/jinayoon/lol-match-analysis/main/skills/lol-match-analysis/SKILL.md" -OutFile "$env:USERPROFILE\.claude\skills\lol-match-analysis\SKILL.md"
 ```
 
-**4. Get a Riot API key**
+**5. Get a Riot API key**
 Go to [developer.riotgames.com](https://developer.riotgames.com), log in with your League account, and copy the key on your dashboard. Free, takes 30 seconds. *(Keys expire every 24h — grab a fresh one each session.)*
 
-**5. Run it**
-In PowerShell, type `/lol-match-analysis` and hit enter. It'll ask for your API key and Riot ID (`Name#TAG`), then analyze your last game automatically.
+**6. Run it**
+Type `claude` to start a session, then type `/lol-match-analysis` and hit enter. It'll ask for your API key and Riot ID (`Name#TAG`), then analyze your last game automatically.
 
 ---
 
 ## For developers
 
 ```bash
+# Mac/Linux
+curl -fsSL https://claude.ai/install.sh | bash
 mkdir -p ~/.claude/skills/lol-match-analysis
 curl -o ~/.claude/skills/lol-match-analysis/SKILL.md \
   "https://raw.githubusercontent.com/jinayoon/lol-match-analysis/main/skills/lol-match-analysis/SKILL.md"
@@ -89,10 +92,10 @@ Contributions welcome! If you want to extend the analysis, add support for other
 
 ## Requirements
 
-- Claude Code CLI (`npm install -g @anthropic-ai/claude-code`) — requires [Node.js](https://nodejs.org)
+- Claude Code — install via Terminal/PowerShell (see above), no Node.js needed
 - A Riot Games developer API key (free)
-- Mac: `curl` and `python3` in Terminal (standard on macOS)
-- Windows: PowerShell 5.1+ (built into Windows 10/11)
+- Mac: Terminal (built in)
+- Windows: PowerShell + [Git for Windows](https://git-scm.com/downloads/win)
 
 ---
 
