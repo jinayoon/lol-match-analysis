@@ -25,39 +25,53 @@ I find it most helpful to generate and read the analysis right after a game whil
 
 ### Mac
 
-**1. Install Claude Code**
-Download it at [claude.ai/code](https://claude.ai/code). Free — just needs a Claude account.
+**1. Install Node.js**
+Download and install it from [nodejs.org](https://nodejs.org) (LTS version). This is required to run Claude Code.
 
-**2. Install the skill**
+**2. Install Claude Code**
 Open Terminal (search "Terminal" in Spotlight) and paste:
+```bash
+npm install -g @anthropic-ai/claude-code
+```
+Then run `claude` and follow the login prompt to connect your Claude account.
+
+**3. Install the skill**
+Still in Terminal, paste:
 ```bash
 mkdir -p ~/.claude/skills/lol-match-analysis && curl -o ~/.claude/skills/lol-match-analysis/SKILL.md "https://raw.githubusercontent.com/jinayoon/lol-match-analysis/main/skills/lol-match-analysis/SKILL.md"
 ```
 
-**3. Get a Riot API key**
+**4. Get a Riot API key**
 Go to [developer.riotgames.com](https://developer.riotgames.com), log in with your League account, and copy the key on your dashboard. Free, takes 30 seconds. *(Keys expire every 24h — grab a fresh one each session.)*
 
-**4. Run it**
-Open Claude Code, type `/lol-match-analysis`, and hit enter. It'll ask for your API key and Riot ID (`Name#TAG`), then analyze your last game automatically.
+**5. Run it**
+In Terminal, type `/lol-match-analysis` and hit enter. It'll ask for your API key and Riot ID (`Name#TAG`), then analyze your last game automatically.
 
 ---
 
 ### Windows
 
-**1. Install Claude Code**
-Download it at [claude.ai/code](https://claude.ai/code). Free — just needs a Claude account.
+**1. Install Node.js**
+Download and install it from [nodejs.org](https://nodejs.org) (LTS version). This is required to run Claude Code.
 
-**2. Install the skill**
+**2. Install Claude Code**
 Open PowerShell (search "PowerShell" in the Start menu) and paste:
+```powershell
+npm install -g @anthropic-ai/claude-code
+```
+Then run `claude` and follow the login prompt to connect your Claude account.
+
+**3. Install the skill**
+Still in PowerShell, paste:
 ```powershell
 New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.claude\skills\lol-match-analysis"; Invoke-WebRequest -Uri "https://raw.githubusercontent.com/jinayoon/lol-match-analysis/main/skills/lol-match-analysis/SKILL.md" -OutFile "$env:USERPROFILE\.claude\skills\lol-match-analysis\SKILL.md"
 ```
 
-**3. Get a Riot API key**
+**4. Get a Riot API key**
 Go to [developer.riotgames.com](https://developer.riotgames.com), log in with your League account, and copy the key on your dashboard. Free, takes 30 seconds. *(Keys expire every 24h — grab a fresh one each session.)*
 
-**4. Run it**
-Open Claude Code, type `/lol-match-analysis`, and hit enter. It'll ask for your API key and Riot ID (`Name#TAG`), then analyze your last game automatically.
+**5. Run it**
+In PowerShell, type `/lol-match-analysis` and hit enter. It'll ask for your API key and Riot ID (`Name#TAG`), then analyze your last game automatically.
 
 ---
 
@@ -75,7 +89,7 @@ Contributions welcome! If you want to extend the analysis, add support for other
 
 ## Requirements
 
-- [Claude Code](https://claude.ai/code)
+- Claude Code CLI (`npm install -g @anthropic-ai/claude-code`) — requires [Node.js](https://nodejs.org)
 - A Riot Games developer API key (free)
 - Mac: `curl` and `python3` in Terminal (standard on macOS)
 - Windows: PowerShell 5.1+ (built into Windows 10/11)
