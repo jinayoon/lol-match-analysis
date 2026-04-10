@@ -9,6 +9,7 @@ I find it most helpful to generate and read the analysis right after a game whil
 ## What it does
 
 - Analyzes your last match using your Riot ID and a Riot API key you provide
+- Pulls live item and champion data from the official League of Legends wiki and Data Dragon — no stale patch info
 - Breaks down all 4 game phases: draft, early, mid, and late game
 - Covers decision audits, resource efficiency, objective priority, teamfight breakdowns, and win condition adherence
 - Identifies the 3 swing moments that actually decided the game
@@ -34,6 +35,10 @@ In Claude Code, run:
 You'll be asked for:
 1. Your **Riot API key** — get a free one at [developer.riotgames.com](https://developer.riotgames.com) (they expire every 24h so grab a fresh one)
 2. Your **Riot ID** — format: `Name#TAG`
+
+## Contributing
+
+Contributions welcome! If you want to extend the analysis, add support for other regions, or improve the coaching framework, feel free to open a PR.
 
 ## Requirements
 
