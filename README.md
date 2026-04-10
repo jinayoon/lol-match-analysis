@@ -50,3 +50,7 @@ Contributions welcome! If you want to extend the analysis, add support for other
 - [Claude Code](https://claude.ai/code)
 - A Riot Games developer API key (free)
 - `curl` and `python3` in your terminal (standard on Mac/Linux)
+
+---
+
+lol-match-analysis isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games and all associated properties are trademarks or registered trademarks of Riot Games, Inc.

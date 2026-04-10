@@ -468,6 +468,23 @@ Same directory and base name as the markdown:
 
 Tell the user both files were saved once done.
 
+### 7g — Required disclaimer
+
+The Riot Games developer policies require this notice on all products using the API. Add it as a `<footer>` at the bottom of every generated HTML report, after the closing `</div>` of `.container`:
+
+```html
+<footer style="max-width:900px;margin:40px auto 0;padding:20px 16px;
+               border-top:1px solid var(--border);font-size:.72rem;
+               color:var(--muted);line-height:1.6;text-align:center">
+  lol-match-analysis isn't endorsed by Riot Games and doesn't reflect the views
+  or opinions of Riot Games or anyone officially involved in producing or managing
+  Riot Games properties. Riot Games and all associated properties are trademarks
+  or registered trademarks of Riot Games, Inc.
+</footer>
+```
+
+Also append the same text (plain, no HTML) to the bottom of every generated `.md` report, separated by a `---` divider.
+
 ---
 
 ## Tone and standards
