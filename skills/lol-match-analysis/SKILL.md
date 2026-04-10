@@ -494,3 +494,9 @@ Also append the same text (plain, no HTML) to the bottom of every generated `.md
 - If the player did something well, acknowledge it — good play that didn't get rewarded is worth noting.
 - Don't pad. If a phase had no significant findings, write "No major issues detected in this phase."
 - The Practice Focuses are the most important part. Make them specific to this game, not generic advice.
+
+## Common errors to avoid
+
+**Smite attribution:** Only the jungler has Smite. Any player can last-hit an objective with a regular attack — if the `ELITE_MONSTER_KILL` killerId is a non-jungler, say they "secured" or "last-hit" the objective, never that they "landed the smite."
+
+**Counterplay advice:** Before telling the player to dodge or avoid an enemy ability, check whether the analyzed champion's kit directly counters it. For example: Braum E (Unbreakable) blocks projectiles — advising a Braum player to dodge Miss Fortune's Bullet Time is wrong; the correct advice is to W into position and pop E into the channel. When giving counterplay advice, use the champion's actual toolkit first.
