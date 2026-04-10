@@ -314,6 +314,46 @@
   .divider-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
   .damage-bar { font-size: .78rem; color: var(--muted); margin-top: 10px; }
   .dmg-fill { display: inline-block; height: 6px; border-radius: 3px; vertical-align: middle; margin: 0 3px; }
+
+  /* ── table scroll wrapper ── */
+  .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 8px; }
+  .table-scroll table { min-width: 560px; }
+
+  /* ── mobile ── */
+  @media (max-width: 620px) {
+    body { padding: 16px 12px 48px; font-size: 13px; }
+    h1 { font-size: 1.15rem; }
+    h2 { font-size: .9rem; }
+
+    /* hero: stack portrait above text, center it */
+    .hero { flex-direction: column; align-items: center; gap: 14px; }
+    .hero-portrait { display: flex; flex-direction: column; align-items: center; }
+    .hero-portrait img.champ-splash { width: 88px; height: 88px; }
+    .hero-text { width: 100%; }
+
+    /* stats: 3 per row */
+    .stats-grid { grid-template-columns: repeat(3, 1fr); }
+    .stat-box .val { font-size: 1.05rem; }
+
+    /* timeline: bigger tap targets, condensed axis */
+    .tl-marker .pin { width: 14px; height: 14px; }
+    .tl-markers-row { height: 60px; }
+    .tl-tooltip { width: 190px; font-size: .72rem; padding: 8px 10px; }
+    .tl-axis span:nth-child(even) { display: none; }
+    .timeline-wrap { padding: 16px 14px 22px; }
+
+    /* findings: hide phase badge to save width */
+    .phase-badge { display: none; }
+    .finding-card { padding: 12px 13px; }
+
+    /* swing / workon */
+    .swing-card { padding: 13px 14px; }
+    .workon-card { padding: 13px 15px; }
+
+    /* item chips wrap tighter */
+    .item-row { gap: 5px; }
+    .item-chip { font-size: .72rem; padding: 3px 7px; }
+  }
 </style>
 </head>
 <body>
@@ -381,6 +421,7 @@
   <!-- ── Team Overview ── -->
   <div class="section">
     <h2>Team Overview</h2>
+    <div class="table-scroll">
     <table>
       <thead>
         <tr>
@@ -444,6 +485,7 @@
         </tr>
       </tbody>
     </table>
+    </div><!-- /table-scroll -->
     <div class="damage-bar">
       Damage split — Blue: <span class="dmg-fill" style="width:48px;background:var(--red)"></span> 74% AD &nbsp;
       <span class="dmg-fill" style="width:16px;background:var(--purple)"></span> 23% AP &nbsp;&nbsp;|&nbsp;&nbsp;
@@ -893,6 +935,22 @@
     </div>
   </div>
 
-</div>
+</div><!-- /container -->
+
+<script>
+  // Touch-friendly timeline tooltips: tap to toggle, tap elsewhere to close
+  document.querySelectorAll('.tl-marker').forEach(function(marker) {
+    marker.addEventListener('click', function(e) {
+      e.stopPropagation();
+      var tip = marker.querySelector('.tl-tooltip');
+      var isOpen = tip.style.display === 'block';
+      document.querySelectorAll('.tl-tooltip').forEach(function(t) { t.style.display = 'none'; });
+      tip.style.display = isOpen ? 'none' : 'block';
+    });
+  });
+  document.addEventListener('click', function() {
+    document.querySelectorAll('.tl-tooltip').forEach(function(t) { t.style.display = 'none'; });
+  });
+</script>
 </body>
 </html>
