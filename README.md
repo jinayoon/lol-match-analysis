@@ -21,25 +21,53 @@ I find it most helpful to generate and read the analysis right after a game whil
 - Gives 3 prioritized things to work on — grounded in specific timestamps from *this* game, not generic advice
 - Saves the full report as a Markdown file
 
-## Install
+## Quick start (no coding required)
+
+### Mac
+
+**1. Install Claude Code**
+Download it at [claude.ai/code](https://claude.ai/code). Free — just needs a Claude account.
+
+**2. Install the skill**
+Open Terminal (search "Terminal" in Spotlight) and paste:
+```bash
+mkdir -p ~/.claude/skills/lol-match-analysis && curl -o ~/.claude/skills/lol-match-analysis/SKILL.md "https://raw.githubusercontent.com/jinayoon/lol-match-analysis/main/skills/lol-match-analysis/SKILL.md"
+```
+
+**3. Get a Riot API key**
+Go to [developer.riotgames.com](https://developer.riotgames.com), log in with your League account, and copy the key on your dashboard. Free, takes 30 seconds. *(Keys expire every 24h — grab a fresh one each session.)*
+
+**4. Run it**
+Open Claude Code, type `/lol-match-analysis`, and hit enter. It'll ask for your API key and Riot ID (`Name#TAG`), then analyze your last game automatically.
+
+---
+
+### Windows
+
+**1. Install Claude Code**
+Download it at [claude.ai/code](https://claude.ai/code). Free — just needs a Claude account.
+
+**2. Install the skill**
+Open PowerShell (search "PowerShell" in the Start menu) and paste:
+```powershell
+New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.claude\skills\lol-match-analysis"; Invoke-WebRequest -Uri "https://raw.githubusercontent.com/jinayoon/lol-match-analysis/main/skills/lol-match-analysis/SKILL.md" -OutFile "$env:USERPROFILE\.claude\skills\lol-match-analysis\SKILL.md"
+```
+
+**3. Get a Riot API key**
+Go to [developer.riotgames.com](https://developer.riotgames.com), log in with your League account, and copy the key on your dashboard. Free, takes 30 seconds. *(Keys expire every 24h — grab a fresh one each session.)*
+
+**4. Run it**
+Open Claude Code, type `/lol-match-analysis`, and hit enter. It'll ask for your API key and Riot ID (`Name#TAG`), then analyze your last game automatically.
+
+---
+
+## For developers
 
 ```bash
 mkdir -p ~/.claude/skills/lol-match-analysis
 curl -o ~/.claude/skills/lol-match-analysis/SKILL.md \
   "https://raw.githubusercontent.com/jinayoon/lol-match-analysis/main/skills/lol-match-analysis/SKILL.md"
 ```
-
-## Usage
-
-In Claude Code, run:
-
-```
-/lol-match-analysis
-```
-
-You'll be asked for:
-1. Your **Riot API key** — get a free one at [developer.riotgames.com](https://developer.riotgames.com) (they expire every 24h so grab a fresh one)
-2. Your **Riot ID** — format: `Name#TAG`
 
 ## Contributing
 
@@ -49,7 +77,8 @@ Contributions welcome! If you want to extend the analysis, add support for other
 
 - [Claude Code](https://claude.ai/code)
 - A Riot Games developer API key (free)
-- `curl` and `python3` in your terminal (standard on Mac/Linux)
+- Mac: `curl` and `python3` in Terminal (standard on macOS)
+- Windows: PowerShell 5.1+ (built into Windows 10/11)
 
 ---
 
