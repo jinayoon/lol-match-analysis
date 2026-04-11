@@ -35,6 +35,7 @@ Open Terminal (search "Terminal" in Spotlight) and paste:
 ```bash
 curl -fsSL https://claude.ai/install.sh | bash
 ```
+When it finishes, **close Terminal completely and reopen it** before continuing. This is required for the `claude` command to be recognized.
 
 **3. Connect your account**
 Type `claude` and hit enter. It'll open a browser to log in – follow the prompts, then come back to Terminal. Once you're in, type `/exit` to close the session.
@@ -66,6 +67,7 @@ Open PowerShell (search "PowerShell" in the Start menu) and paste:
 ```powershell
 irm https://claude.ai/install.ps1 | iex
 ```
+When it finishes, **close PowerShell completely and reopen it** before continuing. This is required for the `claude` command to be recognized.
 
 **4. Connect your account**
 Type `claude` and hit enter. It'll open a browser to log in – follow the prompts, then come back to PowerShell. Once you're in, type `/exit` to close the session.
@@ -81,6 +83,17 @@ Go to [developer.riotgames.com](https://developer.riotgames.com), log in with yo
 
 **7. Run it**
 Type `claude` to start a session, then type `/lol-match-analysis` and hit enter. It'll ask for your API key and Riot ID (`Name#TAG`), then analyze your last game automatically.
+
+---
+
+## Troubleshooting
+
+**`claude: command not found` / `claude` is not recognized**
+You need to close your Terminal or PowerShell window completely and reopen it after installing Claude Code. The install script adds `claude` to your PATH, but that change only takes effect in new shell sessions – not the one you ran the installer in.
+
+If it still doesn't work after reopening:
+- **Mac:** Run `echo $PATH` and confirm it includes `~/.npm-global/bin` or wherever Claude Code was installed. If not, re-run the install script in the new terminal window.
+- **Windows:** Make sure you installed Git for Windows (Step 2) before Claude Code. Some Windows setups also require running PowerShell as Administrator for the install to complete.
 
 ---
 
