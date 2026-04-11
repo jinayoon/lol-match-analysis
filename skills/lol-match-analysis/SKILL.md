@@ -71,6 +71,17 @@ curl -s "https://ddragon.leagueoflegends.com/cdn/${PATCH}/data/en_US/item.json" 
 
 Verify both match files are valid JSON. If you get a 401, tell the user the key expired.
 
+Then fetch the Skill Capped build guide for the analyzed champion and role **before doing any analysis**:
+
+```bash
+# Role slug: top → top, JUNGLE → jungle, MIDDLE → mid, BOTTOM → adc, UTILITY/SUPPORT → support
+CHAMP_LOWER=$(echo "$CHAMPION" | tr '[:upper:]' '[:lower:]')
+ROLE_SLUG="support"  # replace with correct slug for the role
+# Use WebFetch on: https://www.skill-capped.com/lol/guides/builds/$CHAMP_LOWER/$ROLE_SLUG
+```
+
+Extract from the guide: recommended item order, when to buy each item (especially situational purchases like anti-heal, CC-removal, or AoE tools), rune choices, skill order, and matchup-specific tips. Save this as your reference for all item critique in Steps 4–5 — never flag an item as wrong without first checking whether the Skill Capped guide recommends it in a similar situation.
+
 **IMPORTANT — item names:** The Riot API returns numeric item IDs only. NEVER guess item names from training data — item names and stats change every patch and training data will be wrong. Always resolve item IDs using `/tmp/lol_items.json`. If an item ID is missing from the file (removed items, components), note it as "Unknown item (ID: XXXX)" rather than guessing.
 
 ---
@@ -500,3 +511,5 @@ Also append the same text (plain, no HTML) to the bottom of every generated `.md
 **Smite attribution:** Only the jungler has Smite. Any player can last-hit an objective with a regular attack — if the `ELITE_MONSTER_KILL` killerId is a non-jungler, say they "secured" or "last-hit" the objective, never that they "landed the smite."
 
 **Counterplay advice:** Before telling the player to dodge or avoid an enemy ability, check whether the analyzed champion's kit directly counters it. For example: Braum E (Unbreakable) blocks projectiles — advising a Braum player to dodge Miss Fortune's Bullet Time is wrong; the correct advice is to W into position and pop E into the channel. When giving counterplay advice, use the champion's actual toolkit first.
+
+**Itemization critique:** Before flagging any item as wrong, check two things: (1) does the Skill Capped guide for this champion/role recommend or justify it in a similar situation? (2) does the enemy team composition explain the purchase (e.g. heavy healing justifies anti-heal even on low-damage supports, heavy CC justifies Mikael's, heavy AoE justifies Locket)? GW items apply on any damaging hit regardless of the buyer's damage output — never dismiss an anti-heal purchase because the player "doesn't deal enough damage." If the guide or enemy comp supports the item, critique the timing or sequencing instead of the choice itself.
