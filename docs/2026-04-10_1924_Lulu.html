@@ -170,8 +170,7 @@ tr:hover td { background: #ffffff05; }
 .timeline-card h3 { font-size: .75rem; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); margin-bottom: 12px; }
 .timeline-wrap { position: relative; padding-bottom: 4px; }
 .tl-phases { display: flex; height: 22px; border-radius: 4px; overflow: hidden; margin-bottom: 10px; }
-.tl-ruler { height: 6px; background: var(--border); border-radius: 3px; }
-.tl-markers { position: relative; height: 60px; }
+.tl-markers { position: relative; height: 88px; }
 .tl-timestamps { display: flex; justify-content: space-between; font-size: .62rem; color: var(--muted); margin-top: 4px; }
 
 /* FINDINGS */
@@ -415,7 +414,25 @@ tr:hover td { background: #ffffff05; }
 
 <!-- TIMELINE -->
 <div class="timeline-card" style="margin-top:20px">
-  <h3>Match Timeline</h3>
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+    <h3 style="margin-bottom:0">Match Timeline</h3>
+    <div style="display:flex;gap:14px;font-size:.65rem;color:var(--muted)">
+      <span style="display:flex;align-items:center;gap:5px">
+        <span style="display:inline-flex;flex-direction:column;align-items:center;gap:2px">
+          <span style="width:8px;height:8px;border-radius:50%;background:var(--green);display:block"></span>
+          <span style="width:1px;height:6px;background:rgba(255,255,255,.3);display:block"></span>
+        </span>
+        positive
+      </span>
+      <span style="display:flex;align-items:center;gap:5px">
+        <span style="display:inline-flex;flex-direction:column;align-items:center;gap:2px">
+          <span style="width:1px;height:6px;background:rgba(255,255,255,.3);display:block"></span>
+          <span style="width:8px;height:8px;border-radius:50%;background:var(--red);display:block"></span>
+        </span>
+        negative
+      </span>
+    </div>
+  </div>
   <div class="timeline-wrap">
     <div class="tl-phases">
       <div style="width:44.4%;background:#2563eb30;display:flex;align-items:center;justify-content:center;font-size:.62rem;color:rgba(255,255,255,.45)">Early (0–14)</div>
@@ -426,18 +443,21 @@ tr:hover td { background: #ffffff05; }
       <!-- phase divider lines -->
       <div style="position:absolute;top:0;left:44.4%;width:1px;height:100%;background:rgba(255,255,255,.12);z-index:1;pointer-events:none"></div>
       <div style="position:absolute;top:0;left:79.3%;width:1px;height:100%;background:rgba(255,255,255,.12);z-index:1;pointer-events:none"></div>
-      <div class="tl-ruler"></div>
       <div class="tl-markers">
+        <!-- ruler centred at top:40px -->
+        <div style="position:absolute;top:40px;left:0;right:0;height:6px;background:var(--border);border-radius:3px;z-index:2;pointer-events:none"></div>
 
-        <!-- 5:49 Bot Lane Double (18.4%) -->
-        <div style="position:absolute;top:6px;left:18.4%;transform:translateX(-50%);cursor:pointer;z-index:10"
+        <!-- ── POSITIVE (above ruler): pin → stem → ruler ── -->
+
+        <!-- 5:49 Bot Lane Double Kill (18.4%) POSITIVE -->
+        <div style="position:absolute;top:4px;left:18.4%;transform:translateX(-50%);cursor:pointer;z-index:10"
              onmouseenter="this.querySelector('.tooltip').style.display='block'"
              onmouseleave="this.querySelector('.tooltip').style.display='none'"
              ontouchstart="var t=this.querySelector('.tooltip');t.style.display=t.style.display==='block'?'none':'block';event.preventDefault()">
-          <div style="width:14px;height:14px;border-radius:50%;background:var(--green);border:2px solid var(--bg);transition:transform .15s"
+          <div style="width:12px;height:12px;border-radius:50%;background:var(--green);border:2px solid var(--bg);transition:transform .15s"
                onmouseover="this.style.transform='scale(1.5)'" onmouseout="this.style.transform='scale(1)'"></div>
-          <div style="width:1px;height:10px;background:rgba(255,255,255,.2);margin:0 auto"></div>
-          <div class="tooltip" style="display:none;position:absolute;bottom:130%;left:50%;transform:translateX(-50%);background:#1e2029;border:1px solid var(--border);border-radius:6px;padding:9px 12px;font-size:.75rem;width:220px;box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:100;pointer-events:none;line-height:1.5">
+          <div style="width:1px;height:24px;background:rgba(255,255,255,.25);margin:0 auto"></div>
+          <div class="tooltip" style="display:none;position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:#1e2029;border:1px solid var(--border);border-radius:6px;padding:9px 12px;font-size:.75rem;width:220px;box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:100;pointer-events:none;line-height:1.5">
             <div style="color:var(--muted);font-size:.7rem">05:49 — bot lane</div>
             <div style="font-weight:600;margin:3px 0"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Lulu.png" style="width:16px;height:16px;border-radius:3px;vertical-align:middle;margin-right:4px" onerror="this.style.display='none'">Bot Lane Double Kill</div>
             <div style="font-size:.68rem;color:var(--green)">LOW – POSITIVE</div>
@@ -445,47 +465,15 @@ tr:hover td { background: #ffffff05; }
           </div>
         </div>
 
-        <!-- 9:52 Death 1 (31.3%) -->
-        <div style="position:absolute;top:6px;left:31.3%;transform:translateX(-50%);cursor:pointer;z-index:10"
-             onmouseenter="this.querySelector('.tooltip').style.display='block'"
-             onmouseleave="this.querySelector('.tooltip').style.display='none'"
-             ontouchstart="var t=this.querySelector('.tooltip');t.style.display=t.style.display==='block'?'none':'block';event.preventDefault()">
-          <div style="width:14px;height:14px;border-radius:50%;background:var(--red);border:2px solid var(--bg);transition:transform .15s"
-               onmouseover="this.style.transform='scale(1.5)'" onmouseout="this.style.transform='scale(1)'"></div>
-          <div style="width:1px;height:10px;background:rgba(255,255,255,.2);margin:0 auto"></div>
-          <div class="tooltip" style="display:none;position:absolute;bottom:130%;left:50%;transform:translateX(-50%);background:#1e2029;border:1px solid var(--border);border-radius:6px;padding:9px 12px;font-size:.75rem;width:220px;box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:100;pointer-events:none;line-height:1.5">
-            <div style="color:var(--muted);font-size:.7rem">09:52 — bot lane</div>
-            <div style="font-weight:600;margin:3px 0"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/DrMundo.png" style="width:16px;height:16px;border-radius:3px;vertical-align:middle;margin-right:4px" onerror="this.style.display='none'">Caught After Exchange (Death 1)</div>
-            <div style="font-size:.68rem;color:var(--red)">MEDIUM</div>
-            <div style="margin-top:5px;color:#b0b8d0;font-size:.72rem">Dr. Mundo + Viktor + Rakan 3v2 dive 3s after winning a kill.</div>
-          </div>
-        </div>
-
-        <!-- 11:02 Death 2 (35.0%) -->
-        <div style="position:absolute;top:6px;left:35.0%;transform:translateX(-50%);cursor:pointer;z-index:10"
-             onmouseenter="this.querySelector('.tooltip').style.display='block'"
-             onmouseleave="this.querySelector('.tooltip').style.display='none'"
-             ontouchstart="var t=this.querySelector('.tooltip');t.style.display=t.style.display==='block'?'none':'block';event.preventDefault()">
-          <div style="width:16px;height:16px;border-radius:50%;background:var(--red);border:2px solid var(--bg);transition:transform .15s"
-               onmouseover="this.style.transform='scale(1.5)'" onmouseout="this.style.transform='scale(1)'"></div>
-          <div style="width:1px;height:10px;background:rgba(255,255,255,.2);margin:0 auto"></div>
-          <div class="tooltip" style="display:none;position:absolute;bottom:130%;left:50%;transform:translateX(-50%);background:#1e2029;border:1px solid var(--border);border-radius:6px;padding:9px 12px;font-size:.75rem;width:220px;box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:100;pointer-events:none;line-height:1.5">
-            <div style="color:var(--muted);font-size:.7rem">11:02 — bot side</div>
-            <div style="font-weight:600;margin:3px 0"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/DrMundo.png" style="width:16px;height:16px;border-radius:3px;vertical-align:middle;margin-right:4px" onerror="this.style.display='none'">Same Gank, Same Death (Death 2)</div>
-            <div style="font-size:.68rem;color:var(--red)">HIGH</div>
-            <div style="margin-top:5px;color:#b0b8d0;font-size:.72rem">Identical 3-person combination, same entry path, 70s later.</div>
-          </div>
-        </div>
-
-        <!-- 13:15 3-for-1 (42.0%) -->
-        <div style="position:absolute;top:6px;left:42.0%;transform:translateX(-50%);cursor:pointer;z-index:10"
+        <!-- 13:15 3-for-1 Bot Fight (42.0%) POSITIVE -->
+        <div style="position:absolute;top:4px;left:42.0%;transform:translateX(-50%);cursor:pointer;z-index:10"
              onmouseenter="this.querySelector('.tooltip').style.display='block'"
              onmouseleave="this.querySelector('.tooltip').style.display='none'"
              ontouchstart="var t=this.querySelector('.tooltip');t.style.display=t.style.display==='block'?'none':'block';event.preventDefault()">
           <div style="width:12px;height:12px;border-radius:50%;background:var(--green);border:2px solid var(--bg);transition:transform .15s"
                onmouseover="this.style.transform='scale(1.5)'" onmouseout="this.style.transform='scale(1)'"></div>
-          <div style="width:1px;height:10px;background:rgba(255,255,255,.2);margin:0 auto"></div>
-          <div class="tooltip" style="display:none;position:absolute;bottom:130%;left:50%;transform:translateX(-50%);background:#1e2029;border:1px solid var(--border);border-radius:6px;padding:9px 12px;font-size:.75rem;width:220px;box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:100;pointer-events:none;line-height:1.5">
+          <div style="width:1px;height:24px;background:rgba(255,255,255,.25);margin:0 auto"></div>
+          <div class="tooltip" style="display:none;position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:#1e2029;border:1px solid var(--border);border-radius:6px;padding:9px 12px;font-size:.75rem;width:220px;box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:100;pointer-events:none;line-height:1.5">
             <div style="color:var(--muted);font-size:.7rem">13:15 — bot side</div>
             <div style="font-weight:600;margin:3px 0"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Lulu.png" style="width:16px;height:16px;border-radius:3px;vertical-align:middle;margin-right:4px" onerror="this.style.display='none'">3-for-1 Bot Fight Win</div>
             <div style="font-size:.68rem;color:var(--green)">LOW – POSITIVE</div>
@@ -493,15 +481,65 @@ tr:hover td { background: #ffffff05; }
           </div>
         </div>
 
-        <!-- 14:39 Red 2nd Dragon (46.5%) -->
-        <div style="position:absolute;top:6px;left:46.5%;transform:translateX(-50%);cursor:pointer;z-index:10"
+        <!-- 29:57 Solo Baron (95.0%) POSITIVE — flip tooltip right -->
+        <div style="position:absolute;top:4px;left:95.0%;transform:translateX(-50%);cursor:pointer;z-index:10"
              onmouseenter="this.querySelector('.tooltip').style.display='block'"
              onmouseleave="this.querySelector('.tooltip').style.display='none'"
              ontouchstart="var t=this.querySelector('.tooltip');t.style.display=t.style.display==='block'?'none':'block';event.preventDefault()">
-          <div style="width:12px;height:12px;border-radius:50%;background:var(--yellow);border:2px solid var(--bg);transition:transform .15s"
+          <div style="width:12px;height:12px;border-radius:50%;background:var(--purple);border:2px solid var(--bg);transition:transform .15s"
                onmouseover="this.style.transform='scale(1.5)'" onmouseout="this.style.transform='scale(1)'"></div>
-          <div style="width:1px;height:10px;background:rgba(255,255,255,.2);margin:0 auto"></div>
-          <div class="tooltip" style="display:none;position:absolute;bottom:130%;left:50%;transform:translateX(-50%);background:#1e2029;border:1px solid var(--border);border-radius:6px;padding:9px 12px;font-size:.75rem;width:220px;box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:100;pointer-events:none;line-height:1.5">
+          <div style="width:1px;height:24px;background:rgba(255,255,255,.25);margin:0 auto"></div>
+          <div class="tooltip" style="display:none;position:absolute;bottom:calc(100% + 6px);right:0;left:auto;transform:none;background:#1e2029;border:1px solid var(--border);border-radius:6px;padding:9px 12px;font-size:.75rem;width:220px;box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:100;pointer-events:none;line-height:1.5">
+            <div style="color:var(--muted);font-size:.7rem">29:57 — Baron pit</div>
+            <div style="font-weight:600;margin:3px 0"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Shaco.png" style="width:16px;height:16px;border-radius:3px;vertical-align:middle;margin-right:4px" onerror="this.style.display='none'">Shaco Solo Baron</div>
+            <div style="font-size:.68rem;color:var(--purple)">HIGH – KEY OBJECTIVE</div>
+            <div style="margin-top:5px;color:#b0b8d0;font-size:.72rem">Leads directly to 5-for-0 teamfight and game close.</div>
+          </div>
+        </div>
+
+        <!-- ── NEGATIVE (below ruler): ruler → stem → pin ── -->
+
+        <!-- 9:52 Death 1 (31.3%) NEGATIVE MEDIUM -->
+        <div style="position:absolute;top:46px;left:31.3%;transform:translateX(-50%);cursor:pointer;z-index:10"
+             onmouseenter="this.querySelector('.tooltip').style.display='block'"
+             onmouseleave="this.querySelector('.tooltip').style.display='none'"
+             ontouchstart="var t=this.querySelector('.tooltip');t.style.display=t.style.display==='block'?'none':'block';event.preventDefault()">
+          <div style="width:1px;height:16px;background:rgba(255,255,255,.25);margin:0 auto"></div>
+          <div style="width:12px;height:12px;border-radius:50%;background:var(--yellow);border:2px solid var(--bg);transition:transform .15s;margin:0 auto"
+               onmouseover="this.style.transform='scale(1.5)'" onmouseout="this.style.transform='scale(1)'"></div>
+          <div class="tooltip" style="display:none;position:absolute;top:calc(100% + 6px);left:50%;transform:translateX(-50%);background:#1e2029;border:1px solid var(--border);border-radius:6px;padding:9px 12px;font-size:.75rem;width:220px;box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:100;pointer-events:none;line-height:1.5">
+            <div style="color:var(--muted);font-size:.7rem">09:52 — bot lane</div>
+            <div style="font-weight:600;margin:3px 0"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/DrMundo.png" style="width:16px;height:16px;border-radius:3px;vertical-align:middle;margin-right:4px" onerror="this.style.display='none'">Caught After Exchange (Death 1)</div>
+            <div style="font-size:.68rem;color:var(--yellow)">MEDIUM</div>
+            <div style="margin-top:5px;color:#b0b8d0;font-size:.72rem">Dr. Mundo + Viktor + Rakan 3v2 dive 3s after winning a kill.</div>
+          </div>
+        </div>
+
+        <!-- 11:02 Death 2 (35.0%) NEGATIVE HIGH -->
+        <div style="position:absolute;top:46px;left:35.0%;transform:translateX(-50%);cursor:pointer;z-index:10"
+             onmouseenter="this.querySelector('.tooltip').style.display='block'"
+             onmouseleave="this.querySelector('.tooltip').style.display='none'"
+             ontouchstart="var t=this.querySelector('.tooltip');t.style.display=t.style.display==='block'?'none':'block';event.preventDefault()">
+          <div style="width:1px;height:16px;background:rgba(255,255,255,.25);margin:0 auto"></div>
+          <div style="width:14px;height:14px;border-radius:50%;background:var(--red);border:2px solid var(--bg);transition:transform .15s;margin:0 auto"
+               onmouseover="this.style.transform='scale(1.5)'" onmouseout="this.style.transform='scale(1)'"></div>
+          <div class="tooltip" style="display:none;position:absolute;top:calc(100% + 6px);left:50%;transform:translateX(-50%);background:#1e2029;border:1px solid var(--border);border-radius:6px;padding:9px 12px;font-size:.75rem;width:220px;box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:100;pointer-events:none;line-height:1.5">
+            <div style="color:var(--muted);font-size:.7rem">11:02 — bot side</div>
+            <div style="font-weight:600;margin:3px 0"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/DrMundo.png" style="width:16px;height:16px;border-radius:3px;vertical-align:middle;margin-right:4px" onerror="this.style.display='none'">Same Gank, Same Death (Death 2)</div>
+            <div style="font-size:.68rem;color:var(--red)">HIGH</div>
+            <div style="margin-top:5px;color:#b0b8d0;font-size:.72rem">Identical 3-person combination, same entry path, 70s later.</div>
+          </div>
+        </div>
+
+        <!-- 14:39 Red 2nd Dragon (46.5%) NEGATIVE MEDIUM -->
+        <div style="position:absolute;top:46px;left:46.5%;transform:translateX(-50%);cursor:pointer;z-index:10"
+             onmouseenter="this.querySelector('.tooltip').style.display='block'"
+             onmouseleave="this.querySelector('.tooltip').style.display='none'"
+             ontouchstart="var t=this.querySelector('.tooltip');t.style.display=t.style.display==='block'?'none':'block';event.preventDefault()">
+          <div style="width:1px;height:16px;background:rgba(255,255,255,.25);margin:0 auto"></div>
+          <div style="width:12px;height:12px;border-radius:50%;background:var(--yellow);border:2px solid var(--bg);transition:transform .15s;margin:0 auto"
+               onmouseover="this.style.transform='scale(1.5)'" onmouseout="this.style.transform='scale(1)'"></div>
+          <div class="tooltip" style="display:none;position:absolute;top:calc(100% + 6px);left:50%;transform:translateX(-50%);background:#1e2029;border:1px solid var(--border);border-radius:6px;padding:9px 12px;font-size:.75rem;width:220px;box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:100;pointer-events:none;line-height:1.5">
             <div style="color:var(--muted);font-size:.7rem">14:39 — dragon pit</div>
             <div style="font-weight:600;margin:3px 0"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/DrMundo.png" style="width:16px;height:16px;border-radius:3px;vertical-align:middle;margin-right:4px" onerror="this.style.display='none'">Red 2nd Dragon Uncontested</div>
             <div style="font-size:.68rem;color:var(--yellow)">MEDIUM</div>
@@ -509,15 +547,15 @@ tr:hover td { background: #ffffff05; }
           </div>
         </div>
 
-        <!-- 17:16 Oblivion Orb (54.8%) -->
-        <div style="position:absolute;top:6px;left:54.8%;transform:translateX(-50%);cursor:pointer;z-index:10"
+        <!-- 17:16 Item Sequencing (54.8%) NEGATIVE MEDIUM -->
+        <div style="position:absolute;top:46px;left:54.8%;transform:translateX(-50%);cursor:pointer;z-index:10"
              onmouseenter="this.querySelector('.tooltip').style.display='block'"
              onmouseleave="this.querySelector('.tooltip').style.display='none'"
              ontouchstart="var t=this.querySelector('.tooltip');t.style.display=t.style.display==='block'?'none':'block';event.preventDefault()">
-          <div style="width:12px;height:12px;border-radius:50%;background:var(--yellow);border:2px solid var(--bg);transition:transform .15s"
+          <div style="width:1px;height:16px;background:rgba(255,255,255,.25);margin:0 auto"></div>
+          <div style="width:12px;height:12px;border-radius:50%;background:var(--yellow);border:2px solid var(--bg);transition:transform .15s;margin:0 auto"
                onmouseover="this.style.transform='scale(1.5)'" onmouseout="this.style.transform='scale(1)'"></div>
-          <div style="width:1px;height:10px;background:rgba(255,255,255,.2);margin:0 auto"></div>
-          <div class="tooltip" style="display:none;position:absolute;bottom:130%;left:50%;transform:translateX(-50%);background:#1e2029;border:1px solid var(--border);border-radius:6px;padding:9px 12px;font-size:.75rem;width:220px;box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:100;pointer-events:none;line-height:1.5">
+          <div class="tooltip" style="display:none;position:absolute;top:calc(100% + 6px);left:50%;transform:translateX(-50%);background:#1e2029;border:1px solid var(--border);border-radius:6px;padding:9px 12px;font-size:.75rem;width:220px;box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:100;pointer-events:none;line-height:1.5">
             <div style="color:var(--muted);font-size:.7rem">17:16 — base</div>
             <div style="font-weight:600;margin:3px 0">Shurelya's Sequenced After Oblivion Orb</div>
             <div style="font-size:.68rem;color:var(--yellow)">MEDIUM</div>
@@ -525,35 +563,19 @@ tr:hover td { background: #ffffff05; }
           </div>
         </div>
 
-        <!-- 23:35 Collapsed Teamfight (74.8%) -->
-        <div style="position:absolute;top:6px;left:74.8%;transform:translateX(-50%);cursor:pointer;z-index:10"
+        <!-- 23:35 Collapsed Teamfight (74.8%) NEGATIVE HIGH — flip tooltip right -->
+        <div style="position:absolute;top:46px;left:74.8%;transform:translateX(-50%);cursor:pointer;z-index:10"
              onmouseenter="this.querySelector('.tooltip').style.display='block'"
              onmouseleave="this.querySelector('.tooltip').style.display='none'"
              ontouchstart="var t=this.querySelector('.tooltip');t.style.display=t.style.display==='block'?'none':'block';event.preventDefault()">
-          <div style="width:16px;height:16px;border-radius:50%;background:var(--red);border:2px solid var(--bg);transition:transform .15s"
+          <div style="width:1px;height:16px;background:rgba(255,255,255,.25);margin:0 auto"></div>
+          <div style="width:14px;height:14px;border-radius:50%;background:var(--red);border:2px solid var(--bg);transition:transform .15s;margin:0 auto"
                onmouseover="this.style.transform='scale(1.5)'" onmouseout="this.style.transform='scale(1)'"></div>
-          <div style="width:1px;height:10px;background:rgba(255,255,255,.2);margin:0 auto"></div>
-          <div class="tooltip" style="display:none;position:absolute;bottom:auto;top:130%;left:50%;transform:translateX(-50%);background:#1e2029;border:1px solid var(--border);border-radius:6px;padding:9px 12px;font-size:.75rem;width:220px;box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:100;pointer-events:none;line-height:1.5">
+          <div class="tooltip" style="display:none;position:absolute;top:calc(100% + 6px);right:0;left:auto;transform:none;background:#1e2029;border:1px solid var(--border);border-radius:6px;padding:9px 12px;font-size:.75rem;width:220px;box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:100;pointer-events:none;line-height:1.5">
             <div style="color:var(--muted);font-size:.7rem">23:35 — blue side jungle</div>
             <div style="font-weight:600;margin:3px 0"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Lulu.png" style="width:16px;height:16px;border-radius:3px;vertical-align:middle;margin-right:4px" onerror="this.style.display='none'">Collapsed Mid Fight (3-for-2)</div>
             <div style="font-size:.68rem;color:var(--red)">HIGH</div>
             <div style="margin-top:5px;color:#b0b8d0;font-size:.72rem">You die first. Ashe + Ahri follow. +216 gold → −913 gold swing.</div>
-          </div>
-        </div>
-
-        <!-- 29:57 Baron (95.0%) -->
-        <div style="position:absolute;top:6px;left:95.0%;transform:translateX(-50%);cursor:pointer;z-index:10"
-             onmouseenter="this.querySelector('.tooltip').style.display='block'"
-             onmouseleave="this.querySelector('.tooltip').style.display='none'"
-             ontouchstart="var t=this.querySelector('.tooltip');t.style.display=t.style.display==='block'?'none':'block';event.preventDefault()">
-          <div style="width:14px;height:14px;border-radius:50%;background:var(--purple);border:2px solid var(--bg);transition:transform .15s"
-               onmouseover="this.style.transform='scale(1.5)'" onmouseout="this.style.transform='scale(1)'"></div>
-          <div style="width:1px;height:10px;background:rgba(255,255,255,.2);margin:0 auto"></div>
-          <div class="tooltip" style="display:none;position:absolute;bottom:auto;top:130%;right:0;left:auto;transform:none;background:#1e2029;border:1px solid var(--border);border-radius:6px;padding:9px 12px;font-size:.75rem;width:220px;box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:100;pointer-events:none;line-height:1.5">
-            <div style="color:var(--muted);font-size:.7rem">29:57 — Baron pit</div>
-            <div style="font-weight:600;margin:3px 0"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Shaco.png" style="width:16px;height:16px;border-radius:3px;vertical-align:middle;margin-right:4px" onerror="this.style.display='none'">Shaco Solo Baron</div>
-            <div style="font-size:.68rem;color:var(--purple)">HIGH – KEY OBJECTIVE</div>
-            <div style="margin-top:5px;color:#b0b8d0;font-size:.72rem">Leads directly to 5-for-0 teamfight and game close.</div>
           </div>
         </div>
 
