@@ -312,7 +312,8 @@ VERSION=$(curl -s https://ddragon.leagueoflegends.com/api/versions.json \
 Asset URL patterns:
 - **Champion portrait tile** (26×26 in tables, 20×20 inline):
   `https://ddragon.leagueoflegends.com/cdn/$VERSION/img/champion/{Name}.png`
-  Name must be ddragon-formatted: no spaces, special chars removed (e.g. `MissFortune`, `KSante`, `AurelionSol`, `Wukong` → `MonkeyKing`).
+  Name must be ddragon-formatted for the URL only: no spaces, special chars removed (e.g. `MissFortune`, `KSante`, `AurelionSol`, `Wukong` → `MonkeyKing`).
+  **IMPORTANT:** The ddragon key is ONLY for the asset URL. All visible display text in the report must use the official Riot display name: "Miss Fortune", "K'Sante", "Aurelion Sol", "Wukong", "Dr. Mundo", "Jarvan IV", "Twisted Fate", "Xin Zhao". Never write a ddragon key into report text the reader will see.
 - **Champion loading screen art** (120×120 in hero header):
   `https://ddragon.leagueoflegends.com/cdn/img/champion/loading/{Name}_0.jpg`
   No version segment in this URL.
