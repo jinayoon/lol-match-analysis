@@ -323,7 +323,7 @@ tr:hover td { background: #ffffff05; }
     </div>
     <div class="card-sm">
       <div class="card-sm-label">Honest Verdict</div>
-      This was primarily a team win carried by Ally Shaco (11/4, 70% KP, solo Baron at 29:57), but your 74% kill participation and 3.55 vision score per minute show you were present in every decisive moment – your personal fixes are dying to the same DrMundo + Viktor + Rakan dive twice in 90 seconds and a build detour into Oblivion Orb that pushed Shurelya's Battlesong to 28:28.
+      This was primarily a team win carried by Ally Shaco (11/4, 70% KP, solo Baron at 29:57), but your 74% kill participation and 3.55 vision score per minute show you were present in every decisive moment – your personal fixes are dying to the same DrMundo + Viktor + Rakan dive twice in 90 seconds, and buying Shurelya's after Oblivion Orb instead of before (meaning it arrived at 28:28, too late to matter).
     </div>
     <div class="card-sm">
       <div class="card-sm-label">Game Summary</div>
@@ -519,9 +519,9 @@ tr:hover td { background: #ffffff05; }
           <div style="width:1px;height:10px;background:rgba(255,255,255,.2);margin:0 auto"></div>
           <div class="tooltip" style="display:none;position:absolute;bottom:130%;left:50%;transform:translateX(-50%);background:#1e2029;border:1px solid var(--border);border-radius:6px;padding:9px 12px;font-size:.75rem;width:220px;box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:100;pointer-events:none;line-height:1.5">
             <div style="color:var(--muted);font-size:.7rem">17:16 — base</div>
-            <div style="font-weight:600;margin:3px 0">Oblivion Orb Build Detour</div>
+            <div style="font-weight:600;margin:3px 0">Shurelya's Sequenced After Oblivion Orb</div>
             <div style="font-size:.68rem;color:var(--yellow)">MEDIUM</div>
-            <div style="margin-top:5px;color:#b0b8d0;font-size:.72rem">Delays Shurelya's Battlesong by 8+ minutes. 8.6k total dmg makes GW negligible.</div>
+            <div style="margin-top:5px;color:#b0b8d0;font-size:.72rem">Oblivion Orb correct vs DrMundo, but buying it first pushed Shurelya's to 28:28 – missing the 23:35 fight entirely.</div>
           </div>
         </div>
 
@@ -657,8 +657,8 @@ tr:hover td { background: #ffffff05; }
     <span class="sev-badge medium">MEDIUM</span>
     <span class="lens-badge">RESOURCE EFFICIENCY</span>
   </div>
-  <div class="finding-title">Oblivion Orb Delays Core Build</div>
-  <div class="finding-body">Oblivion Orb purchased at 17:16, three minutes after completing Ardent Censer (14:13). Lulu's total damage output in this 31-minute game was 8,643 – an average of 274 damage per minute. At that output, Grievous Wounds application was near-zero. Shurelya's Battlesong was not completed until 28:28 – approximately 6–8 minutes after its ideal completion window (~20–22 min).</div>
+  <div class="finding-title">Shurelya's Sequenced After Oblivion Orb (Too Late)</div>
+  <div class="finding-body">Oblivion Orb at 17:16 was the correct situational buy – Enemy <span class="champion-inline"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/DrMundo.png" onerror="this.style.display='none'"> DrMundo</span>'s R heals roughly 20% of his max HP, and Grievous Wounds applies on any hit including Lulu's Q poke. The issue is sequencing: buying Oblivion Orb first pushed Shurelya's Battlesong to 28:28, arriving with only 3 minutes left in the game – it was unavailable for the 23:35 fight where your team lost Ally <span class="champion-inline"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Ashe.png" onerror="this.style.display='none'"> Ashe</span>.</div>
   <div class="item-chip-row">
     <div class="item-chip">
       <img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/item/3504.png" onerror="this.style.display='none'">
@@ -666,19 +666,19 @@ tr:hover td { background: #ffffff05; }
       <span class="item-chip-time">✓ 14:13</span>
     </div>
     <span style="color:var(--muted);align-self:center">→</span>
-    <div class="item-chip item-chip-late">
-      <img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/item/3916.png" onerror="this.style.display='none'">
-      <span>Oblivion Orb</span>
-      <span class="item-chip-time-bad">⚠ 17:16 (wrong item)</span>
-    </div>
-    <span style="color:var(--muted);align-self:center">→</span>
-    <div class="item-chip item-chip-late">
+    <div class="item-chip" style="border-color:#f0b42944">
       <img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/item/2065.png" onerror="this.style.display='none'">
       <span>Shurelya's</span>
-      <span class="item-chip-time-bad">⚠ 28:28 (too late)</span>
+      <span style="color:var(--yellow);font-size:.7rem">→ target ~20–22 min</span>
+    </div>
+    <span style="color:var(--muted);align-self:center">→</span>
+    <div class="item-chip">
+      <img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/item/3916.png" onerror="this.style.display='none'">
+      <span>Oblivion Orb</span>
+      <span class="item-chip-time">→ ~24–26 min</span>
     </div>
   </div>
-  <div class="finding-fix"><span class="fix-label">Fix:</span> After Ardent Censer, build straight to Shurelya's Battlesong (Aether Wisp → Kindlegem → complete, target ~20–22 min). The movement-speed active enables Ally <span class="champion-inline"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Ashe.png" onerror="this.style.display='none'"> Ashe</span> to chase after an Enchanted Crystal Arrow lands and lets your team disengage safely if a fight goes wrong. Oblivion Orb's Grievous Wounds belongs on champions dealing sustained magic damage – not Lulu.</div>
+  <div class="finding-fix"><span class="fix-label">Fix:</span> Get Shurelya's first, then Oblivion Orb. The Shurelya's active lets your team chase after an Ashe R lands and gives you burst speed to close the gap to Ally <span class="champion-inline"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Ashe.png" onerror="this.style.display='none'"> Ashe</span> if caught out of position. Enemy DrMundo's healing is still punishable with a slightly delayed Oblivion Orb – his R wasn't the reason fights were lost in this game.</div>
 </div>
 
 <div class="finding-card sev-high">
@@ -755,10 +755,12 @@ tr:hover td { background: #ffffff05; }
 </div>
 
 <div class="workon-card">
-  <div class="workon-title"><span class="workon-num">2.</span> Shurelya's Battlesong Timing</div>
-  <div class="workon-body">Your damage output in this game was 8,643 in 31 minutes. Oblivion Orb applies Grievous Wounds through ability damage – Lulu's abilities deal minimal damage, so the healing reduction was near-zero on this champion. The result was
+  <div class="workon-title"><span class="workon-num">2.</span> Item Sequencing: Shurelya's Before Oblivion Orb</div>
+  <div class="workon-body">Buying
+  <span class="champion-inline" style="vertical-align:middle"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/item/3165.png" style="width:22px;height:22px;border-radius:3px;border:1px solid var(--border)" onerror="this.style.display='none'"> Oblivion Orb</span>
+  against Enemy <span class="champion-inline"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/DrMundo.png" onerror="this.style.display='none'"> DrMundo</span> was correct – his R heals roughly 20% of his max HP, and Grievous Wounds applies on any hit including Lulu's Q poke. Both items belonged in this build. The mistake was the order. Buying Oblivion Orb at 17:16 first pushed
   <span class="champion-inline" style="vertical-align:middle"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/item/2065.png" style="width:22px;height:22px;border-radius:3px;border:1px solid var(--border)" onerror="this.style.display='none'"> Shurelya's Battlesong</span>
-  completing at 28:28, approximately 6–8 minutes later than its ideal timing (~20–22 min). The Shurelya's active is your most impactful teamfight tool as Lulu: it lets your team chase after an Ashe R lands, and it provides a burst of speed that lets you close the gap to Ashe if you're caught out of position – exactly what you needed in the 23:35 fight. Identify your second core item before the game and don't deviate unless the enemy team has a specific healing carry that your damage output can actually punish.</div>
+  to 28:28 – with only 3 minutes left in the game. The Shurelya's active was completely unavailable for the 23:35 fight where your team lost Ashe, Ahri, and you in quick succession. That active would have given your team burst movement speed to either pursue the engage or close the gap back to Ashe when the dive landed. Corrected sequence: Ardent Censer (14:13 ✓) → Shurelya's (~20–22 min) → Oblivion Orb (~24–26 min). DrMundo's healing is still punishable with a short delay; Shurelya's impact is near-zero when the game is already in its final two minutes.</div>
 </div>
 
 <div class="workon-card">
