@@ -232,6 +232,50 @@ tr:hover td { background: #ffffff05; }
 .sev-badge.high   { background:#e55c5c22; color:var(--red); border:1px solid #e55c5c44; }
 .sev-badge.medium { background:#f0b42922; color:var(--yellow); border:1px solid #f0b42944; }
 .sev-badge.low    { background:#3dca7e22; color:var(--green); border:1px solid #3dca7e44; }
+.phase-overview {
+  background: #13151f;
+  border: 1px solid #2c3050;
+  border-left: 3px solid var(--blue);
+  border-radius: 8px;
+  padding: 14px 16px 12px;
+  margin-bottom: 16px;
+  font-size: .82rem;
+  line-height: 1.6;
+  color: var(--text);
+}
+.phase-overview-label {
+  font-size: .63rem;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  color: var(--blue);
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.lane-row {
+  display: flex;
+  gap: 10px;
+  margin: 5px 0;
+  align-items: baseline;
+}
+.lane-tag {
+  font-size: .63rem;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  color: var(--muted);
+  min-width: 58px;
+  padding-top: 1px;
+  flex-shrink: 0;
+}
+.lane-tag.you { color: var(--gold); }
+.lane-text { font-size: .79rem; color: #c5c9de; line-height: 1.55; }
+.overview-note {
+  margin-top: 9px;
+  padding-top: 9px;
+  border-top: 1px solid var(--border);
+  font-size: .78rem;
+  color: #9da3bf;
+  line-height: 1.55;
+}
 .lens-badge {
   background: var(--surface2);
   color: var(--muted);
@@ -443,7 +487,7 @@ tr:hover td { background: #ffffff05; }
           <div class="tooltip" style="display:none;position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:#1e2029;border:1px solid var(--border);border-radius:6px;padding:9px 12px;font-size:.75rem;width:220px;box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:100;pointer-events:none;line-height:1.5">
             <div style="color:var(--muted);font-size:.7rem">05:49 — bot lane</div>
             <div style="font-weight:600;margin:3px 0"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Lulu.png" style="width:16px;height:16px;border-radius:3px;vertical-align:middle;margin-right:4px" onerror="this.style.display='none'">Bot Lane Double Kill</div>
-            <div style="font-size:.68rem;color:var(--green)">LOW – POSITIVE</div>
+            <div style="font-size:.68rem;color:var(--green)">▲ POSITIVE</div>
             <div style="margin-top:5px;color:#b0b8d0;font-size:.72rem">Kill on Viktor + Rakan in 8s. Seeds the +2,100 gold lead at 10 min.</div>
           </div>
         </div>
@@ -459,7 +503,7 @@ tr:hover td { background: #ffffff05; }
           <div class="tooltip" style="display:none;position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:#1e2029;border:1px solid var(--border);border-radius:6px;padding:9px 12px;font-size:.75rem;width:220px;box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:100;pointer-events:none;line-height:1.5">
             <div style="color:var(--muted);font-size:.7rem">13:15 — bot side</div>
             <div style="font-weight:600;margin:3px 0"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Lulu.png" style="width:16px;height:16px;border-radius:3px;vertical-align:middle;margin-right:4px" onerror="this.style.display='none'">3-for-1 Bot Fight Win</div>
-            <div style="font-size:.68rem;color:var(--green)">LOW – POSITIVE</div>
+            <div style="font-size:.68rem;color:var(--green)">▲ POSITIVE</div>
             <div style="margin-top:5px;color:#b0b8d0;font-size:.72rem">Rakan, Dr. Mundo, Viktor killed. Assist on all three.</div>
           </div>
         </div>
@@ -475,7 +519,7 @@ tr:hover td { background: #ffffff05; }
           <div class="tooltip" style="display:none;position:absolute;bottom:calc(100% + 6px);right:0;left:auto;transform:none;background:#1e2029;border:1px solid var(--border);border-radius:6px;padding:9px 12px;font-size:.75rem;width:220px;box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:100;pointer-events:none;line-height:1.5">
             <div style="color:var(--muted);font-size:.7rem">29:57 — Baron pit</div>
             <div style="font-weight:600;margin:3px 0"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Shaco.png" style="width:16px;height:16px;border-radius:3px;vertical-align:middle;margin-right:4px" onerror="this.style.display='none'">Shaco Solo Baron</div>
-            <div style="font-size:.68rem;color:var(--purple)">HIGH – KEY OBJECTIVE</div>
+            <div style="font-size:.68rem;color:var(--purple)">▲ KEY OBJECTIVE</div>
             <div style="margin-top:5px;color:#b0b8d0;font-size:.72rem">Leads directly to 5-for-0 teamfight and game close.</div>
           </div>
         </div>
@@ -493,7 +537,7 @@ tr:hover td { background: #ffffff05; }
           <div class="tooltip" style="display:none;position:absolute;top:calc(100% + 6px);left:50%;transform:translateX(-50%);background:#1e2029;border:1px solid var(--border);border-radius:6px;padding:9px 12px;font-size:.75rem;width:220px;box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:100;pointer-events:none;line-height:1.5">
             <div style="color:var(--muted);font-size:.7rem">09:52 — bot lane</div>
             <div style="font-weight:600;margin:3px 0"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/DrMundo.png" style="width:16px;height:16px;border-radius:3px;vertical-align:middle;margin-right:4px" onerror="this.style.display='none'">Caught After Exchange (Death 1)</div>
-            <div style="font-size:.68rem;color:var(--yellow)">MEDIUM</div>
+            <div style="font-size:.68rem;color:var(--yellow)">▼ MEDIUM IMPACT</div>
             <div style="margin-top:5px;color:#b0b8d0;font-size:.72rem">Dr. Mundo + Viktor + Rakan 3v2 dive 3s after winning a kill.</div>
           </div>
         </div>
@@ -509,7 +553,7 @@ tr:hover td { background: #ffffff05; }
           <div class="tooltip" style="display:none;position:absolute;top:calc(100% + 6px);left:50%;transform:translateX(-50%);background:#1e2029;border:1px solid var(--border);border-radius:6px;padding:9px 12px;font-size:.75rem;width:220px;box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:100;pointer-events:none;line-height:1.5">
             <div style="color:var(--muted);font-size:.7rem">11:02 — bot side</div>
             <div style="font-weight:600;margin:3px 0"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/DrMundo.png" style="width:16px;height:16px;border-radius:3px;vertical-align:middle;margin-right:4px" onerror="this.style.display='none'">Same Gank, Same Death (Death 2)</div>
-            <div style="font-size:.68rem;color:var(--red)">HIGH</div>
+            <div style="font-size:.68rem;color:var(--red)">▼ HIGH IMPACT</div>
             <div style="margin-top:5px;color:#b0b8d0;font-size:.72rem">Identical 3-person combination, same entry path, 70s later.</div>
           </div>
         </div>
@@ -525,7 +569,7 @@ tr:hover td { background: #ffffff05; }
           <div class="tooltip" style="display:none;position:absolute;top:calc(100% + 6px);left:50%;transform:translateX(-50%);background:#1e2029;border:1px solid var(--border);border-radius:6px;padding:9px 12px;font-size:.75rem;width:220px;box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:100;pointer-events:none;line-height:1.5">
             <div style="color:var(--muted);font-size:.7rem">14:39 — dragon pit</div>
             <div style="font-weight:600;margin:3px 0"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/DrMundo.png" style="width:16px;height:16px;border-radius:3px;vertical-align:middle;margin-right:4px" onerror="this.style.display='none'">Red 2nd Dragon Uncontested</div>
-            <div style="font-size:.68rem;color:var(--yellow)">MEDIUM</div>
+            <div style="font-size:.68rem;color:var(--yellow)">▼ MEDIUM IMPACT</div>
             <div style="margin-top:5px;color:#b0b8d0;font-size:.72rem">Red goes 2-0 on drakes. Blue didn't rotate after the 13:15 fight.</div>
           </div>
         </div>
@@ -541,7 +585,7 @@ tr:hover td { background: #ffffff05; }
           <div class="tooltip" style="display:none;position:absolute;top:calc(100% + 6px);left:50%;transform:translateX(-50%);background:#1e2029;border:1px solid var(--border);border-radius:6px;padding:9px 12px;font-size:.75rem;width:220px;box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:100;pointer-events:none;line-height:1.5">
             <div style="color:var(--muted);font-size:.7rem">17:16 — base</div>
             <div style="font-weight:600;margin:3px 0">Shurelya's Sequenced After Oblivion Orb</div>
-            <div style="font-size:.68rem;color:var(--yellow)">MEDIUM</div>
+            <div style="font-size:.68rem;color:var(--yellow)">▼ MEDIUM IMPACT</div>
             <div style="margin-top:5px;color:#b0b8d0;font-size:.72rem">Oblivion Orb correct vs Dr. Mundo, but buying it first pushed Shurelya's to 28:28 – missing the 23:35 fight entirely.</div>
           </div>
         </div>
@@ -557,7 +601,7 @@ tr:hover td { background: #ffffff05; }
           <div class="tooltip" style="display:none;position:absolute;top:calc(100% + 6px);right:0;left:auto;transform:none;background:#1e2029;border:1px solid var(--border);border-radius:6px;padding:9px 12px;font-size:.75rem;width:220px;box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:100;pointer-events:none;line-height:1.5">
             <div style="color:var(--muted);font-size:.7rem">23:35 — blue side jungle</div>
             <div style="font-weight:600;margin:3px 0"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Lulu.png" style="width:16px;height:16px;border-radius:3px;vertical-align:middle;margin-right:4px" onerror="this.style.display='none'">Collapsed Mid Fight (3-for-2)</div>
-            <div style="font-size:.68rem;color:var(--red)">HIGH</div>
+            <div style="font-size:.68rem;color:var(--red)">▼ HIGH IMPACT</div>
             <div style="margin-top:5px;color:#b0b8d0;font-size:.72rem">You die first. Ashe + Ahri follow. +216 gold → −913 gold swing.</div>
           </div>
         </div>
@@ -575,10 +619,23 @@ tr:hover td { background: #ffffff05; }
 
 <div class="phase-divider"><span>Phase 1 — Draft</span></div>
 
+<div class="phase-overview">
+  <div class="phase-overview-label">Phase Context — Draft</div>
+  <div class="lane-row">
+    <span class="lane-tag you">Blue plan</span>
+    <span class="lane-text">Protect-the-carry. Shaco snowballs early, then Ashe farms safely into 3 items. Once online, Lulu's Ardent Censer stacks her attack speed on every shielded auto and you peel everything that approaches her.</span>
+  </div>
+  <div class="lane-row">
+    <span class="lane-tag">Red plan</span>
+    <span class="lane-text">Triple-engage dive. Dr. Mundo + Rakan + Skarner are all built to close the gap to Ashe and kill her before your shields can answer. If Red lands one clean dive in a 5v5, the gold lead flips.</span>
+  </div>
+  <div class="overview-note">The hinge of this game is your W (polymorph). It is the single plug for every Red dive attempt. Recognize the engage champion making first contact and W them — that one cast is what keeps Ashe alive through the whole mid game.</div>
+</div>
+
 <div class="finding-card sev-low-pos">
   <div class="finding-meta">
     <span class="ts-badge">Pre-game</span>
-    <span class="sev-badge low">LOW (positive)</span>
+    <span class="sev-badge low">▲ POSITIVE</span>
     <span class="lens-badge">WIN CONDITION</span>
   </div>
   <div class="finding-title">Ashe + Lulu Protection Comp</div>
@@ -589,7 +646,7 @@ tr:hover td { background: #ffffff05; }
 <div class="finding-card sev-medium">
   <div class="finding-meta">
     <span class="ts-badge">Pre-game</span>
-    <span class="sev-badge medium">MEDIUM</span>
+    <span class="sev-badge medium">▼ MEDIUM IMPACT</span>
     <span class="lens-badge">WIN CONDITION</span>
   </div>
   <div class="finding-title">Viktor ADC is Red's Primary Carry</div>
@@ -599,10 +656,31 @@ tr:hover td { background: #ffffff05; }
 
 <div class="phase-divider"><span>Phase 2 — Early Game (0–14 min)</span></div>
 
+<div class="phase-overview">
+  <div class="phase-overview-label">Phase Context — Laning Phase</div>
+  <div class="lane-row">
+    <span class="lane-tag you">Your lane</span>
+    <span class="lane-text">Ashe + Lulu vs Viktor + Rakan. Viktor is a scaling mage playing ADC – he has significantly less range and early damage than a real marksman. You win extended poke trades freely. The danger window is Rakan's level 2 dash combo; he can chain W → E → Q for an instant kill setup with Viktor following. Keep W off cooldown and pre-position to answer that engage before it lands on Ashe.</span>
+  </div>
+  <div class="lane-row">
+    <span class="lane-tag">Mid</span>
+    <span class="lane-text">Ahri vs Yone. Yone statistically favors this matchup (54% win rate vs Ahri). Ahri can't fight him in extended trades — she farms defensively and looks to roam through her R. Don't expect early kills from mid lane; expect Ahri to make plays elsewhere.</span>
+  </div>
+  <div class="lane-row">
+    <span class="lane-tag">Jungle</span>
+    <span class="lane-text">Shaco vs Dr. Mundo. Shaco dominates the early game — Mundo is a late-scaling jungler with weak early dueling. Shaco pathed top-side to secure all three Void Grubs (8:37–8:52), leaving bot without jungle coverage during that window. Mundo recognized this gap and timed both ganks (9:52 and 11:02) to hit bot lane the moment Shaco finished his Grubs objective. After Shaco secures a top-side objective, expect Mundo to move bot.</span>
+  </div>
+  <div class="lane-row">
+    <span class="lane-tag">Top</span>
+    <span class="lane-text">Kled vs Skarner. Skarner statistically counters Kled (56% win rate). Kled needs early aggression to stay relevant — if he falls behind, he becomes a liability in team fights. Don't assume top lane will produce a lead; plan around Kled being even or slightly behind.</span>
+  </div>
+  <div class="overview-note">Your laning goal: harass Viktor off CS with Lulu Q whenever he steps up, track Dr. Mundo on the minimap after every 60 seconds without a sighting, and drop a control ward in the river brush before returning to your pre-gank push depth after any death or recall.</div>
+</div>
+
 <div class="finding-card sev-low-pos">
   <div class="finding-meta">
     <span class="ts-badge">05:49</span>
-    <span class="sev-badge low">LOW (positive)</span>
+    <span class="sev-badge low">▲ POSITIVE</span>
     <span class="lens-badge">RESOURCE EFFICIENCY</span>
   </div>
   <div class="finding-title">Bot Lane Double Kill</div>
@@ -613,7 +691,7 @@ tr:hover td { background: #ffffff05; }
 <div class="finding-card sev-medium">
   <div class="finding-meta">
     <span class="ts-badge">09:49–09:52</span>
-    <span class="sev-badge medium">MEDIUM</span>
+    <span class="sev-badge medium">▼ MEDIUM IMPACT</span>
     <span class="lens-badge">DECISION AUDIT</span>
   </div>
   <div class="finding-title">Caught After Winning the Exchange (Death 1)</div>
@@ -624,7 +702,7 @@ tr:hover td { background: #ffffff05; }
 <div class="finding-card sev-high">
   <div class="finding-meta">
     <span class="ts-badge">11:02</span>
-    <span class="sev-badge high">HIGH</span>
+    <span class="sev-badge high">▼ HIGH IMPACT</span>
     <span class="lens-badge">DECISION AUDIT</span>
   </div>
   <div class="finding-title">Same Gank, Same Death (Death 2)</div>
@@ -635,7 +713,7 @@ tr:hover td { background: #ffffff05; }
 <div class="finding-card sev-low-pos">
   <div class="finding-meta">
     <span class="ts-badge">13:15–13:24</span>
-    <span class="sev-badge low">LOW (positive)</span>
+    <span class="sev-badge low">▲ POSITIVE</span>
     <span class="lens-badge">TEAMFIGHT</span>
   </div>
   <div class="finding-title">3-for-1 Bot Fight Win</div>
@@ -645,10 +723,27 @@ tr:hover td { background: #ffffff05; }
 
 <div class="phase-divider"><span>Phase 3 — Mid Game (14–25 min)</span></div>
 
+<div class="phase-overview">
+  <div class="phase-overview-label">Phase Context — Mid Game</div>
+  <div class="lane-row">
+    <span class="lane-tag you">Objectives</span>
+    <span class="lane-text">Dragon control is critical for a scaling comp. Cloud Soul gives Ashe permanent movement speed for kiting; Infernal amplifies her damage output. Blue team gave away the first two drakes uncontested — Red had a 2-0 dragon advantage entering this phase. Every dragon Red takes for free is tempo you'll need to make up with Baron or picks.</span>
+  </div>
+  <div class="lane-row">
+    <span class="lane-tag">Carries</span>
+    <span class="lane-text">Viktor peaks at 2–3 items (roughly 20–22 min). He becomes the most dangerous champion on the map during this window — 30,093 damage in this game despite going 6/4. Treat his positioning as the primary threat in every fight; Ahri's charm and your polymorph are the two tools to neutralize him before he casts his R or E.</span>
+  </div>
+  <div class="lane-row">
+    <span class="lane-tag">Jungler</span>
+    <span class="lane-text">Mundo scales into a nearly unkillable frontline by 20 min. He will look to flank from the side jungle in teamfights rather than engage head-on. His R (goes where he pleases) can sustain through your poke. Shaco's job is to maintain vision control and force Mundo to react rather than initiate.</span>
+  </div>
+  <div class="overview-note">Your positioning rule for this phase: stay adjacent to Ashe at all times. When Red groups for a fight, position yourself between Ashe and the most likely flanking path (Rakan or Mundo coming from the side jungle). You should never be further forward than Ashe when a fight starts — if you are, your W, shield, and ult don't exist for the fight.</div>
+</div>
+
 <div class="finding-card sev-medium">
   <div class="finding-meta">
     <span class="ts-badge">14:39</span>
-    <span class="sev-badge medium">MEDIUM</span>
+    <span class="sev-badge medium">▼ MEDIUM IMPACT</span>
     <span class="lens-badge">OBJECTIVE PRIORITY</span>
   </div>
   <div class="finding-title">Red Takes 2nd Dragon Uncontested</div>
@@ -659,7 +754,7 @@ tr:hover td { background: #ffffff05; }
 <div class="finding-card sev-medium">
   <div class="finding-meta">
     <span class="ts-badge">17:16</span>
-    <span class="sev-badge medium">MEDIUM</span>
+    <span class="sev-badge medium">▼ MEDIUM IMPACT</span>
     <span class="lens-badge">RESOURCE EFFICIENCY</span>
   </div>
   <div class="finding-title">Shurelya's Sequenced After Oblivion Orb (Too Late)</div>
@@ -689,7 +784,7 @@ tr:hover td { background: #ffffff05; }
 <div class="finding-card sev-high">
   <div class="finding-meta">
     <span class="ts-badge">23:35–24:11</span>
-    <span class="sev-badge high">HIGH</span>
+    <span class="sev-badge high">▼ HIGH IMPACT</span>
     <span class="lens-badge">TEAMFIGHT</span>
   </div>
   <div class="finding-title">Collapsed 3-for-2 Mid Fight</div>
@@ -699,10 +794,27 @@ tr:hover td { background: #ffffff05; }
 
 <div class="phase-divider"><span>Phase 4 — Late Game (25+ min)</span></div>
 
+<div class="phase-overview">
+  <div class="phase-overview-label">Phase Context — Late Game</div>
+  <div class="lane-row">
+    <span class="lane-tag you">Win con</span>
+    <span class="lane-text">Baron is your closer. With Hand of Baron buff, Ashe's empowered minions create a near-unstoppable siege wave. Shaco's solo Baron attempt was viable here because your vision control (3.55 vision score/min) kept the pit safe. Once Baron is secured, group immediately and force base entry with the minion push.</span>
+  </div>
+  <div class="lane-row">
+    <span class="lane-tag">Dr. Mundo</span>
+    <span class="lane-text">At full build, Mundo's R heals roughly 20%+ of his max HP — he becomes effectively unkillable in extended fights. Your Oblivion Orb (purchased 17:16) applies Grievous Wounds on Q poke to cut his healing by 40%. Keep poking him with Q throughout the fight to keep the debuff active; don't save Q for damage.</span>
+  </div>
+  <div class="lane-row">
+    <span class="lane-tag">Sequence</span>
+    <span class="lane-text">Ashe R → Lulu W is your two-step CC chain. Ashe stuns the priority target; you immediately polymorph the next engage threat (Rakan or Skarner flanking from the side). This sequence negates Red's entire dive comp in a single rotation if executed cleanly.</span>
+  </div>
+  <div class="overview-note">Stay on Ashe's far side from Skarner — his R can pull her out of your reach. The moment Skarner ults Ashe, your E (shield + empower) buys her survival time while you close the gap with Shurelya's active.</div>
+</div>
+
 <div class="finding-card sev-low-pos">
   <div class="finding-meta">
     <span class="ts-badge">29:57</span>
-    <span class="sev-badge low">HIGH (positive)</span>
+    <span class="sev-badge low">▲ HIGH IMPACT</span>
     <span class="lens-badge">WIN CONDITION</span>
   </div>
   <div class="finding-title">Solo Baron by Shaco</div>
@@ -713,7 +825,7 @@ tr:hover td { background: #ffffff05; }
 <div class="finding-card sev-low-pos">
   <div class="finding-meta">
     <span class="ts-badge">30:31–30:54</span>
-    <span class="sev-badge low">HIGH (positive)</span>
+    <span class="sev-badge low">▲ HIGH IMPACT</span>
     <span class="lens-badge">TEAMFIGHT</span>
   </div>
   <div class="finding-title">5-for-0 Baron Teamfight</div>
