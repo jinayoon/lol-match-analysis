@@ -67,7 +67,7 @@ Open PowerShell (search "PowerShell" in the Start menu) and paste these **two co
 ```powershell
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 ```
-*(This unlocks script execution – Windows blocks it by default. Hit Enter when prompted.)*
+*(This unlocks script execution – Windows blocks it by default. If it asks "Do you want to change the execution policy?", type `Y` and hit Enter.)*
 ```powershell
 irm https://claude.ai/install.ps1 | iex
 ```
@@ -104,6 +104,7 @@ PowerShell blocks scripts by default. Run this first, then re-run the Claude Cod
 ```powershell
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 ```
+If it asks "Do you want to change the execution policy?", type `Y` and hit Enter.
 
 ---
 
