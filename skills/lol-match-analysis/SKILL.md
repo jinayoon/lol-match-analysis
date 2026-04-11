@@ -1,5 +1,5 @@
 ---
-name: lol-game-review
+name: lol-match-analysis
 description: >
   Acts as a League of Legends post-match coach. Fetches a player's most recent match
   from the Riot API, analyzes it across 4 game phases and 5 coaching lenses, and
