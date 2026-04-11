@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Coaching: Moist – Shaco JUNGLE – WIN 31:32</title>
+<link rel="icon" type="image/png" href="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Shaco.png">
+<style>
+:root{--bg:#0e0f14;--surface:#16181f;--surface2:#1e2029;--border:#2a2d3a;--text:#dde1f0;--muted:#7b8099;--blue:#4e9eff;--gold:#c89b3c;--green:#3dca7e;--red:#e55c5c;--yellow:#f0b429;--purple:#9b7fe8;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;font-size:.92rem;line-height:1.6;padding:24px;}
+a{color:var(--blue);}
+h1{font-size:1.5rem;font-weight:700;color:#fff;}
+h2{font-size:1.1rem;font-weight:700;color:var(--gold);margin:20px 0 10px;}
+h3{font-size:.95rem;font-weight:600;color:var(--text);margin:12px 0 6px;}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:12px;}
+.badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:.72rem;font-weight:700;letter-spacing:.03em;}
+.badge-high{background:#e55c5c22;color:#e55c5c;border:1px solid #e55c5c44;}
+.badge-med{background:#f0b42922;color:#f0b429;border:1px solid #f0b42944;}
+.badge-low{background:#3dca7e22;color:#3dca7e;border:1px solid #3dca7e44;}
+.badge-pos{background:#3dca7e22;color:#3dca7e;border:1px solid #3dca7e44;}
+.badge-posH{background:#4e9eff22;color:#4e9eff;border:1px solid #4e9eff44;}
+.badge-ts{background:var(--surface2);color:var(--muted);border:1px solid var(--border);font-family:monospace;}
+.badge-lens{background:#9b7fe822;color:#9b7fe8;border:1px solid #9b7fe844;}
+.badge-joke{background:#ff69b422;color:#ff69b4;border:1px solid #ff69b444;}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px;margin:12px 0;}
+.stat-box{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px 12px;text-align:center;}
+.stat-val{font-size:1.35rem;font-weight:700;color:#fff;}
+.stat-lbl{font-size:.7rem;color:var(--muted);margin-top:2px;}
+table{width:100%;border-collapse:collapse;font-size:.85rem;}
+th{background:var(--surface2);color:var(--muted);font-weight:600;padding:7px 10px;text-align:left;border-bottom:1px solid var(--border);}
+td{padding:7px 10px;border-bottom:1px solid #1e2029;}
+tr:hover td{background:#ffffff08;}
+.you-row td{background:#c89b3c14;}
+.you-badge{background:var(--gold);color:#000;font-size:.65rem;font-weight:800;padding:1px 5px;border-radius:3px;margin-left:4px;}
+.star{color:var(--gold);}
+.phase-div{font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:22px 0 8px;display:flex;align-items:center;gap:8px;}
+.phase-div::after{content:'';flex:1;height:1px;background:var(--border);}
+.finding{border-radius:8px;padding:14px 16px;margin-bottom:10px;background:var(--surface);border:1px solid var(--border);}
+.finding-title{font-weight:700;font-size:.95rem;margin:6px 0 4px;}
+.finding-body{color:#b8bdd4;font-size:.875rem;line-height:1.6;}
+.finding-fix{margin-top:8px;font-size:.875rem;}
+.finding-fix .fix-lbl{color:var(--blue);font-weight:600;}
+.finding-fix .fix-lbl.pos{color:var(--green);}
+.tl-wrap{position:relative;margin:16px 0;}
+.tl-markers{position:relative;height:88px;}
+.swing-card{border-radius:8px;padding:16px;margin-bottom:12px;background:var(--surface);border:1px solid var(--border);}
+.swing-title{font-weight:700;font-size:.95rem;margin-bottom:6px;display:flex;align-items:center;gap:8px;}
+.workon-card{border-left:3px solid var(--yellow);border-radius:0 8px 8px 0;padding:14px 16px;margin-bottom:12px;background:var(--surface);border-top:1px solid var(--border);border-right:1px solid var(--border);border-bottom:1px solid var(--border);}
+.workon-num{font-size:1.2rem;font-weight:800;color:var(--yellow);float:left;margin-right:10px;}
+.workon-title{font-weight:700;font-size:.95rem;color:var(--text);margin-bottom:6px;}
+.workon-body{color:#b8bdd4;font-size:.875rem;line-height:1.6;clear:both;}
+.phase-overview{background:#1a1c25;border:1px solid #2a3050;border-radius:8px;padding:14px 16px;margin-bottom:12px;}
+.phase-overview-label{font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#5b6ea8;margin-bottom:10px;}
+.lane-row{display:flex;align-items:flex-start;gap:8px;margin-bottom:7px;font-size:.83rem;}
+.lane-tag{background:#252840;color:#7b90d4;border-radius:4px;padding:1px 7px;font-size:.7rem;font-weight:700;min-width:50px;text-align:center;margin-top:2px;}
+.lane-tag.you{background:#3a3010;color:#c89b3c;}
+.lane-text{color:#9aa3c2;line-height:1.5;}
+.overview-note{margin-top:10px;font-size:.8rem;color:#5b6ea8;border-top:1px solid #2a3050;padding-top:8px;}
+.hero-header{display:flex;gap:20px;align-items:flex-start;margin-bottom:20px;flex-wrap:wrap;}
+.hero-art img{border-radius:10px;border:2px solid var(--gold);display:block;}
+.ability-strip{display:flex;gap:6px;margin-top:8px;}
+.ability-strip img{width:26px;height:26px;border-radius:4px;border:1px solid var(--border);}
+.hero-info{flex:1;min-width:200px;}
+.match-badge{background:var(--surface2);color:var(--muted);font-family:monospace;font-size:.75rem;padding:3px 8px;border-radius:4px;display:inline-block;}
+.verdict-card{background:#1a1c25;border:1px solid var(--border);border-radius:8px;padding:12px;margin-top:10px;}
+.verdict-lbl{font-size:.7rem;color:var(--muted);font-weight:700;text-transform:uppercase;margin-bottom:4px;}
+.three-short{background:#1a1c25;border:1px solid #2a3050;border-radius:8px;padding:14px 16px;margin-bottom:12px;}
+.three-short ol{padding-left:20px;color:#9aa3c2;font-size:.875rem;}
+.three-short li{margin-bottom:4px;}
+.item-chip-row{display:flex;gap:6px;margin:8px 0;flex-wrap:wrap;}
+.item-chip{display:flex;align-items:center;gap:5px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:4px 8px;font-size:.78rem;}
+.item-chip img{width:24px;height:24px;border-radius:3px;}
+.joke-banner{background:#ff69b415;border:1px solid #ff69b444;border-radius:8px;padding:10px 14px;margin-bottom:12px;font-size:.85rem;color:#ff69b4;text-align:center;font-style:italic;}
+</style>
+</head>
+<body>
+
+<div class="joke-banner">
+  ⚠️ This report was generated for Moist (ahrisoo's teammate). Results may be skewed by Shaco main bias. Peer review not recommended.
+</div>
+
+<div class="hero-header">
+  <div class="hero-art">
+    <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/loading/Shaco_0.jpg" style="width:120px;height:120px;border-radius:10px;border:2px solid var(--gold);" onerror="this.style.display='none'">
+    
+<div class="ability-strip">
+  <img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/spell/ShacoCastDeceive.png" style="width:22px;height:22px;border-radius:3px;" onerror="this.style.display='none'" title="ShacoCastDeceive.png">
+  <img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/spell/ShacoJitb.png" style="width:22px;height:22px;border-radius:3px;" onerror="this.style.display='none'" title="ShacoJitb.png">
+  <img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/spell/ShacoE.png" style="width:22px;height:22px;border-radius:3px;" onerror="this.style.display='none'" title="ShacoE.png">
+  <img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/spell/ShacoR.png" style="width:22px;height:22px;border-radius:3px;" onerror="this.style.display='none'" title="ShacoR.png">
+</div>
+  </div>
+  <div class="hero-info">
+    <h1>Post-Match Coaching Report</h1>
+    <div style="color:var(--muted);font-size:.85rem;margin:4px 0 10px;">
+      Moist &nbsp;·&nbsp; <img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Shaco.png" style="width:20px;height:20px;border-radius:3px;vertical-align:middle;" onerror="this.style.display='none'"> Shaco &nbsp;·&nbsp; JUNGLE &nbsp;·&nbsp;
+      <span style="color:var(--green);font-weight:700;">WIN</span> 31:32 &nbsp;·&nbsp; Patch 16.7
+    </div>
+    <span class="match-badge">NA1_5537842078</span>
+    <div class="verdict-card" style="margin-top:10px;">
+      <div class="verdict-lbl">Honest Verdict</div>
+      <div style="font-size:.9rem;">This was an emphatic personal carry — 11/4, all 3 Void Grubs, solo Baron, 70% kill participation from minute one to the end. The victory was yours to claim, and you claimed it. The jg diff was real — just not in the direction the enemy team expected. Nevertheless: vision score 28 (your support had 112), dying to all five enemies one second after securing dragon at 19:58, and placing exactly 1 control ward the entire game confirm that this was a mechanical carry in spite of your decision-making, not because of it. Classic Shaco main behavior. Skill issue.</div>
+    </div>
+    <div class="verdict-card" style="margin-top:8px;">
+      <div class="verdict-lbl">Game Summary</div>
+      <div style="font-size:.9rem;">Blue team won this game because one player invaded enemy red-side jungle at 2:57, soloed Dr. Mundo for first blood, secured all three Void Grubs before Red team showed up, and then — against all odds and good judgment — solos Baron Nashor at 29:57 to close out a game that really should have been harder. In between those highlights, that same player died four times, including once to all five enemies in the dragon pit. Jg diff. Both of them.</div>
+    </div>
+  </div>
+</div>
+
+<div class="three-short">
+  <h3 style="color:var(--yellow);margin-bottom:8px;">3 Things To Work On (or: The Shaco Main Checklist)</h3>
+  <ol>
+    <li><strong>Vision (or complete lack thereof)</strong> — 1 control ward placed the entire game (at 29:20, right before Baron). Your support placed 112 vision score worth. This is textbook jg diff, but the wrong kind.</li>
+    <li><strong>Post-objective discipline</strong> — 3 of your 4 deaths occurred immediately after securing an objective or kill. Dragon at 19:57 → died at 19:58. You got the objective. You did not get out.</li>
+    <li><strong>The Shaco Main Condition</strong> — You play excellently when enemies don't know where you are. When they do (see: all five enemies, dragon pit, 19:58), bad things happen. This is a known Shaco main affliction and there is no cure, only awareness.</li>
+  </ol>
+</div>
+
+<h2>Quick Stats</h2>
+<div class="stat-grid">
+  <div class="stat-box"><div class="stat-val">11/4/5</div><div class="stat-lbl">KDA</div></div>
+  <div class="stat-box"><div class="stat-val">256</div><div class="stat-lbl">CS (8.1/min)</div></div>
+  <div class="stat-box"><div class="stat-val" style="color:var(--gold);">14,853</div><div class="stat-lbl">Gold</div></div>
+  <div class="stat-box"><div class="stat-val">21,179</div><div class="stat-lbl">Damage</div></div>
+  <div class="stat-box"><div class="stat-val">21.1%</div><div class="stat-lbl">Dmg % of Team</div></div>
+  <div class="stat-box"><div class="stat-val" style="color:#f0b429;">28</div><div class="stat-lbl">Vision Score (0.89/min)</div></div>
+  <div class="stat-box"><div class="stat-val" style="color:var(--green);">70%</div><div class="stat-lbl">Kill Participation</div></div>
+  <div class="stat-box"><div class="stat-val" style="color:#e55c5c;">4</div><div class="stat-lbl">Deaths</div></div>
+  <div class="stat-box"><div class="stat-val" style="color:#ff69b4;">1</div><div class="stat-lbl">Control Wards 💀</div></div>
+</div>
+
+<h2>Team Overview</h2>
+<table>
+<thead><tr><th>Player</th><th>Champion</th><th>Role</th><th>KDA</th><th>CS</th><th>Gold</th><th>Damage</th><th>KP%</th><th></th></tr></thead>
+<tbody>
+<tr><td colspan="9" style="background:#1a2040;color:#4e9eff;font-weight:700;font-size:.75rem;padding:5px 10px;">🔵 Blue Team</td></tr>
+<tr><td>BodaciousMango</td><td><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Kled.png" style="width:26px;height:26px;border-radius:3px;vertical-align:middle;" onerror="this.style.display='none'"> Kled</td><td>TOP</td><td>3/4/7</td><td>208</td><td>12,329</td><td>22,741</td><td>43%</td><td></td></tr>
+<tr class="you-row"><td>Moist <span class="you-badge">← YOU</span></td><td><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Shaco.png" style="width:26px;height:26px;border-radius:3px;vertical-align:middle;" onerror="this.style.display='none'"> Shaco</td><td>JUNGLE</td><td>11/4/5</td><td>256</td><td>14,853</td><td>21,179</td><td>70%</td><td class="star">★</td></tr>
+<tr><td>BugR</td><td><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Ahri.png" style="width:26px;height:26px;border-radius:3px;vertical-align:middle;" onerror="this.style.display='none'"> Ahri</td><td>MIDDLE</td><td>3/1/6</td><td>251</td><td>11,571</td><td>25,661</td><td>39%</td><td></td></tr>
+<tr><td>lentilbebi</td><td><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Ashe.png" style="width:26px;height:26px;border-radius:3px;vertical-align:middle;" onerror="this.style.display='none'"> Ashe</td><td>BOTTOM</td><td>4/1/11</td><td>227</td><td>13,169</td><td>22,579</td><td>65%</td><td></td></tr>
+<tr><td>ahrisoo</td><td><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Lulu.png" style="width:26px;height:26px;border-radius:3px;vertical-align:middle;" onerror="this.style.display='none'"> Lulu</td><td>SUPPORT</td><td>2/3/15</td><td>34</td><td>8,930</td><td>8,643</td><td>74%</td><td></td></tr>
+<tr><td colspan="9" style="background:#401a1a;color:#e55c5c;font-weight:700;font-size:.75rem;padding:5px 10px;">🔴 Red Team</td></tr>
+<tr><td>TheWillfulLoser</td><td><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Skarner.png" style="width:26px;height:26px;border-radius:3px;vertical-align:middle;" onerror="this.style.display='none'"> Skarner</td><td>TOP</td><td>2/3/5</td><td>201</td><td>10,409</td><td>29,442</td><td>54%</td><td></td></tr>
+<tr><td>tiangener</td><td><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/DrMundo.png" style="width:26px;height:26px;border-radius:3px;vertical-align:middle;" onerror="this.style.display='none'"> Dr. Mundo</td><td>JUNGLE</td><td>4/5/6</td><td>198</td><td>11,641</td><td>18,633</td><td>77%</td><td></td></tr>
+<tr><td>Bread Car Car</td><td><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Yone.png" style="width:26px;height:26px;border-radius:3px;vertical-align:middle;" onerror="this.style.display='none'"> Yone</td><td>MIDDLE</td><td>1/5/2</td><td>254</td><td>13,916</td><td>9,992</td><td>23%</td><td></td></tr>
+<tr><td>ChenI77</td><td><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Viktor.png" style="width:26px;height:26px;border-radius:3px;vertical-align:middle;" onerror="this.style.display='none'"> Viktor</td><td>BOTTOM</td><td>6/4/3</td><td>267</td><td>15,819</td><td>30,093</td><td>69%</td><td class="star">★</td></tr>
+<tr><td>灵魂咆哮</td><td><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Rakan.png" style="width:26px;height:26px;border-radius:3px;vertical-align:middle;" onerror="this.style.display='none'"> Rakan</td><td>SUPPORT</td><td>0/6/9</td><td>26</td><td>7,691</td><td>4,776</td><td>69%</td><td></td></tr>
+</tbody>
+</table>
+<div style="color:var(--muted);font-size:.8rem;margin-top:6px;">Damage split: Blue 58% AD / 32% AP – Red 37% AD / 59% AP</div>
+
+<h2>Match Timeline</h2>
+
+<div class="tl-wrap">
+  <div style="display:flex;height:22px;border-radius:4px;overflow:hidden;margin-bottom:8px;">
+    <div style="width:44.4%;background:#2563eb30;display:flex;align-items:center;justify-content:center;font-size:.65rem;color:rgba(255,255,255,.45);">Early (0–14)</div>
+    <div style="width:34.88%;background:#7c3aed30;display:flex;align-items:center;justify-content:center;font-size:.65rem;color:rgba(255,255,255,.45);">Mid (14–25)</div>
+    <div style="width:20.72%;background:#c026d330;display:flex;align-items:center;justify-content:center;font-size:.65rem;color:rgba(255,255,255,.45);">Late (25+)</div>
+  </div>
+  <div style="position:relative;">
+    <div style="position:absolute;left:44.4%;top:0;bottom:0;width:1px;background:rgba(255,255,255,.12);z-index:1;"></div>
+    <div style="position:absolute;left:79.28%;top:0;bottom:0;width:1px;background:rgba(255,255,255,.12);z-index:1;"></div>
+    <div style="height:6px;background:var(--border);border-radius:3px;position:absolute;top:40px;left:0;right:0;"></div>
+    <div class="tl-markers" style="position:relative;height:88px;"><div style="position:absolute;top:4px;left:9.36%;transform:translateX(-50%);cursor:pointer;z-index:10;"
+  onmouseover="this.querySelector('.tt').style.display='block'"
+  onmouseout="this.querySelector('.tt').style.display='none'">
+  <div style="width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-bottom:12px solid #4e9eff;transition:transform .15s;"
+       onmouseover="this.style.transform='scale(1.4)'" onmouseout="this.style.transform='scale(1)'"></div>
+  <div style="width:1px;height:16px;background:rgba(255,255,255,.15);margin:0 auto;"></div>
+  <div class="tt" style="display:none;position:absolute;bottom:130%;left:50%;transform:translateX(-50%);background:#1e2029;border:1px solid var(--border);border-radius:6px;padding:9px 12px;font-size:.75rem;width:220px;box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:100;pointer-events:none;line-height:1.5;"><div style="color:var(--muted);font-size:.7rem">2:57 – enemy red-side jungle</div><div style="font-weight:600;margin:3px 0">First Blood on Dr. Mundo</div><div>Invaded solo. Resultado: dead enemy jungler. Somehow not a skill issue.</div></div>
+</div><div style="position:absolute;top:4px;left:26.53%;transform:translateX(-50%);cursor:pointer;z-index:10;"
+  onmouseover="this.querySelector('.tt').style.display='block'"
+  onmouseout="this.querySelector('.tt').style.display='none'">
+  <div style="width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-bottom:12px solid #3dca7e;transition:transform .15s;"
+       onmouseover="this.style.transform='scale(1.4)'" onmouseout="this.style.transform='scale(1)'"></div>
+  <div style="width:1px;height:16px;background:rgba(255,255,255,.15);margin:0 auto;"></div>
+  <div class="tt" style="display:none;position:absolute;bottom:130%;left:50%;transform:translateX(-50%);background:#1e2029;border:1px solid var(--border);border-radius:6px;padding:9px 12px;font-size:.75rem;width:220px;box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:100;pointer-events:none;line-height:1.5;"><div style="color:var(--muted);font-size:.7rem">8:37–8:52 – top-side river</div><div style="font-weight:600;margin:3px 0">All 3 Void Grubs Secured</div><div>Solo cleared all three before Red team could contest. Rare moment of unambiguous competence.</div></div>
+</div><div style="position:absolute;top:4px;left:23.36%;transform:translateX(-50%);cursor:pointer;z-index:10;"
+  onmouseover="this.querySelector('.tt').style.display='block'"
+  onmouseout="this.querySelector('.tt').style.display='none'">
+  <div style="width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-bottom:12px solid #3dca7e;transition:transform .15s;"
+       onmouseover="this.style.transform='scale(1.4)'" onmouseout="this.style.transform='scale(1)'"></div>
+  <div style="width:1px;height:16px;background:rgba(255,255,255,.15);margin:0 auto;"></div>
+  <div class="tt" style="display:none;position:absolute;bottom:130%;left:50%;transform:translateX(-50%);background:#1e2029;border:1px solid var(--border);border-radius:6px;padding:9px 12px;font-size:.75rem;width:220px;box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:100;pointer-events:none;line-height:1.5;"><div style="color:var(--muted);font-size:.7rem">7:22 – top-side jungle</div><div style="font-weight:600;margin:3px 0">Kills Skarner</div><div>Ganked top lane, picks up Skarner kill. BodaciousMango assist.</div></div>
+</div><div style="position:absolute;top:4px;left:51.22%;transform:translateX(-50%);cursor:pointer;z-index:10;"
+  onmouseover="this.querySelector('.tt').style.display='block'"
+  onmouseout="this.querySelector('.tt').style.display='none'">
+  <div style="width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-bottom:12px solid #3dca7e;transition:transform .15s;"
+       onmouseover="this.style.transform='scale(1.4)'" onmouseout="this.style.transform='scale(1)'"></div>
+  <div style="width:1px;height:16px;background:rgba(255,255,255,.15);margin:0 auto;"></div>
+  <div class="tt" style="display:none;position:absolute;bottom:130%;left:50%;transform:translateX(-50%);background:#1e2029;border:1px solid var(--border);border-radius:6px;padding:9px 12px;font-size:.75rem;width:220px;box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:100;pointer-events:none;line-height:1.5;"><div style="color:var(--muted);font-size:.7rem">16:09 – top side</div><div style="font-weight:600;margin:3px 0">Rift Herald Secured</div><div>Solo Rift Herald pickup. Converts to tower pressure later.</div></div>
+</div><div style="position:absolute;top:4px;left:63.27%;transform:translateX(-50%);cursor:pointer;z-index:10;"
+  onmouseover="this.querySelector('.tt').style.display='block'"
+  onmouseout="this.querySelector('.tt').style.display='none'">
+  <div style="width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-bottom:12px solid #4e9eff;transition:transform .15s;"
+       onmouseover="this.style.transform='scale(1.4)'" onmouseout="this.style.transform='scale(1)'"></div>
+  <div style="width:1px;height:16px;background:rgba(255,255,255,.15);margin:0 auto;"></div>
+  <div class="tt" style="display:none;position:absolute;bottom:130%;left:50%;transform:translateX(-50%);background:#1e2029;border:1px solid var(--border);border-radius:6px;padding:9px 12px;font-size:.75rem;width:220px;box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:100;pointer-events:none;line-height:1.5;"><div style="color:var(--muted);font-size:.7rem">19:57 – dragon pit</div><div style="font-weight:600;margin:3px 0">Blue Team First Dragon</div><div>Secured first dragon for Blue team. Then immediately proceeded to die. Classic.</div></div>
+</div><div style="position:absolute;top:4px;left:79.92%;transform:translateX(-50%);cursor:pointer;z-index:10;"
+  onmouseover="this.querySelector('.tt').style.display='block'"
+  onmouseout="this.querySelector('.tt').style.display='none'">
+  <div style="width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-bottom:12px solid #3dca7e;transition:transform .15s;"
+       onmouseover="this.style.transform='scale(1.4)'" onmouseout="this.style.transform='scale(1)'"></div>
+  <div style="width:1px;height:16px;background:rgba(255,255,255,.15);margin:0 auto;"></div>
+  <div class="tt" style="display:none;position:absolute;bottom:130%;left:50%;transform:translateX(-50%);background:#1e2029;border:1px solid var(--border);border-radius:6px;padding:9px 12px;font-size:.75rem;width:220px;box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:100;pointer-events:none;line-height:1.5;"><div style="color:var(--muted);font-size:.7rem">25:12 – dragon pit</div><div style="font-weight:600;margin:3px 0">Second Dragon for Blue</div><div>Dragon Soul secured. Blue team 2–2 on dragons.</div></div>
+</div><div style="position:absolute;top:4px;left:94.98%;transform:translateX(-50%);cursor:pointer;z-index:10;"
+  onmouseover="this.querySelector('.tt').style.display='block'"
+  onmouseout="this.querySelector('.tt').style.display='none'">
+  <div style="width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-bottom:12px solid #c89b3c;transition:transform .15s;"
+       onmouseover="this.style.transform='scale(1.4)'" onmouseout="this.style.transform='scale(1)'"></div>
+  <div style="width:1px;height:16px;background:rgba(255,255,255,.15);margin:0 auto;"></div>
+  <div class="tt" style="display:none;position:absolute;bottom:auto;top:130%;left:50%;transform:translateX(-50%);background:#1e2029;border:1px solid var(--border);border-radius:6px;padding:9px 12px;font-size:.75rem;width:220px;box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:100;pointer-events:none;line-height:1.5;"><div style="color:var(--muted);font-size:.7rem">29:57 – Baron pit</div><div style="font-weight:600;margin:3px 0">Solo Baron Nashor</div><div>Soloed Baron while Red team was disorganized. The one thing Shaco mains are genuinely built for.</div></div>
+</div><div style="position:absolute;top:46px;left:42.55%;transform:translateX(-50%);cursor:pointer;z-index:10;"
+  onmouseover="this.querySelector('.tt').style.display='block'"
+  onmouseout="this.querySelector('.tt').style.display='none'">
+  <div style="width:1px;height:16px;background:rgba(255,255,255,.15);margin:0 auto;"></div>
+  <div style="width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-top:12px solid #e55c5c;transition:transform .15s;"
+       onmouseover="this.style.transform='scale(1.4)'" onmouseout="this.style.transform='scale(1)'"></div>
+  <div class="tt" style="display:none;position:absolute;bottom:130%;left:50%;transform:translateX(-50%);background:#1e2029;border:1px solid var(--border);border-radius:6px;padding:9px 12px;font-size:.75rem;width:220px;box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:100;pointer-events:none;line-height:1.5;"><div style="color:var(--muted);font-size:.7rem">13:25 – bot-side river</div><div style="font-weight:600;margin:3px 0">Death 1: Post-Teamfight Cleanup</div><div>Secured 2 kills in the 3-for-1 fight. Died 1 second later. Viktor diff.</div></div>
+</div><div style="position:absolute;top:46px;left:63.32%;transform:translateX(-50%);cursor:pointer;z-index:10;"
+  onmouseover="this.querySelector('.tt').style.display='block'"
+  onmouseout="this.querySelector('.tt').style.display='none'">
+  <div style="width:1px;height:16px;background:rgba(255,255,255,.15);margin:0 auto;"></div>
+  <div style="width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-top:12px solid #e55c5c;transition:transform .15s;"
+       onmouseover="this.style.transform='scale(1.4)'" onmouseout="this.style.transform='scale(1)'"></div>
+  <div class="tt" style="display:none;position:absolute;bottom:130%;left:50%;transform:translateX(-50%);background:#1e2029;border:1px solid var(--border);border-radius:6px;padding:9px 12px;font-size:.75rem;width:220px;box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:100;pointer-events:none;line-height:1.5;"><div style="color:var(--muted);font-size:.7rem">19:58 – dragon pit</div><div style="font-weight:600;margin:3px 0">Death 2: 5v1 at Dragon Pit</div><div>Died to all 5 enemies 1 second after securing dragon. Skill issue. This is jg diff territory.</div></div>
+</div><div style="position:absolute;top:46px;left:72.83%;transform:translateX(-50%);cursor:pointer;z-index:10;"
+  onmouseover="this.querySelector('.tt').style.display='block'"
+  onmouseout="this.querySelector('.tt').style.display='none'">
+  <div style="width:1px;height:16px;background:rgba(255,255,255,.15);margin:0 auto;"></div>
+  <div style="width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-top:12px solid #f0b429;transition:transform .15s;"
+       onmouseover="this.style.transform='scale(1.4)'" onmouseout="this.style.transform='scale(1)'"></div>
+  <div class="tt" style="display:none;position:absolute;bottom:130%;left:50%;transform:translateX(-50%);background:#1e2029;border:1px solid var(--border);border-radius:6px;padding:9px 12px;font-size:.75rem;width:220px;box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:100;pointer-events:none;line-height:1.5;"><div style="color:var(--muted);font-size:.7rem">22:58 – top-side jungle</div><div style="font-weight:600;margin:3px 0">Death 3: Caught Top-Side</div><div>Caught by Viktor + Dr. Mundo in the top-side jungle. Over-extended without vision.</div></div>
+</div><div style="position:absolute;top:46px;left:86.73%;transform:translateX(-50%);cursor:pointer;z-index:10;"
+  onmouseover="this.querySelector('.tt').style.display='block'"
+  onmouseout="this.querySelector('.tt').style.display='none'">
+  <div style="width:1px;height:16px;background:rgba(255,255,255,.15);margin:0 auto;"></div>
+  <div style="width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-top:12px solid #f0b429;transition:transform .15s;"
+       onmouseover="this.style.transform='scale(1.4)'" onmouseout="this.style.transform='scale(1)'"></div>
+  <div class="tt" style="display:none;position:absolute;bottom:130%;left:50%;transform:translateX(-50%);background:#1e2029;border:1px solid var(--border);border-radius:6px;padding:9px 12px;font-size:.75rem;width:220px;box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:100;pointer-events:none;line-height:1.5;"><div style="color:var(--muted);font-size:.7rem">27:21 – mid river</div><div style="font-weight:600;margin:3px 0">Death 4: Mid River</div><div>Caught by Viktor + Rakan in the mid-side river. Same pattern as death 3: no vision, no peel.</div></div>
+</div></div>
+    <div style="display:flex;justify-content:space-between;font-size:.65rem;color:var(--muted);margin-top:2px;">
+      <span>0:00</span><span>7:50</span><span>15:40</span><span>23:30</span><span>31:32</span>
+    </div>
+  </div>
+</div>
+
+<div class="phase-div">Phase 1 — Draft</div>
+
+<div class="phase-overview">
+  <div class="phase-overview-label">Draft Context</div>
+  <div class="lane-row"><span class="lane-tag">TOP</span><span class="lane-text">Kled vs Skarner – Skarner has a slight edge in the 1v1 (56% win rate) but Kled's remount mechanic makes him hard to 1-shot. Teamfight is roughly neutral.</span></div><div class="lane-row"><span class="lane-tag you">JGL ←</span><span class="lane-text">Shaco vs Dr. Mundo – Shaco is a high-agency, skirmish-heavy jungler; Mundo is a farming tank. Early Shaco wins the 1v1 handily if he invades (which he did). Mundo outscales into late if left alone. You did not leave him alone.</span></div><div class="lane-row"><span class="lane-tag">MID</span><span class="lane-text">Ahri vs Yone – Ahri has a small early roam advantage; Yone has better mid-game scaling. Both need to hit level 6 to fully activate.</span></div><div class="lane-row"><span class="lane-tag">BOT</span><span class="lane-text">Ashe + Lulu vs Viktor + Rakan – Viktor is an unconventional ADC pick with massive late-game scaling. Rakan's engage pairs with Mundo + Skarner for a triple-engage lineup.</span></div>
+  <div class="overview-note">Your comp's win condition: Shaco snowballs early, Ally Ashe + Ally Lulu scale into hypercarry. Enemy Mundo + Skarner + Rakan exist to dive the backline. Your job: make Mundo's life miserable before he scales. You did this, which is the only reason this section is not labeled 'skill issue'.</div>
+</div>
+
+<div class="finding" style="border-left:3px solid #3dca7e;">
+  <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+    <span class="badge badge-ts">Pre-game</span>
+    <span class="badge badge-pos">▲ POSITIVE</span>
+    <span class="badge badge-lens">DRAFT</span>
+    
+  </div>
+  <div class="finding-title">Shaco into Dr. Mundo – Correct Early-Game Answer</div>
+  <div class="finding-body">The Shaco pick gave Blue team a legitimate answer to Enemy Dr. Mundo's scaling: invade early, starve his camps, deny his pathing, and prevent the 20-minute Dr. Mundo who heals 20% max HP per R cast. Umbral Glaive rush at 9:04 is correct – ward clearing denies Red team's vision setup for Mundo's jungle routes.</div>
+  <div class="finding-fix"><span class="fix-lbl pos">Keep doing this:</span> This was the right call. Execute it by staying on Mundo's path as long as he's farmable.</div>
+</div>
+
+<div class="phase-div">Phase 2 — Early Game (0–14 min)</div>
+
+<div class="phase-overview">
+  <div class="phase-overview-label">Early Game Context</div>
+  <div class="lane-row"><span class="lane-tag you">JGL ←</span><span class="lane-text">Shaco invaded enemy red-side jungle at game start, soloing Dr. Mundo for first blood at 2:57. This immediately established lane priority for Blue team and forced Red team to play reactive. Shaco then pathed top-side for Void Grubs (8:37–8:52) before Dr. Mundo could contest.</span></div><div class="lane-row"><span class="lane-tag">BOT</span><span class="lane-text">With Dr. Mundo occupied by Shaco pressure, bot lane had a freer laning phase. Blue team won a 2v2 kill exchange at 5:49–5:57. Dr. Mundo's bot dive ganks at 9:52 and 11:02 succeeded partly because Shaco was elsewhere securing Void Grubs and Ahri kills.</span></div><div class="lane-row"><span class="lane-tag">MID</span><span class="lane-text">Shaco ganked mid at 8:14 and 11:00, both times picking up Yone kills. Yone ended 1/5 – these mid ganks directly suppressed Red team's second-best scaling threat.</span></div>
+  <div class="overview-note">The jungler pathing read here was broadly correct: Mundo was forced into a losing 1v1 at 2:57, then denied Void Grubs, then denied mid lane with two Yone kills. The 19:57 dragon was Blue's first objective of the game — Red went 2-0 on drakes early while Shaco was collecting kills.</div>
+</div>
+
+<div class="finding" style="border-left:3px solid #4e9eff;">
+  <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+    <span class="badge badge-ts">2:57 | enemy red-side jungle</span>
+    <span class="badge badge-posH">▲ HIGH IMPACT</span>
+    <span class="badge badge-lens">WIN CONDITION</span>
+    
+  </div>
+  <div class="finding-title">First Blood: Invaded Enemy Jungle Solo</div>
+  <div class="finding-body">Ally Shaco walked into Enemy Dr. Mundo's red-side jungle at 2:57 and killed him without assistance – x:13171, y:6125. No vision, no peel, no backup plan. Either elite read on Mundo's starting position or pure Shaco main energy. Results are the same: first blood, immediate gold lead, and Enemy Dr. Mundo playing from behind for the rest of laning phase.</div>
+  <div class="finding-fix"><span class="fix-lbl pos">Keep doing this:</span> This set the tone for the entire early game. Keep doing this.</div>
+</div>
+
+<div class="finding" style="border-left:3px solid #3dca7e;">
+  <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+    <span class="badge badge-ts">8:37–8:52 | top-side river</span>
+    <span class="badge badge-pos">▲ KEY OBJECTIVE</span>
+    <span class="badge badge-lens">OBJECTIVE PRIORITY</span>
+    
+  </div>
+  <div class="finding-title">All 3 Void Grubs Secured</div>
+  <div class="finding-body">Ally Shaco secured all three Void Grubs consecutively (8:37, 8:49, 8:52) in the top-side river before Enemy Dr. Mundo could contest. Blue team held the 6-stack Voidmite buff which contributed sustained tower pressure throughout the game. This is the kind of Void Grub clear that ends careers.</div>
+  <div class="finding-fix"><span class="fix-lbl pos">Keep doing this:</span> Void Grub control was the correct call at this exact timing window. Nothing to change here.</div>
+</div>
+
+<div class="finding" style="border-left:3px solid #3dca7e;">
+  <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+    <span class="badge badge-ts">8:14 + 11:00 | mid lane</span>
+    <span class="badge badge-pos">▲ POSITIVE</span>
+    <span class="badge badge-lens">DECISION AUDIT</span>
+    
+  </div>
+  <div class="finding-title">Two Mid Ganks Suppress Yone</div>
+  <div class="finding-body">Ally Shaco ganked mid lane at 8:14 (kills Enemy Yone with Ally Ahri assist) and again at 11:00 (kills Enemy Yone with Ally Ahri assist). Enemy Yone ended 1/5 – these two ganks were directly responsible. Yone is a scaling assassin who becomes nearly unkillable if he gets BotRK + Immortal Shieldbow online; keeping him at 1/5 through mid game removed one of Red's win conditions.</div>
+  <div class="finding-fix"><span class="fix-lbl pos">Keep doing this:</span> Correct priority. Yone needed to be shut down early and he was.</div>
+</div>
+
+<div class="finding" style="border-left:3px solid #f0b429;">
+  <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+    <span class="badge badge-ts">13:25 | bot-side river</span>
+    <span class="badge badge-med">▼ MEDIUM IMPACT</span>
+    <span class="badge badge-lens">DECISION AUDIT</span>
+    <span class="badge badge-joke" style="margin-left:4px;">🃏 SKILL ISSUE</span>
+  </div>
+  <div class="finding-title">Died One Second After the Fight Ended</div>
+  <div class="finding-body">Ally Shaco secured kills on Enemy Rakan (13:15) and Enemy Dr. Mundo (13:22) in the bot-side 3-for-1 cleanup. Enemy Viktor then killed Ally Shaco at 13:25 – three seconds later – with Enemy Dr. Mundo and Enemy Rakan assisting. The fight was won. You walked into Viktor's range for the celebration.</div>
+  <div class="finding-fix"><span class="fix-lbl ">Joke:</span> After securing multiple kills in a teamfight, check your health before following up. Viktor was the primary Red carry – standing in his range at low HP after a fight is a Viktor diff waiting to happen.</div>
+</div>
+
+<div class="phase-div">Phase 3 — Mid Game (14–25 min)</div>
+
+<div class="phase-overview">
+  <div class="phase-overview-label">Mid Game Context</div>
+  <div class="lane-row"><span class="lane-tag you">JGL ←</span><span class="lane-text">Shaco's mid-game objective path: Rift Herald at 16:09, Blue team's first dragon at 19:57. Gold lead vs Dr. Mundo: +1,228 at 10min → +1,824 at 15min → +2,330 at 20min. By every metric, jungler Shaco was winning. Then the deaths started.</span></div><div class="lane-row"><span class="lane-tag">BOT</span><span class="lane-text">Ashe vs Viktor gold differential swung from -180 at 10min to -1,288 at 15min. Viktor (AP ADC) scaled aggressively through mid game and ended with 30,093 damage – the highest in the game.</span></div><div class="lane-row"><span class="lane-tag">MID</span><span class="lane-text">Ahri had +473 gold on Yone at 15min but this advantage compressed to +111 by 20min despite Yone going 1/5. Ahri's roaming wasn't converting efficiently enough into objective control.</span></div>
+  <div class="overview-note">Red team's Skarner + Rakan + Mundo engage lineup started showing up in mid game. The 23:35 teamfight collapse cost Blue team three champions. At the time this happened, Shaco had already made three post-objective deaths that gave Red team enough gold to contest.</div>
+</div>
+
+<div class="finding" style="border-left:3px solid #4e9eff;">
+  <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+    <span class="badge badge-ts">16:09 | top-side river</span>
+    <span class="badge badge-posH">▲ HIGH IMPACT</span>
+    <span class="badge badge-lens">OBJECTIVE PRIORITY</span>
+    
+  </div>
+  <div class="finding-title">Rift Herald Secured Solo</div>
+  <div class="finding-body">Ally Shaco secured Rift Herald solo at 16:09. Blue team's Void Grub stacks plus Herald pressure represented significant tower damage potential. This objective pickup extended the gold lead that was already building from the 3-for-1 fight.</div>
+  <div class="finding-fix"><span class="fix-lbl pos">Keep doing this:</span> Correct objective prioritization. Keep doing this.</div>
+</div>
+
+<div class="finding" style="border-left:3px solid #e55c5c;">
+  <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+    <span class="badge badge-ts">19:57–19:58 | dragon pit</span>
+    <span class="badge badge-high">▼ HIGH IMPACT</span>
+    <span class="badge badge-lens">DECISION AUDIT</span>
+    <span class="badge badge-joke" style="margin-left:4px;">🃏 SKILL ISSUE</span>
+  </div>
+  <div class="finding-title">Dragon Secured, Then Immediately 5v1'd</div>
+  <div class="finding-body">Ally Shaco secured Blue team's first dragon at 19:57. At 19:58 – one second later – Enemy Viktor killed Ally Shaco in the dragon pit with assists from Enemy Skarner, Enemy Dr. Mundo, Enemy Yone, and Enemy Rakan. That is <em>all five enemy champions</em>. Gold wasted: the bounty value of a 8-kill streak. The dragon objective was correct. Staying in the dragon pit long enough to be killed by five people is a skill issue.</div>
+  <div class="finding-fix"><span class="fix-lbl ">Joke:</span> After securing an objective at a contested location, flash out or use Deceive immediately. Do not stand in the objective pit after taking it.</div>
+</div>
+
+<div class="finding" style="border-left:3px solid #f0b429;">
+  <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+    <span class="badge badge-ts">22:58 | top-side jungle</span>
+    <span class="badge badge-med">▼ MEDIUM IMPACT</span>
+    <span class="badge badge-lens">DECISION AUDIT</span>
+    <span class="badge badge-joke" style="margin-left:4px;">🃏 SKILL ISSUE</span>
+  </div>
+  <div class="finding-title">Caught Again Without Vision</div>
+  <div class="finding-body">Enemy Viktor and Enemy Dr. Mundo killed Ally Shaco in the top-side jungle at 22:58. Position: x:8592, y:11274. This is a recurring death pattern: no control wards in high-traffic corridors, caught without teammates nearby. At 22:58, Blue team had recently reset and Red team's locations were unknown – exact conditions for getting caught.</div>
+  <div class="finding-fix"><span class="fix-lbl ">Joke:</span> Plant a control ward in the top-side tri-brush or river entry before pathing deep. You have Umbral Glaive which reveals and destroys wards. Use it proactively rather than reactively. One ward placed earlier saves a death here.</div>
+</div>
+
+<div class="finding" style="border-left:3px solid #f0b429;">
+  <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+    <span class="badge badge-ts">27:21 | mid-side river</span>
+    <span class="badge badge-med">▼ MEDIUM IMPACT</span>
+    <span class="badge badge-lens">DECISION AUDIT</span>
+    <span class="badge badge-joke" style="margin-left:4px;">🃏 SKILL ISSUE</span>
+  </div>
+  <div class="finding-title">Mid River Death – Same Cause, Same Fix</div>
+  <div class="finding-body">Enemy Viktor and Enemy Rakan caught Ally Shaco in the mid-side river at 27:21. Fourth death, third time caught by Viktor with a partner in an unwarded corridor. The pattern: Shaco moves through map without vision, Viktor finds him, kill. This is not bad luck. This is a vision score of 28 and 1 control ward expressing themselves as deaths.</div>
+  <div class="finding-fix"><span class="fix-lbl ">Joke:</span> The fix is identical to deaths 2, 3, and 4: place control wards in travel corridors before pathing through them. This costs 75 gold per ward. Each death costs significantly more.</div>
+</div>
+
+<div class="phase-div">Phase 4 — Late Game (25+ min)</div>
+
+<div class="phase-overview">
+  <div class="phase-overview-label">Late Game Context</div>
+  <div class="lane-row"><span class="lane-tag you">JGL ←</span><span class="lane-text">Despite four deaths between 13:25 and 27:21, Shaco's gold lead vs Dr. Mundo held at +2,350 at 25min. Red team had compressed the game to essentially even at the 23:35 teamfight (-913 gold overall), but couldn't finish. Solo Baron at 29:57 was the difference.</span></div><div class="lane-row"><span class="lane-tag">TEAM</span><span class="lane-text">Blue team had all five alive with Baron buff when the 30:31 fight started. Five enemies with no Baron buff and respawn timers. The 5-for-0 fight took 23 seconds.</span></div>
+  <div class="overview-note">This was the payoff for the early snowball. Shaco's gold lead survived four deaths because the early objectives were so dominant. The Baron secure was the correct read on Red team's disorganization.</div>
+</div>
+
+<div class="finding" style="border-left:3px solid #4e9eff;">
+  <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+    <span class="badge badge-ts">29:57 | Baron pit</span>
+    <span class="badge badge-posH">▲ HIGH IMPACT</span>
+    <span class="badge badge-lens">WIN CONDITION</span>
+    
+  </div>
+  <div class="finding-title">Solo Baron Nashor</div>
+  <div class="finding-body">Ally Shaco solo-killed Baron Nashor at 29:57 while Red team was disorganized and unable to contest. This is the single most impactful mechanical play of the game. Blue team was at –913 gold at 25 minutes; Baron buff converted that into a 5-for-0 teamfight 34 seconds later and the nexus fell at 31:25.</div>
+  <div class="finding-fix"><span class="fix-lbl pos">Keep doing this:</span> Perfect read on the window. This is the thing Shaco mains are genuinely built for. No notes, except that maybe placing 1 control ward for the Baron you're about to solo after 29 minutes of zero vision investment is the bare minimum, not an achievement.</div>
+</div>
+
+<div class="finding" style="border-left:3px solid #3dca7e;">
+  <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+    <span class="badge badge-ts">30:31–30:54 | bot-side river to mid lane</span>
+    <span class="badge badge-pos">▲ HIGH IMPACT</span>
+    <span class="badge badge-lens">TEAMFIGHT BREAKDOWN</span>
+    
+  </div>
+  <div class="finding-title">5-for-0 Baron Teamfight</div>
+  <div class="finding-body">Blue team kills all five Red champions in 23 seconds with Baron buff active. Ally Shaco assists on Enemy Yone (30:31) and assists on cleanup. Mid inhibitor at 31:15, nexus at 31:25.</div>
+  <div class="finding-fix"><span class="fix-lbl pos">Keep doing this:</span> Correct execution. The Baron buff did exactly what it was supposed to do.</div>
+</div>
+
+<h2>The 3 Swing Moments</h2>
+
+<div class="swing-card" style="border-left:3px solid #4e9eff;">
+  <div class="swing-title"><span class="badge badge-ts">2:57 | enemy red-side jungle</span> First Blood and the Snowball Foundation</div>
+  <div style="color:#b8bdd4;font-size:.875rem;line-height:1.6;">Ally Shaco invaded Enemy Dr. Mundo's red-side jungle at 2:57 and killed him without assistance for first blood. Blue team never trailed in the Shaco vs. Mundo gold matchup from this point forward: +379 at 5min, +1,228 at 10min, +1,824 at 15min, +2,330 at 20min. The entire early game trajectory was set in the first three minutes. If Mundo doesn't die here, he becomes the unkillable front line he was designed to be. Instead he went 4/5.</div>
+</div>
+
+<div class="swing-card" style="border-left:3px solid #e55c5c;">
+  <div class="swing-title"><span class="badge badge-ts">19:58 | dragon pit</span> The Dragon Pit Incident</div>
+  <div style="color:#b8bdd4;font-size:.875rem;line-height:1.6;">Ally Shaco secured Blue team's first dragon at 19:57 and then died to all five Red team members in the dragon pit at 19:58 – one second later. Gold differential between teams was +216 at 20 minutes. This fight, combined with the 23:35 collapse, turned a comfortable lead into –913 at 25 minutes. The dragon was correct. The decision to remain in the dragon pit long enough to be killed by five enemies is what the word 'skill issue' was coined to describe.</div>
+</div>
+
+<div class="swing-card" style="border-left:3px solid #c89b3c;">
+  <div class="swing-title"><span class="badge badge-ts">29:57–31:25 | Baron pit and mid lane</span> Baron, 5-for-0, and Game Over</div>
+  <div style="color:#b8bdd4;font-size:.875rem;line-height:1.6;">Ally Shaco solo-cleared Baron Nashor at 29:57 with Red team disorganized. Blue team then killed all five Red champions in 23 seconds at 30:31 using Baron buff. Mid inhibitor fell at 31:15, nexus at 31:25. The –913 gold deficit at 25 minutes became irrelevant in under five minutes. This is the game. This is also the exact reason Shaco mains exist: no other champion commits to a solo Baron at 29:57 with the same conviction. The fact that this requires ignoring four deaths and one control ward placed all game does not diminish it.</div>
+</div>
+
+<h2>3 Things To Work On</h2>
+
+<div class="workon-card">
+  <span class="workon-num">1.</span>
+  <div class="workon-title">Vision Control – 1 Control Ward the Entire Game</div>
+  <div class="workon-body">You placed exactly 1 control ward this game, at 29:20, right before soloing Baron. That is the same number of control wards your team's top laner placed (also 1). Your support placed 112 vision score worth of wards while you placed 28. As a jungler, the standard is ≥1.0 vision score per minute, which would mean ~31 points in this 31-minute game – you hit that benchmark barely, but your 1 control ward means all your vision came from yellow trinket sweeps. Three of your four deaths came from being caught in unwarded corridors by Viktor. Buying 2–3 control wards per game (75g each) and placing them in high-traffic paths – baron pit entry, mid river, top river – removes at minimum deaths 3 and 4 from this game. Jg diff is real when you have no idea where the enemy jungler is. The enemy did not have this problem because you were always visible somewhere after dying.</div>
+</div>
+
+<div class="workon-card">
+  <span class="workon-num">2.</span>
+  <div class="workon-title">Post-Objective Discipline</div>
+  <div class="workon-body">Three of your four deaths followed the same pattern: you secure something (kill, dragon, position) and then don't leave. Death 1 at 13:25: secured 2 kills in the teamfight, died 1 second later to Viktor cleanup. Death 2 at 19:58: secured dragon, died 1 second later to all five enemies. Death 3 at 22:58: caught deep in top jungle with no vision after recently taking territory. The fix is a 2-second habit: after any objective or kill, before doing anything else, ask 'where are the enemies I cannot see?' If you can't answer it, press Deceive and leave. The dragon objective at 19:57 was perfectly executed. The 0.5 seconds of inertia that followed it was a skill issue.</div>
+</div>
+
+<div class="workon-card">
+  <span class="workon-num">3.</span>
+  <div class="workon-title">The Shaco Main Condition: Visibility = Vulnerability</div>
+  <div class="workon-body">Shaco's entire kit is designed around the enemy not knowing where you are. You play excellently when they don't (2:57 first blood, all 3 Void Grubs, mid ganks). You die when they do (deaths 2, 3, 4 – all caught in known corridors without deception tools active). The corrective is to treat every rotation as if you might be spotted: ward the corridor before entering, keep Deceive off cooldown when pathing near enemies, and do not path through mid-river at 27:21 without a ward in place when Viktor is missing. Shaco mains have historically died to this exact situation more than any other. This is not a coincidence. This is the Shaco main condition. There is no cure. There is only the control ward.</div>
+</div>
+
+<div style="border-top:1px solid var(--border);margin-top:30px;padding-top:12px;font-size:.75rem;color:var(--muted);text-align:center;">
+  <em>lol-match-analysis isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games and all associated properties are trademarks or registered trademarks of Riot Games, Inc.</em><br>
+  <em style="color:#ff69b4;">This report contains jokes. Moist carried this game. jg diff (in his favor).</em>
+</div>
+
+</body></html>
