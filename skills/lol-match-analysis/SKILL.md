@@ -402,17 +402,37 @@ late_pct  = 100 - early_pct - mid_pct          → "Late (25+)"
 **HTML skeleton:**
 ```html
 <div class="timeline-wrap">  <!-- NO overflow:hidden here — tooltips must escape freely -->
-  <div class="tl-phases" style="display:flex;height:22px;border-radius:4px;overflow:hidden;margin-bottom:8px">
-    <div style="width:{early_pct}%;background:#2563eb30;display:flex;align-items:center;
-                justify-content:center;font-size:.65rem;color:rgba(255,255,255,.45)">Early (0–14)</div>
+  <!-- header row with legend -->
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+    <h3 style="margin-bottom:0">Match Timeline</h3>
+    <div style="display:flex;gap:14px;font-size:.65rem;color:var(--muted)">
+      <span style="display:flex;align-items:center;gap:5px">
+        <span style="display:inline-flex;flex-direction:column;align-items:center;gap:2px">
+          <span style="width:8px;height:8px;border-radius:50%;background:var(--green);display:block"></span>
+          <span style="width:1px;height:6px;background:rgba(255,255,255,.3);display:block"></span>
+        </span>positive
+      </span>
+      <span style="display:flex;align-items:center;gap:5px">
+        <span style="display:inline-flex;flex-direction:column;align-items:center;gap:2px">
+          <span style="width:1px;height:6px;background:rgba(255,255,255,.3);display:block"></span>
+          <span style="width:8px;height:8px;border-radius:50%;background:var(--red);display:block"></span>
+        </span>negative
+      </span>
+    </div>
+  </div>
+  <div class="tl-phases" style="display:flex;height:22px;border-radius:4px;overflow:hidden;margin-bottom:10px">
+    <div style="width:{early_pct}%;background:#2563eb30;...">Early (0–14)</div>
     <div style="width:{mid_pct}%;background:#7c3aed30;...">Mid (14–25)</div>
     <div style="width:{late_pct}%;background:#c026d330;...">Late (25+)</div>
   </div>
   <!-- vertical phase-divider lines at early/mid and mid/late percentages -->
   <div style="position:relative">
-    <div style="height:6px;background:var(--border);border-radius:3px"></div>  <!-- ruler -->
-    <div style="position:relative;height:56px">   <!-- markers row -->
-      <!-- one marker per notable event -->
+    <!-- markers area: ruler is centred at top:40px inside this div -->
+    <div class="tl-markers" style="position:relative;height:88px">
+      <!-- ruler -->
+      <div style="position:absolute;top:40px;left:0;right:0;height:6px;
+                  background:var(--border);border-radius:3px;z-index:2;pointer-events:none"></div>
+      <!-- positive and negative markers (see below) -->
     </div>
     <div style="display:flex;justify-content:space-between;font-size:.65rem;color:var(--muted)">
       <span>0:00</span> ... <span>{total}</span>
@@ -421,37 +441,41 @@ late_pct  = 100 - early_pct - mid_pct          → "Late (25+)"
 </div>
 ```
 
-**Each event marker:**
+**Positive event marker** (above ruler — pin floats up, stem points down to bar):
 ```html
-<div style="position:absolute;top:6px;left:{pct}%;transform:translateX(-50%);cursor:pointer;z-index:10">
+<div style="position:absolute;top:4px;left:{pct}%;transform:translateX(-50%);cursor:pointer;z-index:10"
+     onmouseenter="this.querySelector('.tooltip').style.display='block'"
+     onmouseleave="this.querySelector('.tooltip').style.display='none'">
   <div style="width:12px;height:12px;border-radius:50%;background:{severityColor};
               border:2px solid var(--bg);transition:transform .15s"
-       onmouseover="this.style.transform='scale(1.5)'"
-       onmouseout="this.style.transform='scale(1)'"></div>
-  <div style="width:1px;height:10px;background:rgba(255,255,255,.2);margin:0 auto"></div>
-  <div class="tooltip" style="display:none;position:absolute;bottom:130%;left:50%;
-       transform:translateX(-50%);background:#1e2029;border:1px solid var(--border);
-       border-radius:6px;padding:9px 12px;font-size:.75rem;width:220px;
-       box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:100;pointer-events:none;line-height:1.5;
-       {flip: bottom:auto;top:130% if left% > 65}">
-    <div style="color:var(--muted);font-size:.7rem">{MM:SS} — {location}</div>
-    <div style="font-weight:600;margin:3px 0">
-      <img src="{champIcon}" style="width:16px;height:16px;border-radius:3px;vertical-align:middle;
-           margin-right:4px" onerror="this.style.display='none'">{title}
-    </div>
-    <div style="font-size:.68rem;color:{severityColor}">{severity label}</div>
-    <div style="margin-top:5px;color:#b0b8d0;font-size:.72rem">{one-line summary}</div>
+       onmouseover="this.style.transform='scale(1.5)'" onmouseout="this.style.transform='scale(1)'"></div>
+  <div style="width:1px;height:24px;background:rgba(255,255,255,.25);margin:0 auto"></div>
+  <!-- tooltip opens UPWARD from pin; flip right when left% > 65 -->
+  <div class="tooltip" style="display:none;position:absolute;bottom:calc(100% + 6px);left:50%;
+       transform:translateX(-50%);...{flip: right:0;left:auto;transform:none if left%>65}">
+    ...
   </div>
 </div>
 ```
 
-Tooltip show/hide via inline JS on the parent div:
+**Negative event marker** (below ruler — stem drops from bar, pin hangs at bottom):
 ```html
-onmouseenter="this.querySelector('.tooltip').style.display='block'"
-onmouseleave="this.querySelector('.tooltip').style.display='none'"
+<div style="position:absolute;top:46px;left:{pct}%;transform:translateX(-50%);cursor:pointer;z-index:10"
+     onmouseenter="this.querySelector('.tooltip').style.display='block'"
+     onmouseleave="this.querySelector('.tooltip').style.display='none'">
+  <div style="width:1px;height:16px;background:rgba(255,255,255,.25);margin:0 auto"></div>
+  <div style="width:12px;height:12px;border-radius:50%;background:{severityColor};
+              border:2px solid var(--bg);transition:transform .15s;margin:0 auto"
+       onmouseover="this.style.transform='scale(1.5)'" onmouseout="this.style.transform='scale(1)'"></div>
+  <!-- tooltip opens DOWNWARD from pin; flip right when left% > 65 -->
+  <div class="tooltip" style="display:none;position:absolute;top:calc(100% + 6px);left:50%;
+       transform:translateX(-50%);...{flip: right:0;left:auto;transform:none if left%>65}">
+    ...
+  </div>
+</div>
 ```
 
-Pin size: 14–16px for HIGH/key positive events; 12px default. Flip tooltip (bottom→top of marker) when `left% > 65` to avoid running off the right edge.
+Pin size: 14px for HIGH/key events, 12px default. Positive = above ruler (top:4px). Negative = below ruler (top:46px). Flip tooltip horizontal alignment when `left% > 65` to avoid right-edge overflow.
 
 **CRITICAL:** `.timeline-wrap` must NOT have `overflow:hidden`. The phase band `<div>` gets `overflow:hidden` for its own rounded corners, but the outer wrapper must let tooltips escape.
 
