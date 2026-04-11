@@ -301,6 +301,11 @@ Create the `reviews/` directory first with a Bash `mkdir -p` call if it doesn't 
 
 After saving the markdown, also write a self-contained `.html` file at the same path (same base name, `.html` extension). It must work by opening it in any browser with no server — all assets loaded from URLs, no local dependencies.
 
+The `<head>` must include a favicon set to the played champion's ddragon portrait:
+```html
+<link rel="icon" type="image/png" href="https://ddragon.leagueoflegends.com/cdn/{VERSION}/img/champion/{ddragonKey}.png">
+```
+
 ### 7a — Resolve ddragon version and asset URLs
 
 ```bash
