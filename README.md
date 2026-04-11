@@ -63,7 +63,11 @@ Go to [nodejs.org/en/download](https://nodejs.org/en/download) and click the gre
 Go to [git-scm.com/downloads/win](https://git-scm.com/downloads/win) and click the download button for the 64-bit installer. Required for Claude Code to work on Windows.
 
 **3. Install Claude Code**
-Open PowerShell (search "PowerShell" in the Start menu) and paste:
+Open PowerShell (search "PowerShell" in the Start menu) and paste these **two commands**, one at a time:
+```powershell
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+```
+*(This unlocks script execution – Windows blocks it by default. Hit Enter when prompted.)*
 ```powershell
 irm https://claude.ai/install.ps1 | iex
 ```
@@ -94,6 +98,12 @@ You need to close your Terminal or PowerShell window completely and reopen it af
 If it still doesn't work after reopening:
 - **Mac:** Run `echo $PATH` and confirm it includes `~/.npm-global/bin` or wherever Claude Code was installed. If not, re-run the install script in the new terminal window.
 - **Windows:** Make sure you installed Git for Windows (Step 2) before Claude Code. Some Windows setups also require running PowerShell as Administrator for the install to complete.
+
+**`execution of scripts is disabled on this system` (Windows)**
+PowerShell blocks scripts by default. Run this first, then re-run the Claude Code install:
+```powershell
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+```
 
 ---
 
