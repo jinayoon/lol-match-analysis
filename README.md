@@ -31,11 +31,14 @@ I find it most helpful to generate and read the analysis right after a game whil
 Go to [nodejs.org/en/download](https://nodejs.org/en/download) and click the green button that says **macOS Installer**. Download and run it.
 
 **2. Install Claude Code**
-Open Terminal (search "Terminal" in Spotlight) and paste:
+Open Terminal (search "Terminal" in Spotlight) and paste these **two commands**, one at a time:
 ```bash
 curl -fsSL https://claude.ai/install.sh | bash
 ```
-When it finishes, **close Terminal completely and reopen it** before continuing. This is required for the `claude` command to be recognized.
+```bash
+npm install -g @anthropic-ai/claude-code
+```
+When both finish, **close Terminal completely and reopen it** before continuing. This is required for the `claude` command to be recognized.
 
 **3. Connect your account**
 Type `claude` and hit enter. It'll open a browser to log in – follow the prompts, then come back to Terminal. Once you're in, type `/exit` to close the session.
@@ -71,7 +74,10 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 ```powershell
 irm https://claude.ai/install.ps1 | iex
 ```
-When it finishes, **close PowerShell completely and reopen it** before continuing. This is required for the `claude` command to be recognized.
+```powershell
+npm install -g @anthropic-ai/claude-code
+```
+When both finish, **close PowerShell completely and reopen it** before continuing. This is required for the `claude` command to be recognized.
 
 **4. Connect your account**
 Type `claude` and hit enter. It'll open a browser to log in – follow the prompts, then come back to PowerShell. Once you're in, type `/exit` to close the session.
