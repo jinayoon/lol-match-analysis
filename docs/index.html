@@ -21,8 +21,6 @@ a{text-decoration:none;color:inherit}
 .session-dot{width:6px;height:6px;border-radius:50%;background:#3dca7e}
 .session-text{font-size:.75rem;color:#7b8099}
 .arrow{color:#4a4d5a;font-size:.8rem;transition:transform .2s}
-.empty-card{background:#16181f;border:1px solid #2a2d3a;border-radius:12px;padding:20px 24px;margin-bottom:12px;opacity:.5}
-.empty-card .queue-title{color:#4a4d5a}
 </style>
 </head>
 <body>
@@ -52,13 +50,25 @@ a{text-decoration:none;color:inherit}
   </div>
 </a>
 
-<div class="empty-card">
+<a class="queue-card" href="solo.html">
   <div class="queue-label">Solo/Duo Queue</div>
   <div class="queue-title">Solo Queue Reports</div>
   <div class="queue-meta">
-    <span class="queue-sub">No sessions yet</span>
+    <div class="record-badge">
+      <span style="color:#3dca7e;font-weight:700">2W</span>
+      <span style="color:#2a2d3a">·</span>
+      <span style="color:#e55c5c;font-weight:700">3L</span>
+    </div>
+    <span class="queue-sub">5 games · Patch 16.7</span>
   </div>
-</div>
+  <div class="queue-card-footer">
+    <div class="session-chip">
+      <div class="session-dot" style="background:#e55c5c"></div>
+      <span class="session-text">April 8, 2026</span>
+    </div>
+    <span class="arrow">→</span>
+  </div>
+</a>
 
 </body>
 </html>

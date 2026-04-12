@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/png" href="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Zyra.png">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ahrisoo (Zyra, Support) | WIN 32:00</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg:#0e0f14; --surface:#16181f; --surface2:#1e2029;
+  --border:#2a2d3a; --text:#dde1f0; --muted:#7b8099;
+  --blue:#4e9eff; --gold:#c89b3c; --green:#3dca7e;
+  --red:#e55c5c; --yellow:#f0b429; --purple:#9b7fe8;
+}
+body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; font-size:14px; line-height:1.6; padding:24px; max-width:960px; margin:0 auto; }
+h1 { font-size:1.5rem; font-weight:700; }
+h2 { font-size:1.1rem; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:.08em; margin:28px 0 12px; }
+h3 { font-size:.95rem; font-weight:600; margin-bottom:6px; }
+a { color:var(--blue); }
+.hero { display:flex; gap:20px; align-items:flex-start; margin-bottom:24px; }
+.hero-art { flex-shrink:0; }
+.hero-art img.loading { width:120px; height:120px; border-radius:10px; border:2px solid var(--gold); object-fit:cover; object-position:top; }
+.abilities { display:flex; gap:6px; margin-top:8px; }
+.ability-slot { text-align:center; }
+.ability-slot img { width:26px; height:26px; border-radius:4px; display:block; }
+.ability-slot span { font-size:.6rem; color:var(--muted); }
+.hero-info { flex:1; }
+.subtitle { color:var(--muted); font-size:.85rem; margin:4px 0 12px; display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
+.badge { background:var(--surface2); border:1px solid var(--border); border-radius:4px; padding:2px 8px; font-size:.75rem; font-family:monospace; }
+.badge-win  { background:#3dca7e22; color:var(--green); border:1px solid #3dca7e44; border-radius:4px; padding:2px 8px; font-size:.75rem; font-weight:600; }
+.badge-loss { background:#e55c5c22; color:var(--red);   border:1px solid #e55c5c44; border-radius:4px; padding:2px 8px; font-size:.75rem; font-weight:600; }
+.verdict-card { background:var(--surface2); border-left:3px solid var(--gold); border-radius:6px; padding:12px 14px; margin-bottom:8px; font-size:.83rem; line-height:1.6; }
+.verdict-card .label { font-size:.7rem; color:var(--muted); text-transform:uppercase; letter-spacing:.06em; margin-bottom:4px; }
+.stats-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(110px,1fr)); gap:8px; margin-bottom:24px; }
+.stat-box { background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:12px; text-align:center; }
+.stat-box .val { font-size:1.25rem; font-weight:700; }
+.stat-box .lbl { font-size:.7rem; color:var(--muted); margin-top:2px; }
+.stat-green { color:var(--green); }
+.stat-red   { color:var(--red); }
+.stat-gold  { color:var(--gold); }
+table { width:100%; border-collapse:collapse; font-size:.82rem; }
+th { background:var(--surface2); color:var(--muted); font-weight:600; text-align:left; padding:8px 10px; font-size:.75rem; text-transform:uppercase; letter-spacing:.05em; }
+td { padding:7px 10px; border-bottom:1px solid var(--border); }
+tr:last-child td { border-bottom:none; }
+tr.you td { background:#c89b3c18; }
+.you-badge { background:var(--gold); color:#000; font-size:.65rem; font-weight:700; padding:2px 6px; border-radius:3px; margin-left:6px; }
+.team-header td { background:var(--surface2); font-weight:700; font-size:.75rem; color:var(--muted); padding:6px 10px; border-bottom:1px solid var(--border); }
+.champ-cell { display:flex; align-items:center; gap:6px; }
+.champ-cell img { width:24px; height:24px; border-radius:4px; }
+.finding { border-radius:8px; padding:14px 16px; margin-bottom:10px; border:1px solid var(--border); border-left-width:3px; background:var(--surface); }
+.finding.HIGH    { border-left-color:var(--red); }
+.finding.MEDIUM  { border-left-color:var(--yellow); }
+.finding.LOW     { border-left-color:var(--green); }
+.finding.POSITIVE{ border-left-color:var(--green); background:#3dca7e0a; }
+.finding-meta { display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin-bottom:6px; }
+.ts-badge { font-family:monospace; font-size:.72rem; background:var(--surface2); padding:2px 7px; border-radius:4px; color:var(--blue); border:1px solid #4e9eff33; }
+.sev-badge { font-size:.7rem; font-weight:700; padding:2px 8px; border-radius:4px; }
+.sev-HIGH   { background:#e55c5c22; color:var(--red); }
+.sev-MEDIUM { background:#f0b42922; color:var(--yellow); }
+.sev-LOW    { background:#3dca7e22; color:var(--green); }
+.phase-badge { font-size:.7rem; background:var(--surface2); border:1px solid var(--border); padding:2px 8px; border-radius:4px; color:var(--muted); }
+.finding h3 { font-size:.9rem; }
+.finding p  { font-size:.83rem; color:#c0c5d8; margin-top:4px; }
+.fix-line   { font-size:.82rem; margin-top:6px; }
+.fix-line.err  { color:var(--blue); }
+.fix-line.pos  { color:var(--green); font-style:italic; }
+.phase-divider { display:flex; align-items:center; gap:10px; margin:24px 0 12px; }
+.phase-divider span { font-size:.68rem; font-weight:700; text-transform:uppercase; letter-spacing:.12em; color:var(--muted); white-space:nowrap; }
+.phase-divider::before, .phase-divider::after { content:''; flex:1; height:1px; background:var(--border); }
+.work-card  { border-radius:8px; padding:14px 16px; margin-bottom:10px; background:var(--surface); border:1px solid var(--border); border-left:3px solid var(--yellow); }
+.work-card h3 { font-size:.88rem; margin-bottom:8px; }
+.work-card p  { font-size:.78rem; color:#b0b8d0; line-height:1.6; }
+.gnav{position:sticky;top:0;z-index:200;height:38px;background:rgba(14,15,20,.96);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid #1e2029;display:flex;align-items:center;padding:0 24px;}
+.gnav a{display:inline-flex;align-items:center;gap:6px;color:#4a4d5a;text-decoration:none;font-size:.68rem;letter-spacing:.09em;text-transform:uppercase;font-weight:600;transition:color .2s;}
+.gnav a:hover{color:#c89b3c;}
+.gnav a svg{transition:transform .2s;}
+.gnav a:hover svg{transform:translateX(-2px);}
+@media(max-width:620px){.hero{flex-direction:column}.stats-grid{grid-template-columns:repeat(3,1fr)}}
+</style>
+</head>
+<body>
+<nav class="gnav"><a href="solo.html"><svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11 5H1M5 1L1 5L5 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Session</a></nav>
+<div class="hero">
+  <div class="hero-art">
+    <img class="loading" src="https://ddragon.leagueoflegends.com/cdn/img/champion/loading/Zyra_0.jpg" alt="Zyra" onerror="this.style.display='none'">
+    <div class="abilities"><div class="ability-slot"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/spell/ZyraQ.png" title="Q — Deadly Spines" onerror="this.style.display='none'"><span>Q</span></div><div class="ability-slot"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/spell/ZyraW.png" title="W — Garden of Thorns" onerror="this.style.display='none'"><span>W</span></div><div class="ability-slot"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/spell/ZyraE.png" title="E — Grasping Roots" onerror="this.style.display='none'"><span>E</span></div><div class="ability-slot"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/spell/ZyraR.png" title="R — Stranglethorns" onerror="this.style.display='none'"><span>R</span></div></div>
+  </div>
+  <div class="hero-info">
+    <h1>Post-Match Coaching Report</h1>
+    <div class="subtitle">
+      <span class="badge-win">WIN</span>
+      <span>Zyra · Support</span>
+      <span>·</span>
+      <span>32:00</span>
+      <span>·</span>
+      <span>Patch 16.7</span>
+      <span>·</span>
+      <span class="badge">NA1_5535342053</span>
+    </div>
+    <div class="verdict-card">
+      <div class="label">Honest Verdict</div>
+      This was a team win you personally contributed to in a big way — Zyra support dealing 40,821 damage (the highest on the entire team) while going 3/3/16 in a come-from-behind win is strong play; but you died to Enemy Jinx twice in bot lane from the same pattern, and you skipped Morellonomicon again despite buying Oblivion Orb — this is the second Zyra game in a row with this exact mistake.
+    </div>
+    <div class="verdict-card">
+      <div class="label">Game Summary</div>
+      Blue team trailed for most of this game — down 1,210 gold at 10 minutes, 3,549 at 20, and 4,989 at 25 — but Ally Amumu securing Baron at 25:31 flipped the script entirely. From virtually even at 30 minutes (-185 gold), blue team closed the game in 90 seconds with 4 straight kills in the mid lane. Ally Akali (11/4/6) was the primary carry, but Ally Zyra's plant zones and CC created the space for every major teamfight win in the final stretch. The recurring theme: blue team kept losing Ally Kayn (died 11 times) and fighting at a numbers disadvantage in the 17–21 minute window, but Enemy Thresh (1/9/12) was consistently getting caught, which let blue team trade kills unfavorably on units and stay competitive enough to reach Baron.
+    </div>
+  </div>
+</div>
+<h2>Quick Stats — ahrisoo (Zyra)</h2>
+<div class="stats-grid"><div class="stat-box"><div class="val ">3/3/16</div><div class="lbl">KDA</div></div><div class="stat-box"><div class="val ">53</div><div class="lbl">CS</div></div><div class="stat-box"><div class="val ">1.7</div><div class="lbl">CS/min</div></div><div class="stat-box"><div class="val stat-gold">10,784</div><div class="lbl">Gold</div></div><div class="stat-box"><div class="val ">40,821</div><div class="lbl">Damage</div></div><div class="stat-box"><div class="val ">23.9%</div><div class="lbl">Dmg share</div></div><div class="stat-box"><div class="val stat-green">3.06</div><div class="lbl">Vision/min</div></div><div class="stat-box"><div class="val stat-green">66%</div><div class="lbl">KP%</div></div><div class="stat-box"><div class="val stat-red">58s</div><div class="lbl">Time Dead</div></div></div>
+<h2>Team Overview</h2>
+<div style="overflow-x:auto">
+<table>
+<thead><tr><th>Player</th><th>Champion</th><th>Role</th><th>KDA</th><th>CS</th><th>Gold</th><th>Damage</th><th>KP%</th></tr></thead>
+<tbody>
+<tr><td>Player</td><td><div class="champ-cell"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Champion.png" onerror="this.style.display='none'">Champion</div></td><td style="color:var(--muted);font-size:.75rem">Role</td><td>KDA</td><td>CS</td><td>Gold</td><td>Dmg</td><td>KP%</td></tr>
+<tr class="team-header"><td colspan="8">🔵 Blue Team</td></tr>
+<tr><td>RamenRito</td><td><div class="champ-cell"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Kayn.png" onerror="this.style.display='none'">Kayn</div></td><td style="color:var(--muted);font-size:.75rem">TOP</td><td>8/11/5</td><td>202</td><td>13,332</td><td>33,101</td><td>45%</td></tr>
+<tr><td>DawnBrigade1</td><td><div class="champ-cell"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Amumu.png" onerror="this.style.display='none'">Amumu</div></td><td style="color:var(--muted);font-size:.75rem">JNG</td><td>3/5/13</td><td>177</td><td>11,341</td><td>31,233</td><td>55%</td></tr>
+<tr><td>high hopes</td><td><div class="champ-cell"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Akali.png" onerror="this.style.display='none'">Akali</div></td><td style="color:var(--muted);font-size:.75rem">MID</td><td>11/4/6</td><td>190</td><td>13,860</td><td>37,263</td><td>59%</td></tr>
+<tr><td>pinkjeans</td><td><div class="champ-cell"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Senna.png" onerror="this.style.display='none'">Senna</div></td><td style="color:var(--muted);font-size:.75rem">BOT</td><td>4/3/13</td><td>264</td><td>15,431</td><td>28,273</td><td>59%</td></tr>
+<tr class="you"><td>ahrisoo<span class="you-badge">YOU</span></td><td><div class="champ-cell"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Zyra.png" onerror="this.style.display='none'">Zyra</div></td><td style="color:var(--muted);font-size:.75rem">SUP</td><td>3/3/16</td><td>53</td><td>10,784</td><td>40,821</td><td>66%</td></tr>
+<tr class="team-header"><td colspan="8">🔴 Red Team</td></tr>
+<tr><td>SkibidiDiddy</td><td><div class="champ-cell"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/DrMundo.png" onerror="this.style.display='none'">DrMundo</div></td><td style="color:var(--muted);font-size:.75rem">TOP</td><td>6/4/9</td><td>214</td><td>14,000</td><td>31,473</td><td>58%</td></tr>
+<tr><td>paper</td><td><div class="champ-cell"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Ekko.png" onerror="this.style.display='none'">Ekko</div></td><td style="color:var(--muted);font-size:.75rem">JNG</td><td>5/5/8</td><td>209</td><td>12,645</td><td>18,863</td><td>50%</td></tr>
+<tr><td>DingusTheMan</td><td><div class="champ-cell"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Yasuo.png" onerror="this.style.display='none'">Yasuo</div></td><td style="color:var(--muted);font-size:.75rem">MID</td><td>4/5/5</td><td>270</td><td>12,481</td><td>22,390</td><td>35%</td></tr>
+<tr><td>lreaping slash</td><td><div class="champ-cell"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Jinx.png" onerror="this.style.display='none'">Jinx</div></td><td style="color:var(--muted);font-size:.75rem">BOT</td><td>10/6/6</td><td>238</td><td>14,569</td><td>28,148</td><td>62%</td></tr>
+<tr><td>Astonishedhotdog</td><td><div class="champ-cell"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Thresh.png" onerror="this.style.display='none'">Thresh</div></td><td style="color:var(--muted);font-size:.75rem">SUP</td><td>1/9/12</td><td>34</td><td>8,588</td><td>7,570</td><td>50%</td></tr>
+</tbody>
+</table>
+</div>
+<h2>Findings</h2>
+<div class="phase-divider"><span>Phase 1</span></div>
+<div class="finding LOW">
+  <div class="finding-meta"><span class="sev-badge sev-LOW">LOW</span><span class="phase-badge">DRAFT – WIN CONDITION</span></div>
+  <div style="font-size:.7rem;color:var(--muted);margin-bottom:5px">—</div>
+  <h3>Zyra is correct; your job is zone denial on Enemy Thresh's hooks</h3>
+  <p>Ally Zyra's plants punish landing positions from close-range engage supports like Enemy Thresh — if you pre-plant where Enemy Thresh is likely to W-dash or hook, he takes root damage on arrival. Ally Akali and Ally Amumu both need disengage assistance since they dive into chaotic situations. Zyra's ultimate (Stranglethorns) is perfect for this — a well-placed ult zone-denies Enemy Thresh's re-engage after Ally Akali dives.</p>
+  <div class="fix-line err">Fix: No draft issue. The issue was positioning execution, not the pick.</div>
+</div>
+<div class="finding MEDIUM">
+  <div class="finding-meta"><span class="sev-badge sev-MEDIUM">MEDIUM</span><span class="phase-badge">DRAFT – THREAT RECOGNITION</span></div>
+  <div style="font-size:.7rem;color:var(--muted);margin-bottom:5px">—</div>
+  <h3>Enemy Jinx + Enemy Thresh is a high-range hook-and-execute bot lane</h3>
+  <p>Enemy Thresh hooks, Enemy Jinx W (Zap, a long-range slow) can catch Zyra from nearly 1,000 units. Zyra's defensive answer is to stay outside Thresh W-dash range and use plants to punish any hook attempt. Instead, two of your three deaths were Jinx + Thresh coordinating on you in the bot lane.</p>
+  <div class="fix-line err">Fix: Against Thresh, plant your seeds toward him, not between you and your ADC. Force him to walk through your zone to hook, rather than standing forward of your seeds where his hook reaches you directly.</div>
+</div>
+<div class="phase-divider"><span>Phase 2</span></div>
+<div class="finding MEDIUM">
+  <div class="finding-meta"><span class="ts-badge">02:17</span><span class="sev-badge sev-MEDIUM">MEDIUM</span><span class="phase-badge">EARLY – DECISION AUDIT</span></div>
+  <div style="font-size:.7rem;color:var(--muted);margin-bottom:5px">red team's bot lane/jungle</div>
+  <h3>First blood kill on Enemy Thresh, immediate trade-back death</h3>
+  <p>At 02:17, you killed Enemy Thresh with Ally Senna assisting in red team's bot jungle — an aggressive level 1 invade. Four seconds later (02:21), Enemy Jinx killed you with Enemy Thresh assisting. Blue team then traded Ally Senna at 02:29. The score was: Blue gets Thresh, Red gets Zyra + Senna. Net result: -1 for blue in kills but Enemy Thresh, the primary engage tool, died, which was arguably worth it.</p>
+  <div class="fix-line err">Fix: Getting first blood on the enemy support is good. The problem is dying 4 seconds later — after killing Thresh you should have flash-retreated immediately. You lingered in enemy territory while Enemy Jinx still had her abilities up.</div>
+</div>
+<div class="finding HIGH">
+  <div class="finding-meta"><span class="ts-badge">08:05</span><span class="sev-badge sev-HIGH">HIGH</span><span class="phase-badge">EARLY – POSITIONING</span></div>
+  <div style="font-size:.7rem;color:var(--muted);margin-bottom:5px">bot lane</div>
+  <h3>Second death to Enemy Jinx, same hook pattern</h3>
+  <p>At 08:05, Enemy Jinx killed you again in bot lane with Enemy Thresh assisting — the exact same kill combination as 02:21. Enemy Thresh hooked, Enemy Jinx executed. Two deaths to the same two-person combo in 6 minutes means your positioning didn't adjust after the first death.</p>
+  <div class="fix-line err">Fix: After dying to a Thresh hook + Jinx execute at 02:21, stand further from Enemy Thresh's maximum hook range (~1,125 units) for the rest of the laning phase. Plant seeds at that distance to poke rather than walking up to cast E directly. If you're not sure of his range, stay behind Ally Senna — Ally Senna is a ranged carry who should be further forward than you anyway.</div>
+</div>
+<div class="finding MEDIUM">
+  <div class="finding-meta"><span class="ts-badge">08:28</span><span class="sev-badge sev-MEDIUM">MEDIUM</span><span class="phase-badge">EARLY – OBJECTIVE PRIORITY</span></div>
+  <div style="font-size:.7rem;color:var(--muted);margin-bottom:5px">top lane</div>
+  <h3>Red team takes first dragon uncontested</h3>
+  <p>Enemy Ekko secured the first dragon at 08:39 in the dragon pit with no contest from blue team. At 10 minutes the team gold deficit was -1,210. The early skirmishes (02:17 exchange, Ally Kayn dying twice in top at 06:07 and 08:22) left blue team fragmented and unable to rotate for dragon vision.</p>
+  <div class="fix-line err">Fix: As support, drop a control ward in the dragon pit between 7:30–8:00 regardless of lane state. This alone tells your team whether to fight for it or cede it — getting surprised by a dragon take with zero vision is the worst outcome.</div>
+</div>
+<div class="phase-divider"><span>Phase 3</span></div>
+<div class="finding MEDIUM">
+  <div class="finding-meta"><span class="ts-badge">15:57–17:33</span><span class="sev-badge sev-MEDIUM">MEDIUM</span><span class="phase-badge">MID – TEAMFIGHT</span></div>
+  <div style="font-size:.7rem;color:var(--muted);margin-bottom:5px">top lane</div>
+  <h3>Chaotic top lane fight; Zyra gets 2 assists, blue breaks even</h3>
+  <p>A messy 5-person brawl in top lane ran for 90 seconds. Blue team got Enemy DrMundo (your assist at 16:57) and Enemy Jinx (your assist at 17:28) but lost Ally Kayn twice and Ally Akali. Net: Blue 2k / Red 3k — a narrow deficit. You contributed meaningfully and didn't die.</p>
+  <div class="fix-line err">Fix: No major correction needed for your play specifically. The fight devolved because Ally Kayn kept diving without teammates nearby. Your role in these situations is to plant seeds ahead of any re-engage path and peel for Ally Akali.</div>
+</div>
+<div class="finding HIGH">
+  <div class="finding-meta"><span class="ts-badge">18:35–20:53</span><span class="sev-badge sev-HIGH">HIGH</span><span class="phase-badge">MID – TEAMFIGHT</span></div>
+  <div style="font-size:.7rem;color:var(--muted);margin-bottom:5px">mid river and bot lane</div>
+  <h3>Extended chaotic sequence; Zyra dies at 20:53</h3>
+  <p>A sprawling 2.5-minute multi-fight sequence went very badly for blue team (4 kills vs 9). You got 3 assists (Enemy Ekko at 19:21, Enemy Thresh at 19:34, Enemy Jinx at 19:43) but died at 20:53 in the mid river to Enemy Jinx (Enemy DrMundo assisting). By this point blue team had lost 6 members over the sequence and were down 3,549 gold. Your death at 20:53 specifically came after blue team had already started losing multiple people — you stayed in a deteriorating fight past the point where disengaging was the better call.</p>
+  <div class="fix-line err">Fix: When your team loses 3 members in rapid succession in a fight, that's the cue to drop a Stranglethorns for disengage cover and walk away — not to keep hunting for one more assist. The 19:43 Jinx kill was your last successful contribution; staying through 20:53 cost you 300g and 58 seconds of respawn time.</div>
+</div>
+<div class="finding MEDIUM">
+  <div class="finding-meta"><span class="ts-badge">19:45</span><span class="sev-badge sev-MEDIUM">MEDIUM</span><span class="phase-badge">MID – OBJECTIVE PRIORITY</span></div>
+  <div style="font-size:.7rem;color:var(--muted);margin-bottom:5px">top side river</div>
+  <h3>Enemy Rift Herald taken</h3>
+  <p>Enemy team secured Rift Herald at 19:45 in the top side river. Blue team had no vision there. The Herald was presumably used to take top structures (top inner fell at 24:36). However, by this point blue team had already ceded 3 drakes and was absorbing structural losses.</p>
+  <div class="fix-line err">Fix: In games where you're already behind in objectives (0 drakes vs 1), prioritize Baron-side vision over Herald once it spawns past 20 minutes. The Herald at this point was a secondary threat compared to what Ally Amumu was setting up at Baron (25:31).</div>
+</div>
+<h2>3 Things to Work On</h2>
+<div class="work-card">
+  <h3><span style="color:var(--yellow)">#1 Jinx targeting in bot lane</span></h3>
+  <p>Enemy Jinx killed you at 02:21 and 08:05, both in or near bot lane; you were too far forward when she had her W (Zap) + Enemy Thresh hook active</p>
+</div>
+<div class="work-card">
+  <h3><span style="color:var(--yellow)">#2 Complete Morellonomicon — second Zyra game in a row with Oblivion Orb held unfinished</span></h3>
+  <p>against Enemy Jinx (passive healing), Enemy DrMundo (regeneration), and Enemy Ekko (shields), Grievous Wounds was essential and never applied at full effectiveness</p>
+</div>
+<div class="work-card">
+  <h3><span style="color:var(--yellow)">#3 Avoid dying in mid-river at 20:53</span></h3>
+  <p>you were killed by Enemy Jinx in the mid river in a chaotic fight where blue team eventually lost 6 members; you should have been positioned to disengage earlier in that sequence</p>
+</div>
+</body>
+</html>
