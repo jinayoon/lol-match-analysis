@@ -67,9 +67,21 @@ tr:hover td{background:#ffffff08;}
 .item-chip{display:flex;align-items:center;gap:5px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:4px 8px;font-size:.78rem;}
 .item-chip img{width:24px;height:24px;border-radius:3px;}
 .finding-loc { font-size:.7rem; color:var(--muted); margin-bottom:5px; letter-spacing:.02em; }
+
+.game-nav{display:flex;align-items:center;gap:0;background:#12131a;border-bottom:1px solid #2a2d3a;padding:0 16px;flex-wrap:wrap;font-size:.75rem;position:sticky;top:0;z-index:200;}
+.game-nav-back{color:#7b8099;text-decoration:none;padding:10px 12px 10px 0;border-right:1px solid #2a2d3a;margin-right:12px;white-space:nowrap;display:flex;align-items:center;gap:5px;}
+.game-nav-back:hover{color:#dde1f0;}
+.game-nav-meta{color:#7b8099;margin-right:14px;white-space:nowrap;}
+.game-nav-players{display:flex;gap:4px;flex-wrap:wrap;padding:6px 0;}
+.gnp{display:flex;align-items:center;gap:5px;padding:4px 8px;border-radius:5px;text-decoration:none;color:#dde1f0;transition:background .12s;}
+.gnp:hover{background:#1e2029;}
+.gnp.current{background:#c89b3c1a;border:1px solid #c89b3c55;color:#c89b3c;}
+.gnp img{border-radius:3px;flex-shrink:0;}
+.gnp .gnp-name{font-weight:500;}
+.gnp .gnp-champ{color:#7b8099;font-size:.7rem;}
 </style>
 </head>
-<body>
+<body><nav class="game-nav"><a href="index.html" class="game-nav-back">◂ All Games</a><span class="game-nav-meta">Game 1 · Apr 10 · 19:24 · <span style="color:#3dca7e;font-weight:700">WIN</span> · 31:32</span><div class="game-nav-players"><a href="2026-04-10_1924_Shaco.html" class="gnp"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Shaco.png" width="22" height="22" onerror="this.style.display='none'"><span><span class="gnp-name">Moist</span> <span class="gnp-champ">Shaco · JG</span></span></a><a href="2026-04-10_1924_Kled.html" class="gnp"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Kled.png" width="22" height="22" onerror="this.style.display='none'"><span><span class="gnp-name">BodaciousMango</span> <span class="gnp-champ">Kled · TOP</span></span></a><a href="2026-04-10_1924_Ahri.html" class="gnp"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Ahri.png" width="22" height="22" onerror="this.style.display='none'"><span><span class="gnp-name">BugR</span> <span class="gnp-champ">Ahri · MID</span></span></a><a href="2026-04-10_1924_Ashe.html" class="gnp current"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Ashe.png" width="22" height="22" onerror="this.style.display='none'"><span><span class="gnp-name">lentilbebi</span> <span class="gnp-champ">Ashe · BOT</span></span></a><a href="2026-04-10_1924_Lulu.html" class="gnp"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Lulu.png" width="22" height="22" onerror="this.style.display='none'"><span><span class="gnp-name">ahrisoo</span> <span class="gnp-champ">Lulu · SUP</span></span></a></div></nav>
 
 <div class="hero-header">
   <div class="hero-art">
