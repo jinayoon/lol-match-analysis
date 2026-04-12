@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ahrisoo – Lulu Coaching Report</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg:#0e0f14; --surface:#16181f; --surface2:#1e2029;
+  --border:#2a2d3a; --text:#dde1f0; --muted:#7b8099;
+  --blue:#4e9eff; --gold:#c89b3c; --green:#3dca7e;
+  --red:#e55c5c; --yellow:#f0b429; --purple:#9b7fe8;
+}
+body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; font-size:14px; line-height:1.6; padding:24px; max-width:960px; margin:0 auto; }
+h1 { font-size:1.5rem; font-weight:700; }
+h2 { font-size:1.1rem; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:.08em; margin:28px 0 12px; }
+h3 { font-size:.95rem; font-weight:600; margin-bottom:6px; }
+a { color:var(--blue); }
+.card { background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:16px; margin-bottom:12px; }
+.hero { display:flex; gap:20px; align-items:flex-start; margin-bottom:24px; }
+.hero-art { position:relative; flex-shrink:0; }
+.hero-art img.loading { width:120px; height:120px; border-radius:10px; border:2px solid var(--gold); object-fit:cover; object-position:top; }
+.abilities { display:flex; gap:6px; margin-top:8px; }
+.ability-slot { text-align:center; }
+.ability-slot img { width:26px; height:26px; border-radius:4px; display:block; }
+.ability-slot span { font-size:.6rem; color:var(--muted); }
+.hero-info { flex:1; }
+.subtitle { color:var(--muted); font-size:.85rem; margin:4px 0 12px; display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
+.badge { background:var(--surface2); border:1px solid var(--border); border-radius:4px; padding:2px 8px; font-size:.75rem; font-family:monospace; }
+.verdict-card { background:var(--surface2); border-left:3px solid var(--gold); border-radius:6px; padding:12px 14px; margin-bottom:8px; }
+.verdict-card .label { font-size:.7rem; color:var(--muted); text-transform:uppercase; letter-spacing:.06em; margin-bottom:4px; }
+.stats-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(110px,1fr)); gap:8px; margin-bottom:24px; }
+.stat-box { background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:12px; text-align:center; }
+.stat-box .val { font-size:1.25rem; font-weight:700; }
+.stat-box .lbl { font-size:.7rem; color:var(--muted); margin-top:2px; }
+table { width:100%; border-collapse:collapse; font-size:.82rem; }
+th { background:var(--surface2); color:var(--muted); font-weight:600; text-align:left; padding:8px 10px; font-size:.75rem; text-transform:uppercase; letter-spacing:.05em; }
+td { padding:7px 10px; border-bottom:1px solid var(--border); }
+tr:last-child td { border-bottom:none; }
+tr.you td { background:#c89b3c18; }
+.you-badge { background:var(--gold); color:#000; font-size:.65rem; font-weight:700; padding:2px 6px; border-radius:3px; margin-left:6px; }
+.team-header td { background:var(--surface2); font-weight:700; font-size:.75rem; color:var(--muted); padding:6px 10px; border-bottom:1px solid var(--border); }
+.champ-cell { display:flex; align-items:center; gap:6px; }
+.champ-cell img { width:24px; height:24px; border-radius:4px; }
+.finding { border-radius:8px; padding:14px 16px; margin-bottom:10px; border:1px solid var(--border); border-left-width:3px; background:var(--surface); }
+.finding.HIGH   { border-left-color:var(--red); }
+.finding.MEDIUM { border-left-color:var(--yellow); }
+.finding.LOW    { border-left-color:var(--green); }
+.finding.POSITIVE { border-left-color:var(--green); background:#3dca7e0a; }
+.finding-meta { display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin-bottom:6px; }
+.ts-badge { font-family:monospace; font-size:.72rem; background:var(--surface2); padding:2px 7px; border-radius:4px; color:var(--blue); border:1px solid #4e9eff33; }
+.sev-badge { font-size:.7rem; font-weight:700; padding:2px 8px; border-radius:4px; }
+.sev-HIGH   { background:#e55c5c22; color:var(--red); }
+.sev-MEDIUM { background:#f0b42922; color:var(--yellow); }
+.sev-LOW    { background:#3dca7e22; color:var(--green); }
+.finding-loc { font-size:.7rem; color:var(--muted); margin-bottom:5px; letter-spacing:.02em; }
+.phase-badge { font-size:.7rem; background:var(--surface2); border:1px solid var(--border); padding:2px 8px; border-radius:4px; color:var(--muted); }
+.finding h3 { font-size:.9rem; }
+.finding p  { font-size:.83rem; color:#c0c5d8; margin-top:4px; }
+.fix-line   { font-size:.82rem; margin-top:6px; }
+.fix-line.err  { color:var(--blue); }
+.fix-line.pos  { color:var(--green); font-style:italic; }
+.phase-divider { display:flex; align-items:center; gap:10px; margin:24px 0 12px; }
+.phase-divider span, .phase-divider .label { font-size:.68rem; font-weight:700; text-transform:uppercase; letter-spacing:.12em; color:var(--muted); white-space:nowrap; }
+.phase-divider::before, .phase-divider::after { content:''; flex:1; height:1px; background:var(--border); }
+.phase-divider .line { display:none; }
+.swing-card { border-radius:8px; padding:14px 16px; margin-bottom:10px; background:var(--surface); border:1px solid var(--border); border-left:3px solid var(--gold); }
+.work-card  { border-radius:8px; padding:14px 16px; margin-bottom:10px; background:var(--surface); border:1px solid var(--border); border-left:3px solid var(--yellow); }
+.tl-wrap { position:relative; margin-bottom:28px; overflow:visible; }
+.tl-phases { display:flex; height:20px; border-radius:4px; overflow:hidden; margin-bottom:6px; }
+.tl-ruler  { height:6px; background:var(--border); border-radius:3px; position:relative; }
+.tl-markers{ position:relative; height:52px; }
+.tl-labels { display:flex; justify-content:space-between; font-size:.65rem; color:var(--muted); margin-top:2px; }
+.marker { position:absolute; transform:translateX(-50%); cursor:default; z-index:10; }
+.marker-dot { width:11px; height:11px; border-radius:50%; border:2px solid var(--bg); transition:transform .15s; }
+.marker:hover .marker-dot { transform:scale(1.6); }
+.marker-stem { width:1px; height:10px; background:rgba(255,255,255,.18); margin:0 auto; }
+.tooltip { display:none; position:absolute; bottom:130%; left:50%; transform:translateX(-50%);
+  background:var(--surface2); border:1px solid var(--border); border-radius:6px; padding:9px 12px;
+  font-size:.75rem; width:210px; box-shadow:0 8px 24px rgba(0,0,0,.6); z-index:100;
+  pointer-events:none; line-height:1.5; white-space:normal; }
+.tooltip-ts { color:var(--muted); font-size:.68rem; }
+.marker:hover .tooltip { display:block; }
+.marker.flip .tooltip { bottom:auto; top:130%; }
+.top3-list { list-style:none; padding:0; }
+.top3-list li { padding:6px 0; border-bottom:1px solid var(--border); font-size:.85rem; }
+.top3-list li:last-child { border-bottom:none; }
+.top3-list .skill { font-weight:700; color:var(--yellow); }
+
+
+.gnav{position:sticky;top:0;z-index:200;height:38px;background:rgba(14,15,20,.96);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid #1e2029;display:flex;align-items:center;padding:0 24px;}
+.gnav a{display:inline-flex;align-items:center;gap:6px;color:#4a4d5a;text-decoration:none;font-size:.68rem;letter-spacing:.09em;text-transform:uppercase;font-weight:600;transition:color .2s;}
+.gnav a:hover{color:#c89b3c;}
+.gnav a svg{transition:transform .2s;}
+.gnav a:hover svg{transform:translateX(-2px);}
+</style>
+</head>
+<body><nav class="gnav"><a href="flex.html"><svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11 5H1M5 1L1 5L5 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Session</a></nav>
+
+<div class="hero">
+  <div class="hero-art">
+    <img class="loading" src="https://ddragon.leagueoflegends.com/cdn/img/champion/loading/Lulu_0.jpg" alt="Lulu" onerror="this.style.display='none'">
+    <div class="abilities"><div class="ability-slot">
+  <img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/spell/LuluQ.png" title="Q – Glitterlance" onerror="this.style.display='none'">
+  <span>Q</span></div><div class="ability-slot">
+  <img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/spell/LuluW.png" title="W – Whimsy" onerror="this.style.display='none'">
+  <span>W</span></div><div class="ability-slot">
+  <img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/spell/LuluE.png" title="E – Help, Pix!" onerror="this.style.display='none'">
+  <span>E</span></div><div class="ability-slot">
+  <img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/spell/LuluR.png" title="R – Wild Growth" onerror="this.style.display='none'">
+  <span>R</span></div></div>
+  </div>
+  <div class="hero-info">
+    <h1>Post-Match Coaching Report</h1>
+    <div class="subtitle">
+      <span>ahrisoo</span>
+      <span style="color:var(--muted)">·</span>
+      <span><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Lulu.png" style="width:18px;height:18px;border-radius:4px;vertical-align:middle" onerror="this.style.display='none'"> Lulu</span>
+      <span style="color:var(--muted)">·</span>
+      <span style="color:var(--green);font-weight:700">WIN</span>
+      <span style="color:var(--muted)">·</span>
+      <span>35:30</span>
+      <span style="color:var(--muted)">·</span>
+      <span>Patch 16.7</span>
+      <span class="badge">NA1_5538494043</span>
+    </div>
+    <div class="verdict-card">
+      <div class="label">Honest Verdict</div>
+      <div>This is a strong support performance: 76% kill participation, 110 vision score (3.10/min), 10 control wards, 3/4/26. You kept Ally Tristana alive through a difficult early lane and enabled a 15-kill carry game. The 4 deaths are the one issue – three of them to Enemy Ezreal specifically – which suggests an exploitable pattern in how you positioned relative to his Mystic Shot angle in bot lane.</div>
+    </div>
+    <div class="verdict-card" style="border-left-color:var(--blue)">
+      <div class="label">Game Summary</div>
+      <div>Blue team won through Ally Tristana's scaling, and Lulu's job was to make sure that scaling happened uninterrupted. It largely did. Ally Lulu's vision score of 110 was the highest on both teams, Ardent Censer came online at 10:32 buffing Tristana's early power spike, and Wild Growth anti-dives stopped several enemy engage attempts. The four deaths mostly came from being caught in the Ezreal-Leona lane before Blue team's power came fully online.</div>
+    </div>
+    <div style="margin-top:10px">
+      <div style="font-size:.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">3 Things to Work On</div>
+      <ul class="top3-list"><li><span class="skill">#1 Positioning vs Ezreal</span> – Died to Enemy Ezreal at 5:09, 12:07, and 19:36 – all to the same champion from the same poke angle.</li><li><span class="skill">#2 Shurelya's activation timing</span> – Shurelya's completed at 21:42 – a roam tool that arrived when the map was already largely won.</li><li><span class="skill">#3 Build completion</span> – Kindlegem sat in inventory at game end – one item never finished.</li></ul>
+    </div>
+  </div>
+</div>
+
+<h2>Quick Stats</h2>
+<div class="stats-grid">
+  <div class="stat-box"><div class="val">3/4/26</div><div class="lbl">KDA</div></div>
+  <div class="stat-box"><div class="val">39</div><div class="lbl">CS</div></div>
+  <div class="stat-box"><div class="val">1.1</div><div class="lbl">CS / min</div></div>
+  <div class="stat-box"><div class="val" style="color:var(--gold)">11,071</div><div class="lbl">Gold</div></div>
+  <div class="stat-box"><div class="val">14,626</div><div class="lbl">Damage</div></div>
+  <div class="stat-box"><div class="val">7%</div><div class="lbl">Dmg% of Team</div></div>
+  <div class="stat-box"><div class="val" style="color:var(--green)">110</div><div class="lbl">Vision Score</div></div>
+  <div class="stat-box"><div class="val">3.10</div><div class="lbl">VS / min</div></div>
+  <div class="stat-box"><div class="val" style="color:var(--blue)">76%</div><div class="lbl">Kill Part.</div></div>
+  <div class="stat-box"><div class="val" style="color:var(--red)">94s</div><div class="lbl">Time Dead</div></div>
+</div>
+
+<h2>Items</h2>
+<div class="card" style="padding:10px"><div style="display:inline-block;margin:2px"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/item/3222.png" style="width:28px;height:28px;border-radius:4px;vertical-align:middle" onerror="this.style.display='none'"></div><div style="display:inline-block;margin:2px"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/item/3870.png" style="width:28px;height:28px;border-radius:4px;vertical-align:middle" onerror="this.style.display='none'"></div><div style="display:inline-block;margin:2px"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/item/2065.png" style="width:28px;height:28px;border-radius:4px;vertical-align:middle" onerror="this.style.display='none'"></div><div style="display:inline-block;margin:2px"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/item/3158.png" style="width:28px;height:28px;border-radius:4px;vertical-align:middle" onerror="this.style.display='none'"></div><div style="display:inline-block;margin:2px"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/item/3504.png" style="width:28px;height:28px;border-radius:4px;vertical-align:middle" onerror="this.style.display='none'"></div><div style="display:inline-block;margin:2px"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/item/3067.png" style="width:28px;height:28px;border-radius:4px;vertical-align:middle" onerror="this.style.display='none'"></div><div style="display:inline-block;margin:2px"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/item/3364.png" style="width:28px;height:28px;border-radius:4px;vertical-align:middle" onerror="this.style.display='none'"></div></div>
+
+<h2>Team Overview</h2>
+<div class="card" style="padding:0;overflow:hidden">
+<table>
+  <thead><tr>
+    <th>Champion</th><th>Player</th><th>Role</th>
+    <th>KDA</th><th>CS</th><th>Gold</th><th>Damage</th><th>KP%</th>
+  </tr></thead>
+  <tbody><tr class="team-header"><td colspan="9">🔵 Blue Team</td></tr><tr><td><div class="champ-cell"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Ornn.png" style="width:24px;height:24px;border-radius:4px;vertical-align:middle" onerror="this.style.display='none'"> Ornn</div></td><td>BodaciousMango</td><td style="color:var(--muted);font-size:.78rem">TOP</td><td>3/4/17</td><td>260</td><td style="color:var(--gold)">14,006</td><td>54,817</td><td style="color:var(--blue)">53%</td></tr><tr><td><div class="champ-cell"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Shaco.png" style="width:24px;height:24px;border-radius:4px;vertical-align:middle" onerror="this.style.display='none'"> Shaco</div></td><td>Moist</td><td style="color:var(--muted);font-size:.78rem">JUNGLE</td><td>13/8/7</td><td>263</td><td style="color:var(--gold)">17,571</td><td>32,238</td><td style="color:var(--blue)">53%</td></tr><tr><td><div class="champ-cell"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Nunu.png" style="width:24px;height:24px;border-radius:4px;vertical-align:middle" onerror="this.style.display='none'"> Nunu & Willump</div></td><td>lentilbebi</td><td style="color:var(--muted);font-size:.78rem">MIDDLE</td><td>4/6/19</td><td>216</td><td style="color:var(--gold)">13,352</td><td>19,791</td><td style="color:var(--blue)">61%</td></tr><tr><td><div class="champ-cell"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Tristana.png" style="width:24px;height:24px;border-radius:4px;vertical-align:middle" onerror="this.style.display='none'"> Tristana</div></td><td>RAW JOHNSON</td><td style="color:var(--muted);font-size:.78rem">BOTTOM</td><td>15/3/12</td><td>282</td><td style="color:var(--gold)">20,372</td><td>73,696</td><td style="color:var(--blue)">71%</td></tr><tr class="you"><td><div class="champ-cell"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Lulu.png" style="width:24px;height:24px;border-radius:4px;vertical-align:middle" onerror="this.style.display='none'"> Lulu<span class="you-badge">YOU</span></div></td><td>ahrisoo</td><td style="color:var(--muted);font-size:.78rem">UTILITY</td><td>3/4/26</td><td>39</td><td style="color:var(--gold)">11,071</td><td>14,626</td><td style="color:var(--blue)">76%</td></tr><tr class="team-header"><td colspan="9">🔴 Red Team</td></tr><tr><td><div class="champ-cell"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Sion.png" style="width:24px;height:24px;border-radius:4px;vertical-align:middle" onerror="this.style.display='none'"> Sion</div></td><td>Isao</td><td style="color:var(--muted);font-size:.78rem">TOP</td><td>0/8/7</td><td>279</td><td style="color:var(--gold)">12,748</td><td>35,120</td><td style="color:var(--blue)">28%</td></tr><tr><td><div class="champ-cell"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/XinZhao.png" style="width:24px;height:24px;border-radius:4px;vertical-align:middle" onerror="this.style.display='none'"> Xin Zhao</div></td><td>Moxien</td><td style="color:var(--muted);font-size:.78rem">JUNGLE</td><td>10/9/5</td><td>221</td><td style="color:var(--gold)">15,920</td><td>35,715</td><td style="color:var(--blue)">60%</td></tr><tr><td><div class="champ-cell"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Ahri.png" style="width:24px;height:24px;border-radius:4px;vertical-align:middle" onerror="this.style.display='none'"> Ahri</div></td><td>Sherrown</td><td style="color:var(--muted);font-size:.78rem">MIDDLE</td><td>2/7/12</td><td>216</td><td style="color:var(--gold)">12,192</td><td>34,209</td><td style="color:var(--blue)">56%</td></tr><tr><td><div class="champ-cell"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Ezreal.png" style="width:24px;height:24px;border-radius:4px;vertical-align:middle" onerror="this.style.display='none'"> Ezreal</div></td><td>Vend3tta</td><td style="color:var(--muted);font-size:.78rem">BOTTOM</td><td>10/7/4</td><td>309</td><td style="color:var(--gold)">19,609</td><td>64,761</td><td style="color:var(--blue)">56%</td></tr><tr><td><div class="champ-cell"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Leona.png" style="width:24px;height:24px;border-radius:4px;vertical-align:middle" onerror="this.style.display='none'"> Leona</div></td><td>RazinLe</td><td style="color:var(--muted);font-size:.78rem">UTILITY</td><td>3/7/12</td><td>33</td><td style="color:var(--gold)">10,063</td><td>12,170</td><td style="color:var(--blue)">60%</td></tr></tbody>
+</table></div>
+
+<h2>Match Timeline</h2>
+<div class="card"><div class="tl-wrap">
+  <div class="tl-phases">
+    <div style="width:39.4%;background:#2563eb30;display:flex;align-items:center;justify-content:center;font-size:.6rem;color:rgba(255,255,255,.4)">Early 0–14</div>
+    <div style="width:31.0%;background:#7c3aed30;display:flex;align-items:center;justify-content:center;font-size:.6rem;color:rgba(255,255,255,.4)">Mid 14–25</div>
+    <div style="width:29.6%;background:#c026d330;display:flex;align-items:center;justify-content:center;font-size:.6rem;color:rgba(255,255,255,.4)">Late 25+</div>
+  </div>
+  <div style="position:relative">
+    <div class="tl-ruler"></div>
+    <div style="position:absolute;top:-2px;left:39.4%;width:1px;height:10px;background:rgba(255,255,255,.2)"></div>
+    <div style="position:absolute;top:-2px;left:70.4%;width:1px;height:10px;background:rgba(255,255,255,.2)"></div>
+    <div class="tl-markers"><div class="marker" style="position:absolute;top:30px;left:14.545539906103286%;transform:translateX(-50%);cursor:default;z-index:10">
+  <div class="marker-dot" style="background:#e55c5c;width:11px;height:11px;border-radius:50%;border:2px solid var(--bg)"></div>
+  <div class="tooltip"><div class="tooltip-ts">5:09 – mid map<br><b>Death</b> to Ezreal</div></div>
+</div><div class="marker" style="position:absolute;top:4px;left:18.033661971830988%;transform:translateX(-50%);cursor:default;z-index:10">
+  <div class="marker-dot" style="background:#3dca7e;width:11px;height:11px;border-radius:50%;border:2px solid var(--bg)"></div>
+  <div class="tooltip"><div class="tooltip-ts">6:24 – mid map<br><b>Kill:</b> Ezreal</div></div>
+</div><div class="marker" style="position:absolute;top:4px;left:19.18830985915493%;transform:translateX(-50%);cursor:default;z-index:10">
+  <div class="marker-dot" style="background:#3dca7e;width:11px;height:11px;border-radius:50%;border:2px solid var(--bg)"></div>
+  <div class="tooltip"><div class="tooltip-ts">6:48 – mid map<br><b>Kill:</b> Leona</div></div>
+</div><div class="marker" style="position:absolute;top:4px;left:24.826384976525823%;transform:translateX(-50%);cursor:default;z-index:10">
+  <div class="marker-dot" style="background:#7eca9c;width:11px;height:11px;border-radius:50%;border:2px solid var(--bg)"></div>
+  <div class="tooltip"><div class="tooltip-ts">8:48 – mid map<br><b>Assist</b> on Ezreal</div></div>
+</div><div class="marker" style="position:absolute;top:4px;left:28.598262910798123%;transform:translateX(-50%);cursor:default;z-index:10">
+  <div class="marker-dot" style="background:#3dca7e;width:11px;height:11px;border-radius:50%;border:2px solid var(--bg)"></div>
+  <div class="tooltip"><div class="tooltip-ts">10:09 – mid map<br><b>Kill:</b> Ezreal</div></div>
+</div><div class="marker" style="position:absolute;top:30px;left:29.710469483568076%;transform:translateX(-50%);cursor:default;z-index:10">
+  <div class="marker-dot" style="background:#c89b3c;width:11px;height:11px;border-radius:50%;border:2px solid var(--bg)"></div>
+  <div class="tooltip"><div class="tooltip-ts">10:32<br><b>Item:</b> Ardent Censer</div></div>
+</div><div class="marker" style="position:absolute;top:30px;left:34.13906103286385%;transform:translateX(-50%);cursor:default;z-index:10">
+  <div class="marker-dot" style="background:#e55c5c;width:11px;height:11px;border-radius:50%;border:2px solid var(--bg)"></div>
+  <div class="tooltip"><div class="tooltip-ts">12:07 – mid map<br><b>Death</b> to Ezreal</div></div>
+</div><div class="marker" style="position:absolute;top:4px;left:40.750892018779346%;transform:translateX(-50%);cursor:default;z-index:10">
+  <div class="marker-dot" style="background:#7eca9c;width:11px;height:11px;border-radius:50%;border:2px solid var(--bg)"></div>
+  <div class="tooltip"><div class="tooltip-ts">14:27 – top side jungle / Baron pit area<br><b>Assist</b> on Ezreal</div></div>
+</div><div class="marker" style="position:absolute;top:4px;left:41.31553990610328%;transform:translateX(-50%);cursor:default;z-index:10">
+  <div class="marker-dot" style="background:#7eca9c;width:11px;height:11px;border-radius:50%;border:2px solid var(--bg)"></div>
+  <div class="tooltip"><div class="tooltip-ts">14:40 – mid map<br><b>Assist</b> on Leona</div></div>
+</div><div class="marker" style="position:absolute;top:4px;left:41.59046948356807%;transform:translateX(-50%);cursor:default;z-index:10">
+  <div class="marker-dot" style="background:#7eca9c;width:11px;height:11px;border-radius:50%;border:2px solid var(--bg)"></div>
+  <div class="tooltip"><div class="tooltip-ts">14:45 – mid lane / bot side<br><b>Assist</b> on Xin Zhao</div></div>
+</div><div class="marker" style="position:absolute;top:30px;left:47.860845070422535%;transform:translateX(-50%);cursor:default;z-index:10">
+  <div class="marker-dot" style="background:#e55c5c;width:11px;height:11px;border-radius:50%;border:2px solid var(--bg)"></div>
+  <div class="tooltip"><div class="tooltip-ts">16:59 – mid map<br><b>Death</b> to Xin Zhao</div></div>
+</div><div class="marker" style="position:absolute;top:30px;left:55.23413145539906%;transform:translateX(-50%);cursor:default;z-index:10">
+  <div class="marker-dot" style="background:#e55c5c;width:11px;height:11px;border-radius:50%;border:2px solid var(--bg)"></div>
+  <div class="tooltip"><div class="tooltip-ts">19:36 – mid lane<br><b>Death</b> to Ezreal</div></div>
+</div><div class="marker" style="position:absolute;top:4px;left:57.868075117370886%;transform:translateX(-50%);cursor:default;z-index:10">
+  <div class="marker-dot" style="background:#7eca9c;width:11px;height:11px;border-radius:50%;border:2px solid var(--bg)"></div>
+  <div class="tooltip"><div class="tooltip-ts">20:32 – mid lane<br><b>Assist</b> on Xin Zhao</div></div>
+</div><div class="marker" style="position:absolute;top:4px;left:58.484976525821594%;transform:translateX(-50%);cursor:default;z-index:10">
+  <div class="marker-dot" style="background:#7eca9c;width:11px;height:11px;border-radius:50%;border:2px solid var(--bg)"></div>
+  <div class="tooltip"><div class="tooltip-ts">20:45 – top side jungle / Baron pit area<br><b>Assist</b> on Sion</div></div>
+</div><div class="marker" style="position:absolute;top:30px;left:61.17305164319249%;transform:translateX(-50%);cursor:default;z-index:10">
+  <div class="marker-dot" style="background:#c89b3c;width:11px;height:11px;border-radius:50%;border:2px solid var(--bg)"></div>
+  <div class="tooltip"><div class="tooltip-ts">21:42<br><b>Item:</b> Shurelya's Battlesong</div></div>
+</div><div class="marker flip" style="position:absolute;top:4px;left:65.44821596244131%;transform:translateX(-50%);cursor:default;z-index:10">
+  <div class="marker-dot" style="background:#7eca9c;width:11px;height:11px;border-radius:50%;border:2px solid var(--bg)"></div>
+  <div class="tooltip"><div class="tooltip-ts">23:14 – mid map<br><b>Assist</b> on Xin Zhao</div></div>
+</div><div class="marker flip" style="position:absolute;top:4px;left:65.5156338028169%;transform:translateX(-50%);cursor:default;z-index:10">
+  <div class="marker-dot" style="background:#7eca9c;width:11px;height:11px;border-radius:50%;border:2px solid var(--bg)"></div>
+  <div class="tooltip"><div class="tooltip-ts">23:15 – mid map<br><b>Assist</b> on Sion</div></div>
+</div><div class="marker flip" style="position:absolute;top:4px;left:66.94267605633803%;transform:translateX(-50%);cursor:default;z-index:10">
+  <div class="marker-dot" style="background:#7eca9c;width:11px;height:11px;border-radius:50%;border:2px solid var(--bg)"></div>
+  <div class="tooltip"><div class="tooltip-ts">23:45 – bot side jungle / dragon pit area<br><b>Assist</b> on Ezreal</div></div>
+</div><div class="marker flip" style="position:absolute;top:4px;left:67.34765258215964%;transform:translateX(-50%);cursor:default;z-index:10">
+  <div class="marker-dot" style="background:#7eca9c;width:11px;height:11px;border-radius:50%;border:2px solid var(--bg)"></div>
+  <div class="tooltip"><div class="tooltip-ts">23:54 – mid lane<br><b>Assist</b> on Leona</div></div>
+</div><div class="marker flip" style="position:absolute;top:4px;left:75.35788732394366%;transform:translateX(-50%);cursor:default;z-index:10">
+  <div class="marker-dot" style="background:#7eca9c;width:11px;height:11px;border-radius:50%;border:2px solid var(--bg)"></div>
+  <div class="tooltip"><div class="tooltip-ts">26:45 – bot side jungle / dragon pit area<br><b>Assist</b> on Leona</div></div>
+</div><div class="marker flip" style="position:absolute;top:4px;left:76.6269014084507%;transform:translateX(-50%);cursor:default;z-index:10">
+  <div class="marker-dot" style="background:#7eca9c;width:11px;height:11px;border-radius:50%;border:2px solid var(--bg)"></div>
+  <div class="tooltip"><div class="tooltip-ts">27:12 – mid lane / bot side<br><b>Assist</b> on Sion</div></div>
+</div><div class="marker flip" style="position:absolute;top:4px;left:85.38145539906104%;transform:translateX(-50%);cursor:default;z-index:10">
+  <div class="marker-dot" style="background:#7eca9c;width:11px;height:11px;border-radius:50%;border:2px solid var(--bg)"></div>
+  <div class="tooltip"><div class="tooltip-ts">30:18 – mid map<br><b>Assist</b> on Xin Zhao</div></div>
+</div><div class="marker flip" style="position:absolute;top:4px;left:85.89258215962441%;transform:translateX(-50%);cursor:default;z-index:10">
+  <div class="marker-dot" style="background:#7eca9c;width:11px;height:11px;border-radius:50%;border:2px solid var(--bg)"></div>
+  <div class="tooltip"><div class="tooltip-ts">30:29 – mid map<br><b>Assist</b> on Ahri</div></div>
+</div><div class="marker flip" style="position:absolute;top:4px;left:86.33990610328638%;transform:translateX(-50%);cursor:default;z-index:10">
+  <div class="marker-dot" style="background:#7eca9c;width:11px;height:11px;border-radius:50%;border:2px solid var(--bg)"></div>
+  <div class="tooltip"><div class="tooltip-ts">30:39 – bot lane<br><b>Assist</b> on Sion</div></div>
+</div><div class="marker flip" style="position:absolute;top:4px;left:87.00291079812207%;transform:translateX(-50%);cursor:default;z-index:10">
+  <div class="marker-dot" style="background:#7eca9c;width:11px;height:11px;border-radius:50%;border:2px solid var(--bg)"></div>
+  <div class="tooltip"><div class="tooltip-ts">30:53 – mid map<br><b>Assist</b> on Ezreal</div></div>
+</div><div class="marker flip" style="position:absolute;top:4px;left:87.10793427230047%;transform:translateX(-50%);cursor:default;z-index:10">
+  <div class="marker-dot" style="background:#7eca9c;width:11px;height:11px;border-radius:50%;border:2px solid var(--bg)"></div>
+  <div class="tooltip"><div class="tooltip-ts">30:55 – mid map<br><b>Assist</b> on Leona</div></div>
+</div><div class="marker flip" style="position:absolute;top:30px;left:88.97981220657277%;transform:translateX(-50%);cursor:default;z-index:10">
+  <div class="marker-dot" style="background:#c89b3c;width:11px;height:11px;border-radius:50%;border:2px solid var(--bg)"></div>
+  <div class="tooltip"><div class="tooltip-ts">31:35<br><b>Item:</b> Mikael's Blessing</div></div>
+</div><div class="marker flip" style="position:absolute;top:4px;left:91.1724882629108%;transform:translateX(-50%);cursor:default;z-index:10">
+  <div class="marker-dot" style="background:#7eca9c;width:11px;height:11px;border-radius:50%;border:2px solid var(--bg)"></div>
+  <div class="tooltip"><div class="tooltip-ts">32:21 – mid lane<br><b>Assist</b> on Xin Zhao</div></div>
+</div><div class="marker flip" style="position:absolute;top:4px;left:91.21173708920188%;transform:translateX(-50%);cursor:default;z-index:10">
+  <div class="marker-dot" style="background:#7eca9c;width:11px;height:11px;border-radius:50%;border:2px solid var(--bg)"></div>
+  <div class="tooltip"><div class="tooltip-ts">32:22 – mid lane<br><b>Assist</b> on Leona</div></div>
+</div><div class="marker flip" style="position:absolute;top:4px;left:91.47924882629108%;transform:translateX(-50%);cursor:default;z-index:10">
+  <div class="marker-dot" style="background:#7eca9c;width:11px;height:11px;border-radius:50%;border:2px solid var(--bg)"></div>
+  <div class="tooltip"><div class="tooltip-ts">32:28 – mid lane<br><b>Assist</b> on Sion</div></div>
+</div><div class="marker flip" style="position:absolute;top:4px;left:91.61990610328638%;transform:translateX(-50%);cursor:default;z-index:10">
+  <div class="marker-dot" style="background:#7eca9c;width:11px;height:11px;border-radius:50%;border:2px solid var(--bg)"></div>
+  <div class="tooltip"><div class="tooltip-ts">32:31 – mid lane<br><b>Assist</b> on Ahri</div></div>
+</div><div class="marker flip" style="position:absolute;top:4px;left:91.90690140845071%;transform:translateX(-50%);cursor:default;z-index:10">
+  <div class="marker-dot" style="background:#7eca9c;width:11px;height:11px;border-radius:50%;border:2px solid var(--bg)"></div>
+  <div class="tooltip"><div class="tooltip-ts">32:37 – mid map<br><b>Assist</b> on Ezreal</div></div>
+</div><div class="marker flip" style="position:absolute;top:4px;left:93.6869483568075%;transform:translateX(-50%);cursor:default;z-index:10">
+  <div class="marker-dot" style="background:#f0b429;width:11px;height:11px;border-radius:50%;border:2px solid var(--bg)"></div>
+  <div class="tooltip"><div class="tooltip-ts">33:15<br><b>Tower:</b> Mid  Tower</div></div>
+</div><div class="marker flip" style="position:absolute;top:4px;left:97.8692957746479%;transform:translateX(-50%);cursor:default;z-index:10">
+  <div class="marker-dot" style="background:#7eca9c;width:11px;height:11px;border-radius:50%;border:2px solid var(--bg)"></div>
+  <div class="tooltip"><div class="tooltip-ts">34:44 – top side jungle / Baron pit area<br><b>Assist</b> on Leona</div></div>
+</div><div class="marker flip" style="position:absolute;top:4px;left:98.09535211267605%;transform:translateX(-50%);cursor:default;z-index:10">
+  <div class="marker-dot" style="background:#7eca9c;width:11px;height:11px;border-radius:50%;border:2px solid var(--bg)"></div>
+  <div class="tooltip"><div class="tooltip-ts">34:49 – top side jungle / Baron pit area<br><b>Assist</b> on Sion</div></div>
+</div><div class="marker flip" style="position:absolute;top:4px;left:98.25032863849765%;transform:translateX(-50%);cursor:default;z-index:10">
+  <div class="marker-dot" style="background:#7eca9c;width:11px;height:11px;border-radius:50%;border:2px solid var(--bg)"></div>
+  <div class="tooltip"><div class="tooltip-ts">34:52 – top side jungle / Baron pit area<br><b>Assist</b> on Xin Zhao</div></div>
+</div><div class="marker flip" style="position:absolute;top:4px;left:99.49582159624413%;transform:translateX(-50%);cursor:default;z-index:10">
+  <div class="marker-dot" style="background:#7eca9c;width:11px;height:11px;border-radius:50%;border:2px solid var(--bg)"></div>
+  <div class="tooltip"><div class="tooltip-ts">35:19 – blue team base<br><b>Assist</b> on Ahri</div></div>
+</div></div>
+    <div class="tl-labels"><span>0:00</span><span>35:30</span></div>
+  </div>
+</div></div>
+
+<h2>Findings</h2>
+<div class="phase-divider"><span class="line"></span><span class="label">Phase 1: Draft</span><span class="line"></span></div><div class="finding POSITIVE">
+  <div class="finding-meta"><span class="sev-badge sev-LOW">✓ LOW</span><span class="phase-badge">DRAFT – WIN_CONDITION</span></div>
+  <h3>Lulu + Tristana: enchanter-protect-the-carry core</h3>
+  <p>Lulu is one of Tristana's best support pairings: Whimsy polymorph denies diver engages, Help, Pix! provides shield and bonus damage, Wild Growth is hard anti-dive. The win condition is simple: keep Tristana alive through laning phase, buy Ardent Censer to amplify her attack speed, and peel for her in teamfights.</p>
+  <div class="fix-line pos">This was executed well. Lulu's utility directly enabled Tristana's 15-kill performance.</div>
+</div><div class="phase-divider"><span class="line"></span><span class="label">Phase 2: Early Game (0–14 min)</span><span class="line"></span></div><div class="finding HIGH">
+  <div class="finding-meta"><span class="ts-badge">5:09</span><span class="ts-badge">bot lane near Blue outer tower</span><span class="sev-badge sev-HIGH">HIGH</span><span class="phase-badge">EARLY – DECISION</span></div>
+  <h3>Death at 5:09 – Ezreal + Leona caught Lulu in bot lane</h3>
+  <p>Ally Lulu died to Enemy Ezreal (with Leona assist) at 5:09 in bot lane. At 5 minutes the lane was under pressure: Ezreal's Mystic Shot range (1000) allows him to poke from behind Leona's engage, meaning Lulu was taking both Leona threat and Ezreal poke simultaneously. A support death at 5 minutes gifts the enemy lane roughly 150–200g in assist gold and removes Lulu from the 5-minute drake window.</p>
+  <div class="fix-line err">Fix: When Enemy Leona is active, Lulu should stand directly behind Tristana rather than beside her. This forces Leona to target Tristana (who can Rocket Jump) rather than Lulu (who cannot escape Zenith Blade). Use Glitterlance (Q) to poke Ezreal from max range rather than walking up.</div>
+</div><div class="finding POSITIVE">
+  <div class="finding-meta"><span class="ts-badge">6:24 – 6:48</span><span class="ts-badge">bot lane near Blue outer tower</span><span class="sev-badge sev-LOW">✓ LOW</span><span class="phase-badge">EARLY – DECISION</span></div>
+  <h3>Kill at 6:24 and 6:48 – aggressive trading paid off</h3>
+  <p>After dying at 5:09, Ally Lulu came back and killed Enemy Ezreal at 6:24 (with Tristana assist) and then Enemy Leona at 6:48 (with Tristana assist) – both within 24 seconds. Converting a support kill at level 3–4 with Summon Aery amplifying damage is a strong aggressive call when the enemy ADC is caught out of position.</p>
+  <div class="fix-line pos">Two kills in 24 seconds as a support is exactly how you respond after dying in lane – re-establish the lane rather than playing scared.</div>
+</div><div class="finding POSITIVE">
+  <div class="finding-meta"><span class="ts-badge">10:32</span><span class="ts-badge">base</span><span class="sev-badge sev-LOW">✓ LOW</span><span class="phase-badge">EARLY – RESOURCES</span></div>
+  <h3>Ardent Censer at 10:32 – early enchanter power spike</h3>
+  <p>Ally Lulu completed Ardent Censer at 10:32 for 2,200g. This is an unusually early Ardent – typically completed around 13–15 minutes – enabled by the 6:24 and 6:48 kills generating extra gold. Ardent Censer's passive (attack speed + on-hit magic damage on shields/heals) immediately improved Tristana's DPS in teamfights. This timing directly contributed to Tristana's 14:27 kill on Ezreal.</p>
+  <div class="fix-line pos">Early Ardent on a fed ADC is the correct call. This was the right item, in the right order, at the right time.</div>
+</div><div class="phase-divider"><span class="line"></span><span class="label">Phase 3: Mid Game (14–25 min)</span><span class="line"></span></div><div class="finding HIGH">
+  <div class="finding-meta"><span class="ts-badge">5:09 – 19:36</span><span class="ts-badge">bot lane / dragon pit</span><span class="sev-badge sev-HIGH">HIGH</span><span class="phase-badge">MID – DECISION</span></div>
+  <h3>Three deaths to Enemy Ezreal: 5:09, 12:07, 19:36</h3>
+  <p>Ally Lulu died to Enemy Ezreal three times: 5:09 (bot lane), 12:07 (bot lane), and 19:36 (dragon pit, with Xin Zhao + Ahri assist). Ezreal's Mystic Shot travels 1000 units and deals significant poke damage. All three deaths involved walking toward the objective in a corridor where Ezreal had clear aim. Lulu at 140 movement speed with no dash is extremely vulnerable to repeated Mystic Shot poke.</p>
+  <div class="fix-line err">Fix: Against Ezreal in open terrain, move in L-shapes rather than straight lines to reduce the predictability of your position. Glitterlance (Q) out-ranges Mystic Shot – use it to zone Ezreal before walking into the open. At the dragon pit specifically, hug the side wall to reduce Ezreal's angle.</div>
+</div><div class="finding LOW">
+  <div class="finding-meta"><span class="ts-badge">21:42</span><span class="ts-badge">base</span><span class="sev-badge sev-LOW">LOW</span><span class="phase-badge">MID – RESOURCES</span></div>
+  <h3>Shurelya's at 21:42 – roam tool arrived late</h3>
+  <p>Ally Lulu completed Shurelya's Battlesong at 21:42. Shurelya's primary value is a team movement speed buff for catching or escaping – most useful in the 15–20 minute range when teams are rotating between objectives. At 21 minutes, the map was already largely Blue team's; the roam boost was used in teamfights rather than for initiation. Dream Maker was the first item (completed earlier), which is reasonable, but the Shurelya's component could have been delayed for a more aggressive support item like Redemption or an earlier Mikael's.</p>
+  <div class="fix-line err">Fix: Minor. In future games: if Tristana is already ahead at 15 minutes, consider Redemption or Mikael's Blessing before Shurelya's. Shurelya's acceleration is most valuable when your team needs to rotate to objectives, not when you're already winning teamfights.</div>
+</div><div class="phase-divider"><span class="line"></span><span class="label">Phase 4: Late Game (25+ min)</span><span class="line"></span></div><div class="finding LOW">
+  <div class="finding-meta"><span class="ts-badge">35:30</span><span class="ts-badge">base</span><span class="sev-badge sev-LOW">LOW</span><span class="phase-badge">LATE – RESOURCES</span></div>
+  <h3>Kindlegem not upgraded – incomplete build</h3>
+  <p>Ally Lulu finished the game with Kindlegem (800g component) in inventory rather than completing it into a final item. Kindlegem upgrades into Warmog's Armor, Locket of the Iron Solari, or other health-focused items. At 35 minutes, the ~1000–1500g needed for completion was likely available on the last back.</p>
+  <div class="fix-line err">Fix: In a won game past 30 minutes: sell Doran's items and starter components immediately to make room for completed items. Kindlegem should have been upgraded to Warmog's Armor (survivability for peel situations) or held as a sell candidate.</div>
+</div><div class="finding POSITIVE">
+  <div class="finding-meta"><span class="ts-badge">0 – 35 min</span><span class="ts-badge">entire map</span><span class="sev-badge sev-LOW">✓ LOW</span><span class="phase-badge">LATE – RESOURCES</span></div>
+  <h3>Vision score 110 (3.10/min) – best on both teams</h3>
+  <p>Ally Lulu finished with 110 vision score (3.10/min), 45 wards placed, 11 wards killed, and 10 control wards purchased. For reference, a strong support target is 2.5+ VS/min – Lulu was well above that and offset the near-zero vision contribution from two of the four other Blue team players. Control wards around Dragon and Baron were placed proactively throughout the game.</p>
+  <div class="fix-line pos">Excellent vision game. This level of map awareness is what allows the team to make informed decisions around objectives.</div>
+</div>
+
+<h2>The 3 Swing Moments</h2>
+<div class="swing-card" style="border-left-color:var(--red)">
+  <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+    <span class="ts-badge">6:24 – 6:48</span>
+    <span style="font-size:.72rem;color:var(--muted)">bot lane near Blue outer tower</span>
+    <b style="font-size:.9rem">Support kills Ezreal and Leona back-to-back</b>
+  </div>
+  <p style="font-size:.83rem;color:#c0c5d8">After dying at 5:09, Ally Lulu returned to lane and killed Enemy Ezreal at 6:24 and Enemy Leona at 6:48 within a 24-second window, with Ally Tristana assisting both. Two support kills reversed the trajectory of a lane that was being dominated. The aggressive re-entry after a death – rather than playing passively – is what kept Blue team from falling behind in bot lane during the critical first 10 minutes.</p>
+</div><div class="swing-card" style="border-left-color:var(--gold)">
+  <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+    <span class="ts-badge">10:32 – 14:27</span>
+    <span style="font-size:.72rem;color:var(--muted)">bot lane / top river</span>
+    <b style="font-size:.9rem">Ardent Censer enables Tristana's first major teamfight</b>
+  </div>
+  <p style="font-size:.83rem;color:#c0c5d8">Ardent Censer completed at 10:32, buffing Tristana's attack speed in every fight from that point. The first major test was the 14:27 skirmish in the top river where Tristana killed Ezreal and Leona with Lulu's shields active. Lulu's 10:32 item completion directly enabled Tristana's 14:27 kill sequence – the power spike timing was a direct result of the early kills that funded fast Ardent.</p>
+</div><div class="swing-card" style="border-left-color:var(--green)">
+  <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+    <span class="ts-badge">33:15</span>
+    <span style="font-size:.72rem;color:var(--muted)">mid lane</span>
+    <b style="font-size:.9rem">Lulu personally takes the mid inhibitor</b>
+  </div>
+  <p style="font-size:.83rem;color:#c0c5d8">Ally Lulu destroyed the mid inhibitor at 33:15 after Shaco took the base tower at 33:06. While Tristana and Shaco were in combat, Lulu auto-attacked the inhibitor down. The inhibitor spawn gave Blue team the super minion push that led directly to Baron at 33:36 and the nexus at 35:24. A support taking down a structure might seem like a small detail; in a tight window it was a meaningful contribution to the sequence.</p>
+</div>
+
+<h2>3 Things to Work On</h2>
+<div class="work-card">
+  <h3><span style="color:var(--yellow)">#1 Positioning vs Ezreal specifically</span></h3>
+  <p style="font-size:.83rem;color:#c0c5d8;margin-top:6px">Three deaths to Enemy Ezreal (5:09, 12:07, 19:36) all came from walking in predictable straight lines in open terrain. Ezreal's Mystic Shot travels 1000 units and his only requirement to land it is your position being predictable. Move laterally and use minion bodies as cover when Ezreal has a clear angle. In dragon pit specifically, hug the far wall to reduce his aim corridor. Glitterlance out-ranges Mystic Shot – use Q proactively to force Ezreal to back off before walking to an objective.</p>
+</div><div class="work-card">
+  <h3><span style="color:var(--yellow)">#2 Item completion in long games</span></h3>
+  <p style="font-size:.83rem;color:#c0c5d8;margin-top:6px">Kindlegem sat unfinished at game end. Once you're past 28 minutes, every back should end with: sell Stealth Ward (if held), sell any remaining starter items, complete the item you have components for. Warmog's Armor from Kindlegem would have added 800 HP and regeneration – meaningful survivability for a support who died 4 times in a game where Ezreal had significant poke. Completing components is a game-long discipline.</p>
+</div><div class="work-card">
+  <h3><span style="color:var(--yellow)">#3 Shurelya's timing based on game state</span></h3>
+  <p style="font-size:.83rem;color:#c0c5d8;margin-top:6px">Shurelya's arrived at 21:42 when Blue team already had map control. Its highest value is at 14–18 minutes when teams are contesting mid-game objectives and a 25% movement speed burst enables picks or disengages. If the game is ahead at 15 minutes, consider buying Redemption (15:30 power spike for sustained fight healing) or Mikael's (for cleansing key CC off Tristana) before Shurelya's. Shurelya's is a tool for catching enemies and contesting objectives – time it to when that need is highest.</p>
+</div>
+
+</body>
+</html>

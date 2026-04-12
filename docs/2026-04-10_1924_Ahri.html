@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Coaching: BugR – Ahri MID – WIN 31:32</title>
+<link rel="icon" type="image/png" href="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Ahri.png">
+<style>
+:root{--bg:#0e0f14;--surface:#16181f;--surface2:#1e2029;--border:#2a2d3a;--text:#dde1f0;--muted:#7b8099;--blue:#4e9eff;--gold:#c89b3c;--green:#3dca7e;--red:#e55c5c;--yellow:#f0b429;--purple:#9b7fe8;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;font-size:.92rem;line-height:1.6;padding:24px;}
+h1{font-size:1.5rem;font-weight:700;color:#fff;}
+h2{font-size:1.1rem;font-weight:700;color:var(--gold);margin:20px 0 10px;}
+h3{font-size:.95rem;font-weight:600;color:var(--text);margin:12px 0 6px;}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:12px;}
+.badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:.72rem;font-weight:700;letter-spacing:.03em;}
+.badge-high{background:#e55c5c22;color:#e55c5c;border:1px solid #e55c5c44;}
+.badge-med{background:#f0b42922;color:#f0b429;border:1px solid #f0b42944;}
+.badge-low{background:#3dca7e22;color:#3dca7e;border:1px solid #3dca7e44;}
+.badge-pos{background:#3dca7e22;color:#3dca7e;border:1px solid #3dca7e44;}
+.badge-posH{background:#4e9eff22;color:#4e9eff;border:1px solid #4e9eff44;}
+.badge-ts{background:var(--surface2);color:var(--muted);border:1px solid var(--border);font-family:monospace;}
+.badge-lens{background:#9b7fe822;color:#9b7fe8;border:1px solid #9b7fe844;}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px;margin:12px 0;}
+.stat-box{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px 12px;text-align:center;}
+.stat-val{font-size:1.35rem;font-weight:700;color:#fff;}
+.stat-lbl{font-size:.7rem;color:var(--muted);margin-top:2px;}
+table{width:100%;border-collapse:collapse;font-size:.85rem;}
+th{background:var(--surface2);color:var(--muted);font-weight:600;padding:7px 10px;text-align:left;border-bottom:1px solid var(--border);}
+td{padding:7px 10px;border-bottom:1px solid #1e2029;}
+tr:hover td{background:#ffffff08;}
+.you-row td{background:#c89b3c14;}
+.you-badge{background:var(--gold);color:#000;font-size:.65rem;font-weight:800;padding:1px 5px;border-radius:3px;margin-left:4px;}
+.star{color:var(--gold);}
+.phase-div{font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:22px 0 8px;display:flex;align-items:center;gap:8px;}
+.phase-div::after{content:'';flex:1;height:1px;background:var(--border);}
+.finding{border-radius:8px;padding:14px 16px;margin-bottom:10px;background:var(--surface);border:1px solid var(--border);}
+.finding-title{font-weight:700;font-size:.95rem;margin:6px 0 4px;}
+.finding-body{color:#b8bdd4;font-size:.875rem;line-height:1.6;}
+.finding-fix{margin-top:8px;font-size:.875rem;}
+.finding-fix .fix-lbl{color:var(--blue);font-weight:600;}
+.finding-fix .fix-lbl.pos{color:var(--green);}
+.tl-wrap{position:relative;margin:16px 0;}
+.tl-markers{position:relative;height:88px;}
+.swing-card{border-radius:8px;padding:16px;margin-bottom:12px;background:var(--surface);border:1px solid var(--border);}
+.swing-title{font-weight:700;font-size:.95rem;margin-bottom:6px;display:flex;align-items:center;gap:8px;}
+.workon-card{border-left:3px solid var(--yellow);border-radius:0 8px 8px 0;padding:14px 16px;margin-bottom:12px;background:var(--surface);border-top:1px solid var(--border);border-right:1px solid var(--border);border-bottom:1px solid var(--border);}
+.workon-num{font-size:1.2rem;font-weight:800;color:var(--yellow);float:left;margin-right:10px;}
+.workon-title{font-weight:700;font-size:.95rem;color:var(--text);margin-bottom:6px;}
+.workon-body{color:#b8bdd4;font-size:.875rem;line-height:1.6;clear:both;}
+.phase-overview{background:#1a1c25;border:1px solid #2a3050;border-radius:8px;padding:14px 16px;margin-bottom:12px;}
+.phase-overview-label{font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#5b6ea8;margin-bottom:10px;}
+.lane-row{display:flex;align-items:flex-start;gap:8px;margin-bottom:7px;font-size:.83rem;}
+.lane-tag{background:#252840;color:#7b90d4;border-radius:4px;padding:1px 7px;font-size:.7rem;font-weight:700;min-width:50px;text-align:center;margin-top:2px;}
+.lane-tag.you{background:#3a3010;color:#c89b3c;}
+.lane-text{color:#9aa3c2;line-height:1.5;}
+.overview-note{margin-top:10px;font-size:.8rem;color:#5b6ea8;border-top:1px solid #2a3050;padding-top:8px;}
+.hero-header{display:flex;gap:20px;align-items:flex-start;margin-bottom:20px;flex-wrap:wrap;}
+.hero-art img{border-radius:10px;border:2px solid var(--gold);display:block;}
+.ability-strip{display:flex;gap:6px;margin-top:8px;}
+.ability-strip img{width:26px;height:26px;border-radius:4px;border:1px solid var(--border);}
+.hero-info{flex:1;min-width:200px;}
+.match-badge{background:var(--surface2);color:var(--muted);font-family:monospace;font-size:.75rem;padding:3px 8px;border-radius:4px;display:inline-block;}
+.verdict-card{background:#1a1c25;border:1px solid var(--border);border-radius:8px;padding:12px;margin-top:10px;}
+.verdict-lbl{font-size:.7rem;color:var(--muted);font-weight:700;text-transform:uppercase;margin-bottom:4px;}
+.three-short{background:#1a1c25;border:1px solid #2a3050;border-radius:8px;padding:14px 16px;margin-bottom:12px;}
+.three-short ol{padding-left:20px;color:#9aa3c2;font-size:.875rem;}
+.three-short li{margin-bottom:4px;}
+.finding-loc { font-size:.7rem; color:var(--muted); margin-bottom:5px; letter-spacing:.02em; }
+
+
+.gnav{position:sticky;top:0;z-index:200;height:38px;background:rgba(14,15,20,.96);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid #1e2029;display:flex;align-items:center;padding:0 24px;}
+.gnav a{display:inline-flex;align-items:center;gap:6px;color:#4a4d5a;text-decoration:none;font-size:.68rem;letter-spacing:.09em;text-transform:uppercase;font-weight:600;transition:color .2s;}
+.gnav a:hover{color:#c89b3c;}
+.gnav a svg{transition:transform .2s;}
+.gnav a:hover svg{transform:translateX(-2px);}
+</style>
+</head>
+<body><nav class="gnav"><a href="flex.html"><svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11 5H1M5 1L1 5L5 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Session</a></nav>
+
+<div class="hero-header">
+  <div class="hero-art">
+    <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/loading/Ahri_0.jpg" style="width:120px;height:120px;border-radius:10px;border:2px solid var(--gold);" onerror="this.style.display='none'">
+    
+<div class="ability-strip">
+  <img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/spell/AhriOrbofDeception.png" style="width:26px;height:26px;border-radius:4px;border:1px solid var(--border);" onerror="this.style.display='none'">
+  <img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/spell/AhriFoxFire.png" style="width:26px;height:26px;border-radius:4px;border:1px solid var(--border);" onerror="this.style.display='none'">
+  <img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/spell/AhriSeduce.png" style="width:26px;height:26px;border-radius:4px;border:1px solid var(--border);" onerror="this.style.display='none'">
+  <img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/spell/AhriTumble.png" style="width:26px;height:26px;border-radius:4px;border:1px solid var(--border);" onerror="this.style.display='none'">
+</div>
+  </div>
+  <div class="hero-info">
+    <h1>Post-Match Coaching Report</h1>
+    <div style="color:var(--muted);font-size:.85rem;margin:4px 0 10px;">
+      BugR &nbsp;·&nbsp; <img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Ahri.png" style="width:20px;height:20px;border-radius:3px;vertical-align:middle;" onerror="this.style.display='none'"> Ahri &nbsp;·&nbsp; MIDDLE &nbsp;·&nbsp;
+      <span style="color:var(--green);font-weight:700;">WIN</span> 31:32 &nbsp;·&nbsp; Patch 16.7
+    </div>
+    <span class="match-badge">NA1_5537842078</span>
+    <div class="verdict-card" style="margin-top:10px;">
+      <div class="verdict-lbl">Honest Verdict</div>
+      <div style="font-size:.9rem;">This was a team win carried by Ally Shaco, but you did your job well enough. You kept Yone in check (he went 1/5, two of those kills yours), completed Luden's Echo at 10:14, and assisted on five kills in the final teamfight. The fixable issues: your gold lead over Yone compressed to +111 by 20 minutes despite him being 1/5, your vision score (0.63/min) was below mid-lane baseline, and your build was unfinished at game end with a Needlessly Large Rod still in your inventory. This game was won without you having to fix these things — the next game might not be.</div>
+    </div>
+    <div class="verdict-card" style="margin-top:8px;">
+      <div class="verdict-lbl">Game Summary</div>
+      <div style="font-size:.9rem;">Ally Shaco set the pace with first blood at 2:57 and all three Void Grubs by 8:52. Your two mid ganks with Shaco at 8:14 and 11:00 kept Yone off the board. The 23:35 teamfight collapse briefly put Blue team at –913 gold, but Ally Shaco's solo Baron at 29:57 and the resulting 5-for-0 fight ended the game 90 seconds later.</div>
+    </div>
+  </div>
+</div>
+
+<div class="three-short">
+  <h3 style="color:var(--yellow);margin-bottom:8px;">3 Things To Work On</h3>
+  <ol>
+    <li><strong>Converting a lane lead into a game lead</strong> — You were +473 gold ahead of Yone at 15 minutes while he was 1/5, but that lead compressed to +111 by 20 minutes. The mid-game window between 15–20 min needs more active play to maintain pressure.</li>
+    <li><strong>Vision score</strong> — 20 vision score (0.63/min) is below the 1.0/min mid-lane baseline. Upgraded to Farsight Alteration at 22:41 but only placed 2 control wards the entire game.</li>
+    <li><strong>Build completion</strong> — Ended the game with Needlessly Large Rod in inventory (Shadowflame + Luden's + Shoes + Rod). The game ended before Rabadon's could complete, but prioritizing that third item from ~22 min onward rather than sitting on a component is the habit to build.</li>
+  </ol>
+</div>
+
+<h2>Quick Stats</h2>
+<div class="stat-grid">
+  <div class="stat-box"><div class="stat-val">3/1/6</div><div class="stat-lbl">KDA</div></div>
+  <div class="stat-box"><div class="stat-val">251</div><div class="stat-lbl">CS (7.9/min)</div></div>
+  <div class="stat-box"><div class="stat-val" style="color:var(--gold);">11,571</div><div class="stat-lbl">Gold</div></div>
+  <div class="stat-box"><div class="stat-val">25,661</div><div class="stat-lbl">Damage</div></div>
+  <div class="stat-box"><div class="stat-val">25.7%</div><div class="stat-lbl">Dmg % of Team</div></div>
+  <div class="stat-box"><div class="stat-val" style="color:#f0b429;">20</div><div class="stat-lbl">Vision Score (0.63/min)</div></div>
+  <div class="stat-box"><div class="stat-val" style="color:var(--green);">39%</div><div class="stat-lbl">Kill Participation</div></div>
+  <div class="stat-box"><div class="stat-val" style="color:var(--green);">1</div><div class="stat-lbl">Deaths</div></div>
+</div>
+
+<h2>Team Overview</h2>
+<table>
+<thead><tr><th>Player</th><th>Champion</th><th>Role</th><th>KDA</th><th>CS</th><th>Gold</th><th>Damage</th><th>KP%</th><th></th></tr></thead>
+<tbody>
+<tr><td colspan="9" style="background:#1a2040;color:#4e9eff;font-weight:700;font-size:.75rem;padding:5px 10px;">🔵 Blue Team</td></tr>
+<tr><td>BodaciousMango</td><td><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Kled.png" style="width:26px;height:26px;border-radius:3px;vertical-align:middle;" onerror="this.style.display='none'"> Kled</td><td>TOP</td><td>3/4/7</td><td>208</td><td>12,329</td><td>22,741</td><td>43%</td><td></td></tr>
+<tr><td>Moist</td><td><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Shaco.png" style="width:26px;height:26px;border-radius:3px;vertical-align:middle;" onerror="this.style.display='none'"> Shaco</td><td>JUNGLE</td><td>11/4/5</td><td>256</td><td>14,853</td><td>21,179</td><td>70%</td><td class="star">★</td></tr>
+<tr class="you-row"><td>BugR <span class="you-badge">← YOU</span></td><td><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Ahri.png" style="width:26px;height:26px;border-radius:3px;vertical-align:middle;" onerror="this.style.display='none'"> Ahri</td><td>MIDDLE</td><td>3/1/6</td><td>251</td><td>11,571</td><td>25,661</td><td>39%</td><td></td></tr>
+<tr><td>lentilbebi</td><td><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Ashe.png" style="width:26px;height:26px;border-radius:3px;vertical-align:middle;" onerror="this.style.display='none'"> Ashe</td><td>BOTTOM</td><td>4/1/11</td><td>227</td><td>13,169</td><td>22,579</td><td>65%</td><td></td></tr>
+<tr><td>ahrisoo</td><td><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Lulu.png" style="width:26px;height:26px;border-radius:3px;vertical-align:middle;" onerror="this.style.display='none'"> Lulu</td><td>SUPPORT</td><td>2/3/15</td><td>34</td><td>8,930</td><td>8,643</td><td>74%</td><td></td></tr>
+<tr><td colspan="9" style="background:#401a1a;color:#e55c5c;font-weight:700;font-size:.75rem;padding:5px 10px;">🔴 Red Team</td></tr>
+<tr><td>TheWillfulLoser</td><td><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Skarner.png" style="width:26px;height:26px;border-radius:3px;vertical-align:middle;" onerror="this.style.display='none'"> Skarner</td><td>TOP</td><td>2/3/5</td><td>201</td><td>10,409</td><td>29,442</td><td>54%</td><td></td></tr>
+<tr><td>tiangener</td><td><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/DrMundo.png" style="width:26px;height:26px;border-radius:3px;vertical-align:middle;" onerror="this.style.display='none'"> Dr. Mundo</td><td>JUNGLE</td><td>4/5/6</td><td>198</td><td>11,641</td><td>18,633</td><td>77%</td><td></td></tr>
+<tr><td>Bread Car Car</td><td><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Yone.png" style="width:26px;height:26px;border-radius:3px;vertical-align:middle;" onerror="this.style.display='none'"> Yone</td><td>MIDDLE</td><td>1/5/2</td><td>254</td><td>13,916</td><td>9,992</td><td>23%</td><td></td></tr>
+<tr><td>ChenI77</td><td><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Viktor.png" style="width:26px;height:26px;border-radius:3px;vertical-align:middle;" onerror="this.style.display='none'"> Viktor</td><td>BOTTOM</td><td>6/4/3</td><td>267</td><td>15,819</td><td>30,093</td><td>69%</td><td class="star">★</td></tr>
+<tr><td>灵魂咆哮</td><td><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Rakan.png" style="width:26px;height:26px;border-radius:3px;vertical-align:middle;" onerror="this.style.display='none'"> Rakan</td><td>SUPPORT</td><td>0/6/9</td><td>26</td><td>7,691</td><td>4,776</td><td>69%</td><td></td></tr>
+</tbody>
+</table>
+<div style="color:var(--muted);font-size:.8rem;margin-top:6px;">Damage split: Blue 58% AD / 32% AP – Red 37% AD / 59% AP</div>
+
+<h2>Match Timeline</h2>
+
+<div class="tl-wrap">
+  <div style="display:flex;height:22px;border-radius:4px;overflow:hidden;margin-bottom:8px;">
+    <div style="width:44.4%;background:#2563eb30;display:flex;align-items:center;justify-content:center;font-size:.65rem;color:rgba(255,255,255,.45);">Early (0–14)</div>
+    <div style="width:34.88%;background:#7c3aed30;display:flex;align-items:center;justify-content:center;font-size:.65rem;color:rgba(255,255,255,.45);">Mid (14–25)</div>
+    <div style="width:20.72%;background:#c026d330;display:flex;align-items:center;justify-content:center;font-size:.65rem;color:rgba(255,255,255,.45);">Late (25+)</div>
+  </div>
+  <div style="position:relative;">
+    <div style="position:absolute;left:44.4%;top:0;bottom:0;width:1px;background:rgba(255,255,255,.12);z-index:1;"></div>
+    <div style="position:absolute;left:79.28%;top:0;bottom:0;width:1px;background:rgba(255,255,255,.12);z-index:1;"></div>
+    <div style="height:6px;background:var(--border);border-radius:3px;position:absolute;top:40px;left:0;right:0;"></div>
+    <div class="tl-markers" style="position:relative;height:88px;"><div style="position:absolute;top:4px;left:25.79%;transform:translateX(-50%);cursor:pointer;z-index:10;"
+  onmouseover="this.querySelector('.tt').style.display='block'"
+  onmouseout="this.querySelector('.tt').style.display='none'">
+  <div style="width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-bottom:12px solid #3dca7e;transition:transform .15s;"
+       onmouseover="this.style.transform='scale(1.4)'" onmouseout="this.style.transform='scale(1)'"></div>
+  <div style="width:1px;height:16px;background:rgba(255,255,255,.15);margin:0 auto;"></div>
+  <div class="tt" style="display:none;position:absolute;bottom:130%;left:50%;transform:translateX(-50%);background:#1e2029;border:1px solid var(--border);border-radius:6px;padding:9px 12px;font-size:.75rem;width:220px;box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:100;pointer-events:none;line-height:1.5;"><div style="color:var(--muted);font-size:.7rem">8:14 – mid lane river</div><div style="font-weight:600;margin:3px 0">Mid Gank: Yone Kill #1</div><div>Shaco + Ahri pick up Yone. Lane pressure established early.</div></div>
+</div><div style="position:absolute;top:4px;left:32.24%;transform:translateX(-50%);cursor:pointer;z-index:10;"
+  onmouseover="this.querySelector('.tt').style.display='block'"
+  onmouseout="this.querySelector('.tt').style.display='none'">
+  <div style="width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-bottom:12px solid #3dca7e;transition:transform .15s;"
+       onmouseover="this.style.transform='scale(1.4)'" onmouseout="this.style.transform='scale(1)'"></div>
+  <div style="width:1px;height:16px;background:rgba(255,255,255,.15);margin:0 auto;"></div>
+  <div class="tt" style="display:none;position:absolute;bottom:130%;left:50%;transform:translateX(-50%);background:#1e2029;border:1px solid var(--border);border-radius:6px;padding:9px 12px;font-size:.75rem;width:220px;box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:100;pointer-events:none;line-height:1.5;"><div style="color:var(--muted);font-size:.7rem">10:14 – base</div><div style="font-weight:600;margin:3px 0">Luden's Echo Completed</div><div>First item at 10:14 – strong timing for a mid laner.</div></div>
+</div><div style="position:absolute;top:4px;left:34.88%;transform:translateX(-50%);cursor:pointer;z-index:10;"
+  onmouseover="this.querySelector('.tt').style.display='block'"
+  onmouseout="this.querySelector('.tt').style.display='none'">
+  <div style="width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-bottom:12px solid #3dca7e;transition:transform .15s;"
+       onmouseover="this.style.transform='scale(1.4)'" onmouseout="this.style.transform='scale(1)'"></div>
+  <div style="width:1px;height:16px;background:rgba(255,255,255,.15);margin:0 auto;"></div>
+  <div class="tt" style="display:none;position:absolute;bottom:130%;left:50%;transform:translateX(-50%);background:#1e2029;border:1px solid var(--border);border-radius:6px;padding:9px 12px;font-size:.75rem;width:220px;box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:100;pointer-events:none;line-height:1.5;"><div style="color:var(--muted);font-size:.7rem">11:00 – mid lane</div><div style="font-weight:600;margin:3px 0">Mid Gank: Yone Kill #2</div><div>Second Yone kill with Shaco. Yone ends game 1/5.</div></div>
+</div><div style="position:absolute;top:4px;left:88.95%;transform:translateX(-50%);cursor:pointer;z-index:10;"
+  onmouseover="this.querySelector('.tt').style.display='block'"
+  onmouseout="this.querySelector('.tt').style.display='none'">
+  <div style="width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-bottom:12px solid #4e9eff;transition:transform .15s;"
+       onmouseover="this.style.transform='scale(1.4)'" onmouseout="this.style.transform='scale(1)'"></div>
+  <div style="width:1px;height:16px;background:rgba(255,255,255,.15);margin:0 auto;"></div>
+  <div class="tt" style="display:none;position:absolute;bottom:130%;left:50%;transform:translateX(-50%);background:#1e2029;border:1px solid var(--border);border-radius:6px;padding:9px 12px;font-size:.75rem;width:220px;box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:100;pointer-events:none;line-height:1.5;"><div style="color:var(--muted);font-size:.7rem">28:06 – mid lane</div><div style="font-weight:600;margin:3px 0">Kills Yone</div><div>Third Yone kill – direct carry contribution in the lead-up to Baron.</div></div>
+</div><div style="position:absolute;top:4px;left:97.3%;transform:translateX(-50%);cursor:pointer;z-index:10;"
+  onmouseover="this.querySelector('.tt').style.display='block'"
+  onmouseout="this.querySelector('.tt').style.display='none'">
+  <div style="width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-bottom:12px solid #4e9eff;transition:transform .15s;"
+       onmouseover="this.style.transform='scale(1.4)'" onmouseout="this.style.transform='scale(1)'"></div>
+  <div style="width:1px;height:16px;background:rgba(255,255,255,.15);margin:0 auto;"></div>
+  <div class="tt" style="display:none;position:absolute;bottom:auto;top:130%;left:50%;transform:translateX(-50%);background:#1e2029;border:1px solid var(--border);border-radius:6px;padding:9px 12px;font-size:.75rem;width:220px;box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:100;pointer-events:none;line-height:1.5;"><div style="color:var(--muted);font-size:.7rem">30:41–30:44 – mid lane</div><div style="font-weight:600;margin:3px 0">Double Kill: Mundo + Rakan</div><div>Kills Dr. Mundo and Rakan in the 5-for-0 Baron teamfight.</div></div>
+</div><div style="position:absolute;top:46px;left:75.32%;transform:translateX(-50%);cursor:pointer;z-index:10;"
+  onmouseover="this.querySelector('.tt').style.display='block'"
+  onmouseout="this.querySelector('.tt').style.display='none'">
+  <div style="width:1px;height:16px;background:rgba(255,255,255,.15);margin:0 auto;"></div>
+  <div style="width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-top:12px solid #e55c5c;transition:transform .15s;"
+       onmouseover="this.style.transform='scale(1.4)'" onmouseout="this.style.transform='scale(1)'"></div>
+  <div class="tt" style="display:none;position:absolute;bottom:130%;left:50%;transform:translateX(-50%);background:#1e2029;border:1px solid var(--border);border-radius:6px;padding:9px 12px;font-size:.75rem;width:220px;box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:100;pointer-events:none;line-height:1.5;"><div style="color:var(--muted);font-size:.7rem">23:45 – mid lane</div><div style="font-weight:600;margin:3px 0">Death: Teamfight Collapse</div><div>Killed by Viktor + Skarner + Mundo + Rakan after Lulu and Ashe already fell.</div></div>
+</div></div>
+    <div style="display:flex;justify-content:space-between;font-size:.65rem;color:var(--muted);margin-top:2px;">
+      <span>0:00</span><span>7:50</span><span>15:40</span><span>23:30</span><span>31:32</span>
+    </div>
+  </div>
+</div>
+
+<div class="phase-div">Phase 1 — Draft</div>
+
+<div class="phase-overview">
+  <div class="phase-overview-label">Draft Context</div>
+  <div class="lane-row"><span class="lane-tag">TOP</span><span class="lane-text">Kled vs Skarner – Skarner has a slight edge but Kled's remount gives him durability. Both are engage-oriented; Kled needs to avoid being supressed by Skarner's R.</span></div><div class="lane-row"><span class="lane-tag">JGL</span><span class="lane-text">Shaco vs Dr. Mundo – Shaco wins the early 1v1 and invade matchup decisively. Mundo needs to farm to scale; Shaco needs to deny him that time.</span></div><div class="lane-row"><span class="lane-tag you">MID ←</span><span class="lane-text">Ahri vs Yone – Yone has a slight lane advantage in direct trades (54.3% win rate vs Ahri at this patch) but Ahri's E (Charm) and mobility let her dodge his Q and trade favorably with poke. More importantly, Ahri's roam priority with Spirit Rush is better than Yone's. Ahri's win condition is to win through map play, not through lane dominance.</span></div><div class="lane-row"><span class="lane-tag">BOT</span><span class="lane-text">Ashe + Lulu vs Viktor + Rakan – Viktor in ADC with full AP build is an unconventional threat. Rakan's engage sets up Skarner + Mundo dives.</span></div>
+  <div class="overview-note">Your win condition: use Charm and Spirit Rush to follow Shaco's early tempo, pick off key targets, and stay on the map. Yone's 1/5 line reflects this playing out correctly — two of those kills were yours via gank coordination with Shaco.</div>
+</div>
+
+<div class="finding" style="border-left:3px solid #3dca7e;">
+  <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+    <span class="badge badge-ts">Pre-game</span>
+    <span class="badge badge-pos">▲ POSITIVE</span>
+    <span class="badge badge-lens">DRAFT</span>
+  </div>
+  <div class="finding-title">Ahri Into Yone – Roam Priority Is the Win Condition</div>
+  <div class="finding-body">Ahri vs Yone is a matchup where Ahri wins by roaming rather than winning the 1v1. Yone has higher damage output in direct 2-ability trades, but Ahri has Spirit Rush mobility and Charm to create picks. The correct approach is to match Yone's CS, avoid extended all-ins, and look to roam with Ally Shaco when his jungle paths cross mid lane.</div>
+  <div class="finding-fix"><span class="fix-lbl pos">Keep doing this:</span> Luden's Echo at 10:14 is the right first item for this — burst poke from range synergizes with Charm into a kill. Executed correctly.</div>
+</div>
+
+<div class="phase-div">Phase 2 — Early Game (0–14 min)</div>
+
+<div class="phase-overview">
+  <div class="phase-overview-label">Early Game Context</div>
+  <div class="lane-row"><span class="lane-tag">JGL</span><span class="lane-text">Ally Shaco established early pressure via first blood on Dr. Mundo at 2:57 and two mid ganks at 8:14 and 11:00. Both ganks required your follow-up — your Charm is what made the Yone kills converted instead of flashed-away.</span></div><div class="lane-row"><span class="lane-tag you">MID ←</span><span class="lane-text">Gold differential vs Yone: -68 at 5min (essentially even), +338 at 10min, +473 at 15min. Your farm was consistent (251 CS final, 7.9/min). The Luden's at 10:14 was a strong completion timing. Yone started falling behind from 10 min onward.</span></div><div class="lane-row"><span class="lane-tag">MAP</span><span class="lane-text">Red team secured both early dragons (6:59 and 14:39) uncontested while Blue team focused on kill trades. Blue team's first dragon didn't come until 19:57.</span></div>
+  <div class="overview-note">The early game played correctly from your lane — match farm, take gank assists, don't force extended trades into Yone's damage pattern. The two gank kills at 8:14 and 11:00 were the correct translation of Shaco's tempo into mid-lane dominance.</div>
+</div>
+
+<div class="finding" style="border-left:3px solid #3dca7e;">
+  <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+    <span class="badge badge-ts">8:14 + 11:00 | mid lane</span>
+    <span class="badge badge-pos">▲ POSITIVE</span>
+    <span class="badge badge-lens">DECISION AUDIT</span>
+  </div>
+  <div class="finding-title">Two Yone Kills via Jungle Coordination</div>
+  <div class="finding-body">Ally Shaco ganked mid at 8:14 and 11:00. Ally Ahri assisted on both Yone kills. Enemy Yone ended 1/5 – these kills directly removed Red team's second-best scaling damage threat from the game. Yone builds BotRK + Immortal Shieldbow and becomes nearly unkillable if ahead; keeping him at 1/5 prevented that.</div>
+  <div class="finding-fix"><span class="fix-lbl pos">Keep doing this:</span> Correct execution. Accepting the gank timing and following up with Charm → combo is the right habit.</div>
+</div>
+
+<div class="finding" style="border-left:3px solid #3dca7e;">
+  <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+    <span class="badge badge-ts">10:14 | base</span>
+    <span class="badge badge-pos">▲ POSITIVE</span>
+    <span class="badge badge-lens">RESOURCE EFFICIENCY</span>
+  </div>
+  <div class="finding-title">Luden's Echo at 10:14</div>
+  <div class="finding-body">First item Luden's Echo completed at 10:14 is a strong timing for a mid mage with two early kills on the board. The Lost Chapter rush at 8:45 gave mana sustain through laning phase. Luden's poke from range pairs well with Charm – any Charm landing in mid game is essentially a free Luden's proc.</div>
+  <div class="finding-fix"><span class="fix-lbl pos">Keep doing this:</span> This is the right first item for this matchup. Nothing to change.</div>
+</div>
+
+<div class="finding" style="border-left:3px solid #f0b429;">
+  <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+    <span class="badge badge-ts">15:00–20:00 | mid lane</span>
+    <span class="badge badge-med">▼ MEDIUM IMPACT</span>
+    <span class="badge badge-lens">RESOURCE EFFICIENCY</span>
+  </div>
+  <div class="finding-title">Gold Lead Compressed Despite Yone Being 1/5</div>
+  <div class="finding-body">Ally Ahri held a +473 gold lead over Enemy Yone at 15 minutes. By 20 minutes, that lead had compressed to +111 – a 362-gold swing in Yone's favor during a 5-minute window when he was 1/5. Yone's build (BotRK + Immortal Shieldbow) is expensive and he was buying it while behind, which creates the illusion of deficit. But the gap compression suggests Ally Ahri was not translating lane dominance into map pressure during this window.</div>
+  <div class="finding-fix"><span class="fix-lbl ">Fix:</span> After reaching +473 at 15 min with an opponent at 1/5, the action is to roam bot or take mid tower rather than sustaining a CS-farming pattern. One successful roam kill or a tower plate converts a 473-gold theoretical advantage into a real one.</div>
+</div>
+
+<div class="finding" style="border-left:3px solid #f0b429;">
+  <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+    <span class="badge badge-ts">Pre-22:41 | base</span>
+    <span class="badge badge-med">▼ MEDIUM IMPACT</span>
+    <span class="badge badge-lens">RESOURCE EFFICIENCY</span>
+  </div>
+  <div class="finding-title">Vision Score Below Mid-Lane Baseline</div>
+  <div class="finding-body">Ally Ahri ended with a vision score of 20 (0.63/min). Mid-lane vision baseline is ≥1.0/min, which would be ~31 for this game length. Ahri placed 2 control wards total (13:28 and 23:01) and swapped to Farsight Alteration at 22:41. The yellow trinket was used frequently (9 placements), but control ward coverage in the mid river and dragon pit was sparse during the critical 15–23 minute objective window.</div>
+  <div class="finding-fix"><span class="fix-lbl ">Fix:</span> Buy a control ward every 1–2 recalls during mid game. The 13:28 placement was good timing – replicate that pattern at 18:00, 22:00. Vision in mid river directly reduces your chance of being collapsed on while roaming.</div>
+</div>
+
+<div class="phase-div">Phase 3 — Mid Game (14–25 min)</div>
+
+<div class="phase-overview">
+  <div class="phase-overview-label">Mid Game Context</div>
+  <div class="lane-row"><span class="lane-tag you">MID ←</span><span class="lane-text">Gold vs Yone: +473 at 15min, +111 at 20min. The lead compressed as both players farmed. Ahri's build was Shadowflame next after Luden's (completed at 24:24) – correct item choice but the timing came late relative to the 23:35 teamfight.</span></div><div class="lane-row"><span class="lane-tag">MAP</span><span class="lane-text">The 23:35 teamfight: Blue lost Lulu (23:35), Ashe (23:44), and Ahri (23:45) in 10 seconds. Ahri died third, after both the support and carry had already fallen. Gold lead swung from +216 at 20 min to –913 at 25 min.</span></div><div class="lane-row"><span class="lane-tag">JGL</span><span class="lane-text">Shaco deaths at 22:58 (top-side jungle) and 27:21 (mid river) reduced Blue team's map presence. Shaco's solo Baron at 29:57 reset the game.</span></div>
+  <div class="overview-note">The 23:35 collapse was a positioning issue across the team — you died third in that fight, which means two critical teammates were already down before Viktor reached you. Your death wasn't the cause of the collapse but it was the finisher.</div>
+</div>
+
+<div class="finding" style="border-left:3px solid #f0b429;">
+  <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+    <span class="badge badge-ts">23:45 | mid lane</span>
+    <span class="badge badge-med">▼ MEDIUM IMPACT</span>
+    <span class="badge badge-lens">TEAMFIGHT BREAKDOWN</span>
+  </div>
+  <div class="finding-title">Third to Die in the 23:35 Collapse</div>
+  <div class="finding-body">The 23:35 teamfight: Enemy Dr. Mundo killed Ally Lulu at 23:35, Enemy Dr. Mundo killed Ally Ashe at 23:44, Enemy Viktor killed Ally Ahri at 23:45. You died 10 seconds after the fight started, after your support and primary carry were already down. Position: mid lane (x:5354, y:5063). Red team's engage path came from the blue-side jungle direction, meaning you were caught in the transition zone between mid lane and jungle.</div>
+  <div class="finding-fix"><span class="fix-lbl ">Fix:</span> When Enemy Rakan and Enemy Skarner are unaccounted for on the minimap, keep the mid lane corridor clear and stay east of mid lane rather than crossing toward blue-side jungle. The engage caught Lulu first because she was furthest north – your mid-lane position meant you were next in the path.</div>
+</div>
+
+<div class="finding" style="border-left:3px solid #3dca7e;">
+  <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+    <span class="badge badge-ts">22:37 | base</span>
+    <span class="badge badge-low">▼ MEDIUM IMPACT</span>
+    <span class="badge badge-lens">RESOURCE EFFICIENCY</span>
+  </div>
+  <div class="finding-title">Incomplete Build at Game End</div>
+  <div class="finding-body">Ally Ahri ended the game with Shadowflame + Luden's Echo + Spellslinger's Shoes + Needlessly Large Rod. The Needlessly Large Rod was purchased at 22:37 but never completed into Rabadon's Deathcap before the game ended at 31:32. Shadowflame was completed at 24:24 – correctly. The third-item slot stayed as a component for 7 full minutes.</div>
+  <div class="finding-fix"><span class="fix-lbl ">Fix:</span> After buying Needlessly Large Rod (22:37), the target should be: save 400 gold more at next recall and complete Rabadon's immediately. At ~26 minutes with Baron buff active, that would have been achievable before the 30:31 teamfight.</div>
+</div>
+
+<div class="phase-div">Phase 4 — Late Game (25+ min)</div>
+
+<div class="phase-overview">
+  <div class="phase-overview-label">Late Game Context</div>
+  <div class="lane-row"><span class="lane-tag you">MID ←</span><span class="lane-text">Ahri's late-game contribution came in the 5-for-0 Baron teamfight: kills Dr. Mundo (30:41) and Rakan (30:44), assists on Skarner (30:33) and Viktor (30:54). Four of five kills had your name on them in some form.</span></div><div class="lane-row"><span class="lane-tag">MAP</span><span class="lane-text">Baron buff was active from 29:57. Blue team had all 5 alive; Red team had 5 alive. The fight lasted 23 seconds and Blue won 5-for-0.</span></div>
+  <div class="overview-note">The late-game execution was strong. Your damage output (25,661 – highest on Blue team) delivered in the game-winning fight. The earlier findings (vision, gold compression) represent habits for future games rather than reasons this one was nearly lost.</div>
+</div>
+
+<div class="finding" style="border-left:3px solid #4e9eff;">
+  <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+    <span class="badge badge-ts">30:41–30:54 | mid lane</span>
+    <span class="badge badge-posH">▲ HIGH IMPACT</span>
+    <span class="badge badge-lens">TEAMFIGHT BREAKDOWN</span>
+  </div>
+  <div class="finding-title">Double Kill Closes the Game</div>
+  <div class="finding-body">Ally Ahri kills Enemy Dr. Mundo at 30:41 and Enemy Rakan at 30:44 during the 5-for-0 Baron teamfight. Also assists on Enemy Skarner (30:33) and Enemy Viktor (30:54). 4 of 5 kills. Mid inhibitor at 31:15, nexus at 31:25.</div>
+  <div class="finding-fix"><span class="fix-lbl pos">Keep doing this:</span> Correct positioning in the teamfight. This is the carry performance Ahri's kit is designed for – Spirit Rush mobility to chase, Charm to lock down targets, Q/E burst to finish.</div>
+</div>
+
+<div class="finding" style="border-left:3px solid #3dca7e;">
+  <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+    <span class="badge badge-ts">28:06 | mid lane</span>
+    <span class="badge badge-pos">▲ POSITIVE</span>
+    <span class="badge badge-lens">DECISION AUDIT</span>
+  </div>
+  <div class="finding-title">Third Yone Kill Before Baron Fight</div>
+  <div class="finding-body">Ally Ahri killed Enemy Yone at 28:06 in the mid lane (x:6767, y:6418) with Ally Ashe assist, removing a scaling threat 90 seconds before the Baron attempt. Yone at BotRK + Immortal Shieldbow is difficult to kill in teamfights due to his shield and dual health bar. Removing him before Baron started simplified the 5v5.</div>
+  <div class="finding-fix"><span class="fix-lbl pos">Keep doing this:</span> Good pre-Baron pick. Picking off key threats before a major objective fight is the correct mid-game habit.</div>
+</div>
+
+<h2>The 3 Swing Moments</h2>
+
+<div class="swing-card" style="border-left:3px solid #3dca7e;">
+  <div class="swing-title"><span class="badge badge-ts">8:14 + 11:00 | mid lane</span> Yone Shut Down in Laning Phase</div>
+  <div style="color:#b8bdd4;font-size:.875rem;line-height:1.6;">Two Shaco ganks in mid lane at 8:14 and 11:00 produced two Yone kills with Ahri assist. Enemy Yone ended 1/5 and 9,992 gold – 1,579 gold behind Ahri. Yone's kit becomes significantly more dangerous with BotRK + Immortal Shieldbow; keeping him at 1/5 meant he never completed that power spike. These two kills, plus Ahri's Luden's completion at 10:14, established the mid-game position that made the final teamfight winnable.</div>
+</div>
+
+<div class="swing-card" style="border-left:3px solid #e55c5c;">
+  <div class="swing-title"><span class="badge badge-ts">23:35–23:45 | mid lane and blue-side jungle</span> Three-Person Collapse Costs the Gold Lead</div>
+  <div style="color:#b8bdd4;font-size:.875rem;line-height:1.6;">Blue team's support, carry, and mid laner died in 10 seconds. Gold lead went from +216 at 20 minutes to –913 at 25 minutes. Ahri's death at 23:45 was third in the sequence – after Lulu and Ashe had already fallen to Dr. Mundo's engage. Blue team's 5-for-3 gold advantage at 20 minutes evaporated entirely in this fight. Only Shaco's solo Baron at 29:57 prevented this from being game-ending.</div>
+</div>
+
+<div class="swing-card" style="border-left:3px solid #c89b3c;">
+  <div class="swing-title"><span class="badge badge-ts">30:31–30:54 | mid lane</span> 5-for-0 Baron Fight Ends It</div>
+  <div style="color:#b8bdd4;font-size:.875rem;line-height:1.6;">With Baron buff active, Blue team killed all five Red champions in 23 seconds. Ahri accounts for 4 of the 5 through kills or assists. This was the payoff for keeping Yone off the board in early game – Red team's two remaining threats (Viktor and Yone) were both caught out of position, and Ahri's burst damage combined with Baron minion pressure forced the teamfight Blue team needed.</div>
+</div>
+
+<h2>3 Things To Work On</h2>
+
+<div class="workon-card">
+  <span class="workon-num">1.</span>
+  <div class="workon-title">Converting a Lane Lead Into Map Pressure</div>
+  <div class="workon-body">You had a +473 gold lead over Yone at 15 minutes while he was 1/5. That lead compressed to +111 by 20 minutes. The habit to build: after hitting a CS benchmark (~120 CS at 15 min) with a gold lead, use the next 2-3 minutes to shove the mid wave and roam for a kill or a dragon priority call. Standing in mid lane farming while an opponent at 1/5 buys items in base is how leads become even games. One successful roam or tower plate converts paper gold advantages into real ones.</div>
+</div>
+
+<div class="workon-card">
+  <span class="workon-num">2.</span>
+  <div class="workon-title">Vision Score – 2 Control Wards for a 31-Minute Game</div>
+  <div class="workon-body">Mid-lane vision standard is ≥1.0 vision score per minute, or ~31 for this game. You finished at 20. You placed 2 control wards: at 13:28 (good timing, right after a dragon fight) and 23:01 (late mid game). Three deaths in this game – your own at 23:45, Shaco's at 22:58, and Shaco's at 27:21 – occurred in corridors where a control ward in the river would have given advance warning. Control wards cost 75g and mid-laners should buy one every 1–2 recalls. Adding that habit doesn't change this game's outcome; it changes the next three.</div>
+</div>
+
+<div class="workon-card">
+  <span class="workon-num">3.</span>
+  <div class="workon-title">Build Completion and Third-Item Timing</div>
+  <div class="workon-body">You ended the game with Shadowflame + Luden's Echo + Spellslinger's Shoes + Needlessly Large Rod in inventory. Shadowflame was the correct third item and it was completed at 24:24 – good. The Needlessly Large Rod sitting as a component for 7 minutes before game end represents a habit: after buying the first component of a major item, prioritize the gold to complete it on the next recall rather than spending on other components. An incomplete Rabadon's Deathcap deals less damage than a completed Shadowflame. Once Shadowflame is done, the goal is to complete Rabadon's immediately rather than mixing components.</div>
+</div>
+
+<div style="border-top:1px solid var(--border);margin-top:30px;padding-top:12px;font-size:.75rem;color:var(--muted);text-align:center;">
+  <em>lol-match-analysis isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games and all associated properties are trademarks or registered trademarks of Riot Games, Inc.</em>
+</div>
+
+</body></html>

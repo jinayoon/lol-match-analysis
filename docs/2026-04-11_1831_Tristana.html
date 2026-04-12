@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RAW JOHNSON – Tristana Coaching Report</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg:#0e0f14; --surface:#16181f; --surface2:#1e2029;
+  --border:#2a2d3a; --text:#dde1f0; --muted:#7b8099;
+  --blue:#4e9eff; --gold:#c89b3c; --green:#3dca7e;
+  --red:#e55c5c; --yellow:#f0b429; --purple:#9b7fe8;
+}
+body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; font-size:14px; line-height:1.6; padding:24px; max-width:960px; margin:0 auto; }
+h1 { font-size:1.5rem; font-weight:700; }
+h2 { font-size:1.1rem; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:.08em; margin:28px 0 12px; }
+h3 { font-size:.95rem; font-weight:600; margin-bottom:6px; }
+a { color:var(--blue); }
+.card { background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:16px; margin-bottom:12px; }
+.hero { display:flex; gap:20px; align-items:flex-start; margin-bottom:24px; }
+.hero-art { flex-shrink:0; }
+.hero-art img.loading { width:120px; height:120px; border-radius:10px; border:2px solid var(--gold); object-fit:cover; object-position:top; }
+.abilities { display:flex; gap:6px; margin-top:8px; }
+.ability-slot { text-align:center; }
+.ability-slot img { width:26px; height:26px; border-radius:4px; display:block; }
+.ability-slot span { font-size:.6rem; color:var(--muted); }
+.hero-info { flex:1; }
+.subtitle { color:var(--muted); font-size:.85rem; margin:4px 0 12px; display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
+.badge { background:var(--surface2); border:1px solid var(--border); border-radius:4px; padding:2px 8px; font-size:.75rem; font-family:monospace; }
+.verdict-card { background:var(--surface2); border-left:3px solid var(--gold); border-radius:6px; padding:12px 14px; margin-bottom:8px; }
+.verdict-card .label { font-size:.7rem; color:var(--muted); text-transform:uppercase; letter-spacing:.06em; margin-bottom:4px; }
+.stats-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(110px,1fr)); gap:8px; margin-bottom:24px; }
+.stat-box { background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:12px; text-align:center; }
+.stat-box .val { font-size:1.25rem; font-weight:700; }
+.stat-box .lbl { font-size:.7rem; color:var(--muted); margin-top:2px; }
+table { width:100%; border-collapse:collapse; font-size:.82rem; }
+th { background:var(--surface2); color:var(--muted); font-weight:600; text-align:left; padding:8px 10px; font-size:.75rem; text-transform:uppercase; letter-spacing:.05em; }
+td { padding:7px 10px; border-bottom:1px solid var(--border); }
+tr:last-child td { border-bottom:none; }
+tr.you td { background:#c89b3c18; }
+.you-badge { background:var(--gold); color:#000; font-size:.65rem; font-weight:700; padding:2px 6px; border-radius:3px; margin-left:6px; }
+.team-header td { background:var(--surface2); font-weight:700; font-size:.75rem; color:var(--muted); padding:6px 10px; border-bottom:1px solid var(--border); }
+.champ-cell { display:flex; align-items:center; gap:6px; }
+.champ-cell img { width:24px; height:24px; border-radius:4px; }
+.finding { border-radius:8px; padding:14px 16px; margin-bottom:10px; border:1px solid var(--border); border-left-width:3px; background:var(--surface); }
+.finding.HIGH    { border-left-color:var(--red); }
+.finding.MEDIUM  { border-left-color:var(--yellow); }
+.finding.LOW     { border-left-color:var(--green); }
+.finding.POSITIVE{ border-left-color:var(--green); background:#3dca7e0a; }
+.finding-meta { display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin-bottom:6px; }
+.ts-badge { font-family:monospace; font-size:.72rem; background:var(--surface2); padding:2px 7px; border-radius:4px; color:var(--blue); border:1px solid #4e9eff33; }
+.sev-badge { font-size:.7rem; font-weight:700; padding:2px 8px; border-radius:4px; }
+.sev-HIGH   { background:#e55c5c22; color:var(--red); }
+.sev-MEDIUM { background:#f0b42922; color:var(--yellow); }
+.sev-LOW    { background:#3dca7e22; color:var(--green); }
+.finding-loc { font-size:.7rem; color:var(--muted); margin-bottom:5px; letter-spacing:.02em; }
+.phase-badge { font-size:.7rem; background:var(--surface2); border:1px solid var(--border); padding:2px 8px; border-radius:4px; color:var(--muted); }
+.finding h3 { font-size:.9rem; }
+.finding p  { font-size:.83rem; color:#c0c5d8; margin-top:4px; }
+.fix-line   { font-size:.82rem; margin-top:6px; }
+.fix-line.err  { color:var(--blue); }
+.fix-line.pos  { color:var(--green); font-style:italic; }
+.phase-divider { display:flex; align-items:center; gap:10px; margin:24px 0 12px; }
+.phase-divider span, .phase-divider .label { font-size:.68rem; font-weight:700; text-transform:uppercase; letter-spacing:.12em; color:var(--muted); white-space:nowrap; }
+.phase-divider::before, .phase-divider::after { content:''; flex:1; height:1px; background:var(--border); }
+.phase-divider .line { display:none; }
+.swing-card { border-radius:8px; padding:14px 16px; margin-bottom:10px; background:var(--surface); border:1px solid var(--border); border-left:3px solid var(--gold); }
+.work-card  { border-radius:8px; padding:14px 16px; margin-bottom:10px; background:var(--surface); border:1px solid var(--border); border-left:3px solid var(--yellow); }
+.tl-wrap { position:relative; margin-bottom:28px; }
+.tl-phases { display:flex; height:20px; border-radius:4px; overflow:hidden; margin-bottom:6px; }
+.tl-ruler  { height:6px; background:var(--border); border-radius:3px; position:relative; }
+.tl-markers{ position:relative; height:52px; }
+.tl-labels { display:flex; justify-content:space-between; font-size:.65rem; color:var(--muted); margin-top:2px; }
+.marker { position:absolute; transform:translateX(-50%); cursor:default; z-index:10; }
+.marker-dot { width:11px; height:11px; border-radius:50%; border:2px solid var(--bg); transition:transform .15s; }
+.marker:hover .marker-dot { transform:scale(1.6); }
+.tooltip { display:none; position:absolute; bottom:130%; left:50%; transform:translateX(-50%);
+  background:var(--surface2); border:1px solid var(--border); border-radius:6px; padding:9px 12px;
+  font-size:.75rem; width:210px; box-shadow:0 8px 24px rgba(0,0,0,.6); z-index:100;
+  pointer-events:none; line-height:1.5; }
+.tooltip-ts { color:var(--muted); font-size:.68rem; }
+.marker:hover .tooltip { display:block; }
+.marker.flip .tooltip { bottom:auto; top:130%; }
+.top3-list { list-style:none; padding:0; }
+.top3-list li { padding:6px 0; border-bottom:1px solid var(--border); font-size:.85rem; }
+.top3-list li:last-child { border-bottom:none; }
+.top3-list .skill { font-weight:700; color:var(--yellow); }
+
+
+.gnav{position:sticky;top:0;z-index:200;height:38px;background:rgba(14,15,20,.96);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid #1e2029;display:flex;align-items:center;padding:0 24px;}
+.gnav a{display:inline-flex;align-items:center;gap:6px;color:#4a4d5a;text-decoration:none;font-size:.68rem;letter-spacing:.09em;text-transform:uppercase;font-weight:600;transition:color .2s;}
+.gnav a:hover{color:#c89b3c;}
+.gnav a svg{transition:transform .2s;}
+.gnav a:hover svg{transform:translateX(-2px);}
+</style>
+</head>
+<body><nav class="gnav"><a href="flex.html"><svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11 5H1M5 1L1 5L5 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Session</a></nav>
+<div class="hero">
+  <div class="hero-art">
+    <img class="loading" src="https://ddragon.leagueoflegends.com/cdn/img/champion/loading/Tristana_0.jpg" alt="Tristana" onerror="this.style.display='none'">
+    <div class="abilities"><div class="ability-slot"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/spell/TristanaQ.png" title="Q – Rapid Fire" onerror="this.style.display='none'"><span>Q</span></div><div class="ability-slot"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/spell/TristanaW.png" title="W – Rocket Jump" onerror="this.style.display='none'"><span>W</span></div><div class="ability-slot"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/spell/TristanaE.png" title="E – Explosive Charge" onerror="this.style.display='none'"><span>E</span></div><div class="ability-slot"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/spell/TristanaR.png" title="R – Buster Shot" onerror="this.style.display='none'"><span>R</span></div></div>
+  </div>
+  <div class="hero-info">
+    <h1>Post-Match Coaching Report</h1>
+    <div class="subtitle">
+      <span>RAW JOHNSON</span><span style="color:var(--muted)">·</span>
+      <span><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Tristana.png" style="width:18px;height:18px;border-radius:4px;vertical-align:middle" onerror="this.style.display='none'"> Tristana</span><span style="color:var(--muted)">·</span>
+      <span style="color:var(--green);font-weight:700">WIN</span>
+      <span style="color:var(--muted)">·</span><span>32:08</span>
+      <span style="color:var(--muted)">·</span><span>Patch 16.7</span>
+      <span class="badge">NA1_5538523104</span>
+    </div>
+    <div class="verdict-card"><div class="label">Honest Verdict</div><div>Bot lane win condition executed again – +917 gold on Brand at 15 minutes with Nami. Enemy Brand went 0/10 and was essentially irrelevant. The issue this game was 6 deaths (up from 3 last game), with Enemy Viego accounting for three of them via early and mid-game collapses into bot lane. Zero control wards for the second consecutive game. The lane was won; the mid-to-late game survival was less clean than last time.</div></div>
+    <div class="verdict-card" style="border-left-color:var(--blue)"><div class="label">Game Summary</div><div>Blue team won because Enemy Brand inted at 0/10 while Ally Tristana won the bot lane lane phase convincingly. Enemy Viego (16/6) was the real threat and killed Tristana three times in the first 20 minutes by roaming into bot. Ally Tristana's 2-item spike (Yun Tal + IE at 19:45) was the turning point and led to Blue team closing with a 5-man wipe at 31:07 and nexus at 31:55.</div></div>
+    <div style="margin-top:10px">
+      <div style="font-size:.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">3 Things to Work On</div>
+      <ul class="top3-list"><li><span class="skill">#1 Control ward purchasing</span> – 0 control wards in 32 minutes – two games in a row. Baron and Dragon vision was entirely on Nami.</li><li><span class="skill">#2 Surviving Viego's early roams</span> – Died at 2:50 and 5:30 to Viego collapsing on bot lane – no ward coverage on his approach path.</li><li><span class="skill">#3 Item completion</span> – Cloak of Agility (300g) unfinished at game end – should be the last item to complete, not left as a component.</li></ul>
+    </div>
+  </div>
+</div>
+<h2>Quick Stats</h2>
+<div class="stats-grid">
+  <div class="stat-box"><div class="val">9/6/6</div><div class="lbl">KDA</div></div>
+  <div class="stat-box"><div class="val">239</div><div class="lbl">CS</div></div>
+  <div class="stat-box"><div class="val">7.4</div><div class="lbl">CS / min</div></div>
+  <div class="stat-box"><div class="val" style="color:var(--gold)">16,160</div><div class="lbl">Gold</div></div>
+  <div class="stat-box"><div class="val">34,329</div><div class="lbl">Damage</div></div>
+  <div class="stat-box"><div class="val">32%</div><div class="lbl">Dmg% of Team</div></div>
+  <div class="stat-box"><div class="val" style="color:var(--green)">20</div><div class="lbl">Vision Score</div></div>
+  <div class="stat-box"><div class="val">0.62</div><div class="lbl">VS / min</div></div>
+  <div class="stat-box"><div class="val" style="color:var(--blue)">50%</div><div class="lbl">Kill Part.</div></div>
+  <div class="stat-box"><div class="val" style="color:var(--red)">163s</div><div class="lbl">Time Dead</div></div>
+</div>
+<h2>Items</h2>
+<div class="card" style="padding:10px"><div style="display:inline-block;margin:2px"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/item/3031.png" style="width:28px;height:28px;border-radius:4px;vertical-align:middle" onerror="this.style.display='none'"></div><div style="display:inline-block;margin:2px"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/item/1055.png" style="width:28px;height:28px;border-radius:4px;vertical-align:middle" onerror="this.style.display='none'"></div><div style="display:inline-block;margin:2px"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/item/3032.png" style="width:28px;height:28px;border-radius:4px;vertical-align:middle" onerror="this.style.display='none'"></div><div style="display:inline-block;margin:2px"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/item/6675.png" style="width:28px;height:28px;border-radius:4px;vertical-align:middle" onerror="this.style.display='none'"></div><div style="display:inline-block;margin:2px"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/item/3035.png" style="width:28px;height:28px;border-radius:4px;vertical-align:middle" onerror="this.style.display='none'"></div><div style="display:inline-block;margin:2px"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/item/1018.png" style="width:28px;height:28px;border-radius:4px;vertical-align:middle" onerror="this.style.display='none'"></div><div style="display:inline-block;margin:2px"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/item/3363.png" style="width:28px;height:28px;border-radius:4px;vertical-align:middle" onerror="this.style.display='none'"></div></div>
+<h2>Team Overview</h2>
+<div class="card" style="padding:0;overflow:hidden"><table>
+  <thead><tr><th>Champion</th><th>Player</th><th>Role</th>
+  <th>KDA</th><th>CS</th><th>Gold</th><th>Damage</th><th>KP%</th></tr></thead>
+  <tbody><tr class="team-header"><td colspan="8">🔵 Blue Team</td></tr><tr><td><div class="champ-cell"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Ornn.png" style="width:24px;height:24px;border-radius:4px;vertical-align:middle" onerror="this.style.display='none'"> Ornn</div></td><td>BodaciousMango</td><td style="color:var(--muted);font-size:.78rem">TOP</td><td>4/2/5</td><td>268</td><td style="color:var(--gold)">12,636</td><td>22,786</td><td style="color:var(--blue)">30%</td></tr><tr><td><div class="champ-cell"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Shaco.png" style="width:24px;height:24px;border-radius:4px;vertical-align:middle" onerror="this.style.display='none'"> Shaco</div></td><td>Moist</td><td style="color:var(--muted);font-size:.78rem">JUNGLE</td><td>12/3/7</td><td>262</td><td style="color:var(--gold)">16,496</td><td>22,412</td><td style="color:var(--blue)">63%</td></tr><tr><td><div class="champ-cell"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/LeeSin.png" style="width:24px;height:24px;border-radius:4px;vertical-align:middle" onerror="this.style.display='none'"> Lee Sin</div></td><td>lentilbebi</td><td style="color:var(--muted);font-size:.78rem">MIDDLE</td><td>4/8/9</td><td>206</td><td style="color:var(--gold)">10,855</td><td>17,160</td><td style="color:var(--blue)">43%</td></tr><tr class="you"><td><div class="champ-cell"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Tristana.png" style="width:24px;height:24px;border-radius:4px;vertical-align:middle" onerror="this.style.display='none'"> Tristana<span class="you-badge">YOU</span></div></td><td>RAW JOHNSON</td><td style="color:var(--muted);font-size:.78rem">BOTTOM</td><td>9/6/6</td><td>239</td><td style="color:var(--gold)">16,160</td><td>34,329</td><td style="color:var(--blue)">50%</td></tr><tr><td><div class="champ-cell"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Nami.png" style="width:24px;height:24px;border-radius:4px;vertical-align:middle" onerror="this.style.display='none'"> Nami</div></td><td>ahrisoo</td><td style="color:var(--muted);font-size:.78rem">UTILITY</td><td>1/5/15</td><td>44</td><td style="color:var(--gold)">8,782</td><td>10,064</td><td style="color:var(--blue)">53%</td></tr><tr class="team-header"><td colspan="8">🔴 Red Team</td></tr><tr><td><div class="champ-cell"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Sion.png" style="width:24px;height:24px;border-radius:4px;vertical-align:middle" onerror="this.style.display='none'"> Sion</div></td><td>KaerrotZ</td><td style="color:var(--muted);font-size:.78rem">TOP</td><td>3/4/2</td><td>268</td><td style="color:var(--gold)">12,255</td><td>14,222</td><td style="color:var(--blue)">21%</td></tr><tr><td><div class="champ-cell"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Viego.png" style="width:24px;height:24px;border-radius:4px;vertical-align:middle" onerror="this.style.display='none'"> Viego</div></td><td>IMBrickedUPASF</td><td style="color:var(--muted);font-size:.78rem">JUNGLE</td><td>16/6/5</td><td>231</td><td style="color:var(--gold)">19,590</td><td>39,232</td><td style="color:var(--blue)">88%</td></tr><tr><td><div class="champ-cell"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Ahri.png" style="width:24px;height:24px;border-radius:4px;vertical-align:middle" onerror="this.style.display='none'"> Ahri</div></td><td>Danielson524</td><td style="color:var(--muted);font-size:.78rem">MIDDLE</td><td>3/8/8</td><td>226</td><td style="color:var(--gold)">11,437</td><td>24,897</td><td style="color:var(--blue)">46%</td></tr><tr><td><div class="champ-cell"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Brand.png" style="width:24px;height:24px;border-radius:4px;vertical-align:middle" onerror="this.style.display='none'"> Brand</div></td><td>jinu oppar</td><td style="color:var(--muted);font-size:.78rem">BOTTOM</td><td>0/10/13</td><td>179</td><td style="color:var(--gold)">10,124</td><td>19,032</td><td style="color:var(--blue)">54%</td></tr><tr><td><div class="champ-cell"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Rell.png" style="width:24px;height:24px;border-radius:4px;vertical-align:middle" onerror="this.style.display='none'"> Rell</div></td><td>Rootini</td><td style="color:var(--muted);font-size:.78rem">UTILITY</td><td>2/2/17</td><td>53</td><td style="color:var(--gold)">9,545</td><td>10,250</td><td style="color:var(--blue)">79%</td></tr></tbody></table></div>
+<h2>Match Timeline</h2>
+<div class="card"><div class="tl-wrap">
+  <div class="tl-phases">
+    <div style="width:43.6%;background:#2563eb30;display:flex;align-items:center;justify-content:center;font-size:.6rem;color:rgba(255,255,255,.4)">Early 0–14</div>
+    <div style="width:34.2%;background:#7c3aed30;display:flex;align-items:center;justify-content:center;font-size:.6rem;color:rgba(255,255,255,.4)">Mid 14–25</div>
+    <div style="width:22.2%;background:#c026d330;display:flex;align-items:center;justify-content:center;font-size:.6rem;color:rgba(255,255,255,.4)">Late 25+</div>
+  </div>
+  <div style="position:relative">
+    <div class="tl-ruler"></div>
+    <div style="position:absolute;top:-2px;left:43.6%;width:1px;height:10px;background:rgba(255,255,255,.2)"></div>
+    <div style="position:absolute;top:-2px;left:77.8%;width:1px;height:10px;background:rgba(255,255,255,.2)"></div>
+    <div class="tl-markers"><div class="marker" style="position:absolute;top:4px;left:8.7%;transform:translateX(-50%)"><div class="marker-dot" style="background:#3dca7e"></div><div class="tooltip"><div class="tooltip-ts">2:48 – mid map<br><b>Kill:</b> Brand</div></div></div><div class="marker" style="position:absolute;top:30px;left:8.8%;transform:translateX(-50%)"><div class="marker-dot" style="background:#e55c5c"></div><div class="tooltip"><div class="tooltip-ts">2:50 – mid map<br><b>Death</b> to Viego</div></div></div><div class="marker" style="position:absolute;top:30px;left:17.2%;transform:translateX(-50%)"><div class="marker-dot" style="background:#e55c5c"></div><div class="tooltip"><div class="tooltip-ts">5:30 – mid map<br><b>Death</b> to Viego</div></div></div><div class="marker" style="position:absolute;top:4px;left:25.1%;transform:translateX(-50%)"><div class="marker-dot" style="background:#3dca7e"></div><div class="tooltip"><div class="tooltip-ts">8:04 – mid map<br><b>Kill:</b> Brand</div></div></div><div class="marker" style="position:absolute;top:30px;left:25.4%;transform:translateX(-50%)"><div class="marker-dot" style="background:#e55c5c"></div><div class="tooltip"><div class="tooltip-ts">8:10 – mid map<br><b>Death</b> to Rell</div></div></div><div class="marker" style="position:absolute;top:30px;left:25.7%;transform:translateX(-50%)"><div class="marker-dot" style="background:#c89b3c"></div><div class="tooltip"><div class="tooltip-ts">8:15<br><b>Item:</b> B. F. Sword</div></div></div><div class="marker" style="position:absolute;top:4px;left:32.5%;transform:translateX(-50%)"><div class="marker-dot" style="background:#7eca9c"></div><div class="tooltip"><div class="tooltip-ts">10:26 – mid map<br><b>Assist</b> on Brand</div></div></div><div class="marker" style="position:absolute;top:30px;left:34.0%;transform:translateX(-50%)"><div class="marker-dot" style="background:#c89b3c"></div><div class="tooltip"><div class="tooltip-ts">10:55<br><b>Item:</b> Yun Tal Wildarrows</div></div></div><div class="marker" style="position:absolute;top:4px;left:40.6%;transform:translateX(-50%)"><div class="marker-dot" style="background:#7eca9c"></div><div class="tooltip"><div class="tooltip-ts">13:01 – mid lane / top side<br><b>Assist</b> on Viego</div></div></div><div class="marker" style="position:absolute;top:30px;left:43.5%;transform:translateX(-50%)"><div class="marker-dot" style="background:#c89b3c"></div><div class="tooltip"><div class="tooltip-ts">13:58<br><b>Item:</b> B. F. Sword</div></div></div><div class="marker" style="position:absolute;top:30px;left:50.4%;transform:translateX(-50%)"><div class="marker-dot" style="background:#c89b3c"></div><div class="tooltip"><div class="tooltip-ts">16:11<br><b>Item:</b> Berserker's Greaves</div></div></div><div class="marker" style="position:absolute;top:4px;left:52.5%;transform:translateX(-50%)"><div class="marker-dot" style="background:#3dca7e"></div><div class="tooltip"><div class="tooltip-ts">16:52 – mid map<br><b>Kill:</b> Brand</div></div></div><div class="marker" style="position:absolute;top:4px;left:57.7%;transform:translateX(-50%)"><div class="marker-dot" style="background:#f0b429"></div><div class="tooltip"><div class="tooltip-ts">18:32<br><b>Tower:</b> Bot Outer</div></div></div><div class="marker" style="position:absolute;top:30px;left:61.2%;transform:translateX(-50%)"><div class="marker-dot" style="background:#e55c5c"></div><div class="tooltip"><div class="tooltip-ts">19:39 – mid map<br><b>Death</b> to Viego</div></div></div><div class="marker" style="position:absolute;top:30px;left:61.5%;transform:translateX(-50%)"><div class="marker-dot" style="background:#c89b3c"></div><div class="tooltip"><div class="tooltip-ts">19:45<br><b>Item:</b> Infinity Edge</div></div></div><div class="marker flip" style="position:absolute;top:4px;left:68.5%;transform:translateX(-50%)"><div class="marker-dot" style="background:#7eca9c"></div><div class="tooltip"><div class="tooltip-ts">22:00 – mid lane<br><b>Assist</b> on Brand</div></div></div><div class="marker flip" style="position:absolute;top:4px;left:69.3%;transform:translateX(-50%)"><div class="marker-dot" style="background:#3dca7e"></div><div class="tooltip"><div class="tooltip-ts">22:15 – mid lane<br><b>Kill:</b> Viego</div></div></div><div class="marker flip" style="position:absolute;top:30px;left:69.9%;transform:translateX(-50%)"><div class="marker-dot" style="background:#e55c5c"></div><div class="tooltip"><div class="tooltip-ts">22:28 – mid lane<br><b>Death</b> to Rell</div></div></div><div class="marker flip" style="position:absolute;top:4px;left:70.2%;transform:translateX(-50%)"><div class="marker-dot" style="background:#7eca9c"></div><div class="tooltip"><div class="tooltip-ts">22:32 – mid lane<br><b>Assist</b> on Rell</div></div></div><div class="marker flip" style="position:absolute;top:30px;left:70.5%;transform:translateX(-50%)"><div class="marker-dot" style="background:#c89b3c"></div><div class="tooltip"><div class="tooltip-ts">22:38<br><b>Item:</b> Zeal</div></div></div><div class="marker flip" style="position:absolute;top:30px;left:77.4%;transform:translateX(-50%)"><div class="marker-dot" style="background:#c89b3c"></div><div class="tooltip"><div class="tooltip-ts">24:53<br><b>Item:</b> Navori Flickerblade</div></div></div><div class="marker flip" style="position:absolute;top:4px;left:80.3%;transform:translateX(-50%)"><div class="marker-dot" style="background:#7eca9c"></div><div class="tooltip"><div class="tooltip-ts">25:48 – mid lane<br><b>Assist</b> on Brand</div></div></div><div class="marker flip" style="position:absolute;top:4px;left:80.7%;transform:translateX(-50%)"><div class="marker-dot" style="background:#3dca7e"></div><div class="tooltip"><div class="tooltip-ts">25:55 – mid lane<br><b>Kill:</b> Viego</div></div></div><div class="marker flip" style="position:absolute;top:4px;left:81.0%;transform:translateX(-50%)"><div class="marker-dot" style="background:#3dca7e"></div><div class="tooltip"><div class="tooltip-ts">26:01 – mid lane<br><b>Kill:</b> Ahri</div></div></div><div class="marker flip" style="position:absolute;top:30px;left:83.3%;transform:translateX(-50%)"><div class="marker-dot" style="background:#e55c5c"></div><div class="tooltip"><div class="tooltip-ts">26:46 – mid map<br><b>Death</b> to Sion</div></div></div><div class="marker flip" style="position:absolute;top:30px;left:83.8%;transform:translateX(-50%)"><div class="marker-dot" style="background:#c89b3c"></div><div class="tooltip"><div class="tooltip-ts">26:55<br><b>Item:</b> Last Whisper</div></div></div><div class="marker flip" style="position:absolute;top:4px;left:89.2%;transform:translateX(-50%)"><div class="marker-dot" style="background:#f0b429"></div><div class="tooltip"><div class="tooltip-ts">28:40<br><b>Tower:</b> Mid Base</div></div></div><div class="marker flip" style="position:absolute;top:4px;left:89.9%;transform:translateX(-50%)"><div class="marker-dot" style="background:#f0b429"></div><div class="tooltip"><div class="tooltip-ts">28:52<br><b>Tower:</b> Mid </div></div></div><div class="marker flip" style="position:absolute;top:4px;left:96.9%;transform:translateX(-50%)"><div class="marker-dot" style="background:#3dca7e"></div><div class="tooltip"><div class="tooltip-ts">31:07 – mid map<br><b>Kill:</b> Brand</div></div></div><div class="marker flip" style="position:absolute;top:4px;left:97.3%;transform:translateX(-50%)"><div class="marker-dot" style="background:#3dca7e"></div><div class="tooltip"><div class="tooltip-ts">31:16 – mid map<br><b>Kill:</b> Rell</div></div></div><div class="marker flip" style="position:absolute;top:4px;left:97.5%;transform:translateX(-50%)"><div class="marker-dot" style="background:#3dca7e"></div><div class="tooltip"><div class="tooltip-ts">31:20 – mid map<br><b>Kill:</b> Viego</div></div></div><div class="marker flip" style="position:absolute;top:4px;left:98.3%;transform:translateX(-50%)"><div class="marker-dot" style="background:#7eca9c"></div><div class="tooltip"><div class="tooltip-ts">31:34 – mid lane<br><b>Assist</b> on Ahri</div></div></div><div class="marker flip" style="position:absolute;top:4px;left:99.3%;transform:translateX(-50%)"><div class="marker-dot" style="background:#f0b429"></div><div class="tooltip"><div class="tooltip-ts">31:55<br><b>Tower:</b> Mid Nexus</div></div></div></div>
+    <div class="tl-labels"><span>0:00</span><span>32:08</span></div>
+  </div></div></div>
+<h2>Findings</h2>
+<div class="phase-divider"><span class="line"></span><span class="label">Phase 1: Draft</span><span class="line"></span></div><div class="finding POSITIVE">
+  <div class="finding-meta"><span class="sev-badge sev-LOW">✓ LOW</span><span class="phase-badge">DRAFT – WIN_CONDITION</span></div>
+  <h3>Tristana + Nami vs Brand + Rell: a favorable lane matchup</h3>
+  <p>Brand + Rell is a dive-and-burn bot lane – Rell engages, Brand follows with W → E → Q combo. Tristana + Nami counters this: Nami's Q (Aqua Prison) interrupts Rell's engage, Nami's W (Ebb and Flow) heals back poke, and Tristana's R (Buster Shot) knocks Brand out of his stacking combo. Win condition: survive early Rell dives, reach Yun Tal + IE, end the game before Viego snowballs further.</p>
+  <div class="fix-line pos">Lane matchup was favorable and was converted into a 917g gold lead by 15 minutes.</div>
+</div><div class="phase-divider"><span class="line"></span><span class="label">Phase 2: Early Game (0–14 min)</span><span class="line"></span></div><div class="finding HIGH">
+  <div class="finding-meta"><span class="ts-badge">2:50 – 5:30</span><span class="ts-badge">mid map</span><span class="sev-badge sev-HIGH">HIGH</span><span class="phase-badge">EARLY – DECISION</span></div>
+  <h3>Two early deaths to Enemy Viego roaming into bot: 2:50 and 5:30</h3>
+  <p>Ally Tristana died at 2:50 to Enemy Viego (with Brand + Rell assists) and again at 5:30 (Viego + Brand + Rell). Both kills happened near the mid map / bot lane junction, suggesting Viego was rotating from mid to assist Rell's dive. At 2:50 Viego had already appeared in mid lane, killed Ahri at 3:18 (Shaco gank), and rotated down. No ward coverage on Viego's approach path meant both collapses arrived with no warning.</p>
+  <div class="fix-line err">Fix: Ward the river brush between mid and bot lane when Viego is on the enemy team. A control ward at the bot-side river entrance detects Viego's rotation 5–10 seconds in advance. When Viego's position is unknown on the minimap, play under tower in bot lane rather than extending for CS in open lane.</div>
+</div><div class="finding POSITIVE">
+  <div class="finding-meta"><span class="sev-badge sev-LOW">✓ LOW</span><span class="phase-badge">EARLY – RESOURCES</span></div>
+  <h3>Bot lane dominance despite Viego deaths: +917 gold at 15min</h3>
+  <p>Despite dying twice in the first 6 minutes, Ally Tristana was +442 gold on Brand at 5 min, +715 at 10 min, and +917 at 15 min. Brand's 0/4 score by 15 minutes meant he was never a lane threat, and Tristana's CS recovered cleanly after each death (72 vs 64 at 10 min). Holding the gold lead through two Viego deaths without tilting off the lane is the key positive.</p>
+  <div class="fix-line pos">Good mental and lane recovery. Maintaining farm discipline after early deaths is what enabled the 19:45 IE spike.</div>
+</div><div class="phase-divider"><span class="line"></span><span class="label">Phase 3: Mid Game (14–25 min)</span><span class="line"></span></div><div class="finding POSITIVE">
+  <div class="finding-meta"><span class="ts-badge">19:45</span><span class="ts-badge">base</span><span class="sev-badge sev-LOW">✓ LOW</span><span class="phase-badge">MID – RESOURCES</span></div>
+  <h3>Infinity Edge at 19:45 – 2-item spike on curve</h3>
+  <p>Yun Tal Wildarrows completed at 10:55 (fast first item, enabled by early lane CS lead and Brand deaths) and Infinity Edge at 19:45. This is a slightly later IE than last game (18:12) but still within the expected window for a game with 3 early deaths. From IE completion, Tristana went on a 9-kill run to close the game.</p>
+  <div class="fix-line pos">Item timing was correct given the early death disruptions.</div>
+</div><div class="finding MEDIUM">
+  <div class="finding-meta"><span class="ts-badge">8:10 – 22:28</span><span class="ts-badge">mid map / mid lane</span><span class="sev-badge sev-MEDIUM">MEDIUM</span><span class="phase-badge">MID – DECISION</span></div>
+  <h3>Deaths at 8:10, 19:39, 22:28 – Rell and Viego continue to find Tristana</h3>
+  <p>Ally Tristana died to Enemy Rell at 8:10 and 22:28, and to Enemy Viego at 19:39. All three deaths were in open mid-lane or mid-map terrain where Rell's Riptide + Magnet Storm and Viego's W engage could land freely. Tristana's Rocket Jump (W) exists to escape engage – two Rell deaths suggest W was either on cooldown or used proactively rather than saved for the engage.</p>
+  <div class="fix-line err">Fix: Same coaching as last game for Leona: when Rell is alive and active on the map, hold Rocket Jump as an escape. Do not use W aggressively when Rell is unseated on the minimap. Against Viego specifically, W out of his Harrowed Path (W) sticky terrain immediately – staying in the terrain while he attacks is a death sentence.</div>
+</div><div class="phase-divider"><span class="line"></span><span class="label">Phase 4: Late Game (25+ min)</span><span class="line"></span></div><div class="finding HIGH">
+  <div class="finding-meta"><span class="ts-badge">0 – 32 min</span><span class="ts-badge">entire map</span><span class="sev-badge sev-HIGH">HIGH</span><span class="phase-badge">LATE – RESOURCES</span></div>
+  <h3>0 control wards – second game in a row</h3>
+  <p>Ally Tristana purchased 0 control wards in 32 minutes. Last game: 0 control wards in 35 minutes. Ally Nami carried the vision burden with 10 control wards this game (same as Lulu last game). In a game where Baron spawned at 20 minutes and Enemy Viego was the primary threat, an ADC with a control ward in the Baron brush or dragon pit provides vision that the support cannot cover while also peeling the carry. This is a liability that has been present in both games analyzed.</p>
+  <div class="fix-line err">Fix: One control ward per back from minute 15 onward. Place it at the nearest objective brush (dragon pit or Baron entrance) before grouping. 75g. This is non-negotiable in a game with a fed enemy jungler.</div>
+</div>
+<h2>The 3 Swing Moments</h2>
+<div class="swing-card" style="border-left-color:var(--red)"><div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><span class="ts-badge">5:30</span><b style="font-size:.9rem">Second Viego death – the low point of the lane phase</b><div class="finding-loc">Mid Map</div></div><p style="font-size:.83rem;color:#c0c5d8">Two Viego deaths in 3 minutes (2:50 and 5:30) with Brand + Rell assist each time is a structured dive pattern, not a random gank. Viego was rotating from mid after setting up Shaco's kills on Ahri. No ward between mid and bot meant both collapses arrived without warning. Despite these deaths, Tristana maintained +442 gold on Brand at 5 minutes – the lane was winning even through the deaths.</p></div><div class="swing-card" style="border-left-color:var(--gold)"><div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><span class="ts-badge">19:45</span><b style="font-size:.9rem">Infinity Edge completes – same story as last game</b><div class="finding-loc">Base</div></div><p style="font-size:.83rem;color:#c0c5d8">Infinity Edge at 19:45 triggered the same carry trajectory as last game's 18:12 IE. From this point: kills on Brand (19:13 assist), Brand again (22:00 assist), Viego (22:15), Sion (25:55 failed – Viego killed Tristana), then closing sequence. IE completion is consistently Tristana's inflection point where the game shifts.</p></div><div class="swing-card" style="border-left-color:var(--green)"><div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><span class="ts-badge">31:07 – 31:20</span><b style="font-size:.9rem">4 kills in 13 seconds – game over</b><div class="finding-loc">Mid Lane</div></div><p style="font-size:.83rem;color:#c0c5d8">Ally Tristana killed Brand at 31:07, Rell at 31:16, and Viego at 31:20 in a 13-second window during the final teamfight, with assists on Sion from Moist (31:19). Four kills including the enemy carry ended the game immediately. From 0 control wards and 6 deaths to a 4-kill game-ending teamfight is the Tristana pattern: survive, spike, take over.</p></div>
+<h2>3 Things to Work On</h2>
+<div class="work-card"><h3><span style="color:var(--yellow)">#1 Warding vs roaming junglers (especially Viego)</span></h3><p style="font-size:.83rem;color:#c0c5d8;margin-top:6px">Three of six deaths this game were to Viego rotating into bot lane from mid. A control ward at the bot-side river entrance (between mid lane and bot lane) detects this rotation 5–8 seconds in advance. When Viego is missing from mid lane, play under tower until his position is confirmed. This is exactly the information a single 75g ward provides. Two games, 0 control wards, 5 deaths to roaming threats that a ward would have flagged.</p></div><div class="work-card"><h3><span style="color:var(--yellow)">#2 Rocket Jump as an escape vs engage supports</span></h3><p style="font-size:.83rem;color:#c0c5d8;margin-top:6px">Two deaths to Rell this game (last game two deaths to Leona) – both dive-and-initiate supports that follow the same pattern: E → chain engage → Viego/Ezreal follow-up. Against Rell specifically, her Ferromancy: Crash Down (E) has a pull range of roughly 900 units. The moment Rell's E animation starts, Rocket Jump should fire toward safety. Practice recognizing the E cast animation as a Rocket Jump trigger.</p></div><div class="work-card"><h3><span style="color:var(--yellow)">#3 Control ward habit</span></h3><p style="font-size:.83rem;color:#c0c5d8;margin-top:6px">Zero control wards in both games analyzed. This is the clearest correctable pattern across the dataset: you win lane, you scale, you carry – and you buy zero control wards while doing it. In both games the support (Lulu, Nami) carried the entire vision burden with 10 control wards each. ADC is not exempt from vision; the ADC is the player who most needs to know where the enemy jungler is. One per back. Dragon brush or Baron entrance. Non-negotiable.</p></div>
+</body></html>

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/png" href="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Lulu.png">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ahrisoo (Lulu, Support) | LOSS 42:28</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg:#0e0f14; --surface:#16181f; --surface2:#1e2029;
+  --border:#2a2d3a; --text:#dde1f0; --muted:#7b8099;
+  --blue:#4e9eff; --gold:#c89b3c; --green:#3dca7e;
+  --red:#e55c5c; --yellow:#f0b429; --purple:#9b7fe8;
+}
+body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; font-size:14px; line-height:1.6; padding:24px; max-width:960px; margin:0 auto; }
+h1 { font-size:1.5rem; font-weight:700; }
+h2 { font-size:1.1rem; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:.08em; margin:28px 0 12px; }
+h3 { font-size:.95rem; font-weight:600; margin-bottom:6px; }
+a { color:var(--blue); }
+.hero { display:flex; gap:20px; align-items:flex-start; margin-bottom:24px; }
+.hero-art { flex-shrink:0; }
+.hero-art img.loading { width:120px; height:120px; border-radius:10px; border:2px solid var(--gold); object-fit:cover; object-position:top; }
+.abilities { display:flex; gap:6px; margin-top:8px; }
+.ability-slot { text-align:center; }
+.ability-slot img { width:26px; height:26px; border-radius:4px; display:block; }
+.ability-slot span { font-size:.6rem; color:var(--muted); }
+.hero-info { flex:1; }
+.subtitle { color:var(--muted); font-size:.85rem; margin:4px 0 12px; display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
+.badge { background:var(--surface2); border:1px solid var(--border); border-radius:4px; padding:2px 8px; font-size:.75rem; font-family:monospace; }
+.badge-win  { background:#3dca7e22; color:var(--green); border:1px solid #3dca7e44; border-radius:4px; padding:2px 8px; font-size:.75rem; font-weight:600; }
+.badge-loss { background:#e55c5c22; color:var(--red);   border:1px solid #e55c5c44; border-radius:4px; padding:2px 8px; font-size:.75rem; font-weight:600; }
+.verdict-card { background:var(--surface2); border-left:3px solid var(--gold); border-radius:6px; padding:12px 14px; margin-bottom:8px; font-size:.83rem; line-height:1.6; }
+.verdict-card .label { font-size:.7rem; color:var(--muted); text-transform:uppercase; letter-spacing:.06em; margin-bottom:4px; }
+.stats-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(110px,1fr)); gap:8px; margin-bottom:24px; }
+.stat-box { background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:12px; text-align:center; }
+.stat-box .val { font-size:1.25rem; font-weight:700; }
+.stat-box .lbl { font-size:.7rem; color:var(--muted); margin-top:2px; }
+.stat-green { color:var(--green); }
+.stat-red   { color:var(--red); }
+.stat-gold  { color:var(--gold); }
+table { width:100%; border-collapse:collapse; font-size:.82rem; }
+th { background:var(--surface2); color:var(--muted); font-weight:600; text-align:left; padding:8px 10px; font-size:.75rem; text-transform:uppercase; letter-spacing:.05em; }
+td { padding:7px 10px; border-bottom:1px solid var(--border); }
+tr:last-child td { border-bottom:none; }
+tr.you td { background:#c89b3c18; }
+.you-badge { background:var(--gold); color:#000; font-size:.65rem; font-weight:700; padding:2px 6px; border-radius:3px; margin-left:6px; }
+.team-header td { background:var(--surface2); font-weight:700; font-size:.75rem; color:var(--muted); padding:6px 10px; border-bottom:1px solid var(--border); }
+.champ-cell { display:flex; align-items:center; gap:6px; }
+.champ-cell img { width:24px; height:24px; border-radius:4px; }
+.finding { border-radius:8px; padding:14px 16px; margin-bottom:10px; border:1px solid var(--border); border-left-width:3px; background:var(--surface); }
+.finding.HIGH    { border-left-color:var(--red); }
+.finding.MEDIUM  { border-left-color:var(--yellow); }
+.finding.LOW     { border-left-color:var(--green); }
+.finding.POSITIVE{ border-left-color:var(--green); background:#3dca7e0a; }
+.finding-meta { display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin-bottom:6px; }
+.ts-badge { font-family:monospace; font-size:.72rem; background:var(--surface2); padding:2px 7px; border-radius:4px; color:var(--blue); border:1px solid #4e9eff33; }
+.sev-badge { font-size:.7rem; font-weight:700; padding:2px 8px; border-radius:4px; }
+.sev-HIGH   { background:#e55c5c22; color:var(--red); }
+.sev-MEDIUM { background:#f0b42922; color:var(--yellow); }
+.sev-LOW    { background:#3dca7e22; color:var(--green); }
+.phase-badge { font-size:.7rem; background:var(--surface2); border:1px solid var(--border); padding:2px 8px; border-radius:4px; color:var(--muted); }
+.finding h3 { font-size:.9rem; }
+.finding p  { font-size:.83rem; color:#c0c5d8; margin-top:4px; }
+.fix-line   { font-size:.82rem; margin-top:6px; }
+.fix-line.err  { color:var(--blue); }
+.fix-line.pos  { color:var(--green); font-style:italic; }
+.phase-divider { display:flex; align-items:center; gap:10px; margin:24px 0 12px; }
+.phase-divider span { font-size:.68rem; font-weight:700; text-transform:uppercase; letter-spacing:.12em; color:var(--muted); white-space:nowrap; }
+.phase-divider::before, .phase-divider::after { content:''; flex:1; height:1px; background:var(--border); }
+.work-card  { border-radius:8px; padding:14px 16px; margin-bottom:10px; background:var(--surface); border:1px solid var(--border); border-left:3px solid var(--yellow); }
+.work-card h3 { font-size:.88rem; margin-bottom:8px; }
+.work-card p  { font-size:.78rem; color:#b0b8d0; line-height:1.6; }
+.gnav{position:sticky;top:0;z-index:200;height:38px;background:rgba(14,15,20,.96);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid #1e2029;display:flex;align-items:center;padding:0 24px;}
+.gnav a{display:inline-flex;align-items:center;gap:6px;color:#4a4d5a;text-decoration:none;font-size:.68rem;letter-spacing:.09em;text-transform:uppercase;font-weight:600;transition:color .2s;}
+.gnav a:hover{color:#c89b3c;}
+.gnav a svg{transition:transform .2s;}
+.gnav a:hover svg{transform:translateX(-2px);}
+@media(max-width:620px){.hero{flex-direction:column}.stats-grid{grid-template-columns:repeat(3,1fr)}}
+</style>
+</head>
+<body>
+<nav class="gnav"><a href="solo.html"><svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11 5H1M5 1L1 5L5 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Session</a></nav>
+<div class="hero">
+  <div class="hero-art">
+    <img class="loading" src="https://ddragon.leagueoflegends.com/cdn/img/champion/loading/Lulu_0.jpg" alt="Lulu" onerror="this.style.display='none'">
+    <div class="abilities"><div class="ability-slot"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/spell/LuluQ.png" title="Q — Glitterlance" onerror="this.style.display='none'"><span>Q</span></div><div class="ability-slot"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/spell/LuluW.png" title="W — Whimsy" onerror="this.style.display='none'"><span>W</span></div><div class="ability-slot"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/spell/LuluE.png" title="E — Help, Pix!" onerror="this.style.display='none'"><span>E</span></div><div class="ability-slot"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/spell/LuluR.png" title="R — Wild Growth" onerror="this.style.display='none'"><span>R</span></div></div>
+  </div>
+  <div class="hero-info">
+    <h1>Post-Match Coaching Report</h1>
+    <div class="subtitle">
+      <span class="badge-loss">LOSS</span>
+      <span>Lulu · Support</span>
+      <span>·</span>
+      <span>42:28</span>
+      <span>·</span>
+      <span>Patch 16.7</span>
+      <span>·</span>
+      <span class="badge">NA1_5535707251</span>
+    </div>
+    <div class="verdict-card">
+      <div class="label">Honest Verdict</div>
+      This was primarily a team loss — Ally Darius going 3/14 handed Enemy Garen 51,177 damage and a snowball that broke the game open by 20 minutes. You personally made one critical error that repeated three times: you died before Ally Jinx in 3 of your 5 deaths, and she followed within 18 seconds each time. Every one of those Jinx deaths directly cost a structure.
+    </div>
+    <div class="verdict-card">
+      <div class="label">Game Summary</div>
+      Red team actually led in bot lane gold through 10 minutes (Ally Jinx +487 gold over Enemy Lucian at 10 min) and secured Rift Herald to take Blue's mid outer at 16:18 — this was a winnable game. The game broke open at 18:13 when Ally Darius and Ally Kayn died back-to-back in the top lane, Ally Lulu died 11 seconds later unable to disengage, and Ally Jinx died 10 seconds after that. Blue team took Red's bot outer 3 seconds after Jinx died, and Enemy Garen's snowball (Darius -3,210 gold behind by 25 min) was uncontrollable from there. Red team's only real counter was a Baron at 32:27, but it converted into just one Blue turret over 8 minutes.
+    </div>
+  </div>
+</div>
+<h2>Quick Stats — ahrisoo (Lulu)</h2>
+<div class="stats-grid"><div class="stat-box"><div class="val ">0/5/12</div><div class="lbl">KDA</div></div><div class="stat-box"><div class="val ">32</div><div class="lbl">CS</div></div><div class="stat-box"><div class="val ">0.8</div><div class="lbl">CS/min</div></div><div class="stat-box"><div class="val stat-gold">10,229</div><div class="lbl">Gold</div></div><div class="stat-box"><div class="val ">6,062</div><div class="lbl">Damage</div></div><div class="stat-box"><div class="val ">4.5%</div><div class="lbl">Dmg share</div></div><div class="stat-box"><div class="val stat-green">2.94</div><div class="lbl">Vision/min</div></div><div class="stat-box"><div class="val stat-green">75%</div><div class="lbl">KP%</div></div><div class="stat-box"><div class="val stat-red">150s</div><div class="lbl">Time Dead</div></div></div>
+<h2>Team Overview</h2>
+<div style="overflow-x:auto">
+<table>
+<thead><tr><th>Player</th><th>Champion</th><th>Role</th><th>KDA</th><th>CS</th><th>Gold</th><th>Damage</th><th>KP%</th></tr></thead>
+<tbody>
+<tr><td>Player</td><td><div class="champ-cell"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Champion.png" onerror="this.style.display='none'">Champion</div></td><td style="color:var(--muted);font-size:.75rem">Role</td><td>KDA</td><td>CS</td><td>Gold</td><td>Dmg</td><td>KP%</td></tr>
+<tr class="team-header"><td colspan="8">🔵 Blue Team</td></tr>
+<tr><td>jjjjjjjjjjjjjjjj</td><td><div class="champ-cell"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Garen.png" onerror="this.style.display='none'">Garen</div></td><td style="color:var(--muted);font-size:.75rem">TOP</td><td>11/2/10</td><td>285</td><td>18,431</td><td>51,177</td><td>62%</td></tr>
+<tr><td>unreportablee</td><td><div class="champ-cell"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Udyr.png" onerror="this.style.display='none'">Udyr</div></td><td style="color:var(--muted);font-size:.75rem">JNG</td><td>4/3/11</td><td>262</td><td>15,000</td><td>22,839</td><td>44%</td></tr>
+<tr><td>CassedAway</td><td><div class="champ-cell"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Akali.png" onerror="this.style.display='none'">Akali</div></td><td style="color:var(--muted);font-size:.75rem">MID</td><td>13/5/9</td><td>239</td><td>16,910</td><td>41,001</td><td>65%</td></tr>
+<tr><td>SnoopyDaFloofy</td><td><div class="champ-cell"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Lucian.png" onerror="this.style.display='none'">Lucian</div></td><td style="color:var(--muted);font-size:.75rem">BOT</td><td>5/5/14</td><td>364</td><td>20,787</td><td>46,336</td><td>56%</td></tr>
+<tr><td>meb</td><td><div class="champ-cell"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Nami.png" onerror="this.style.display='none'">Nami</div></td><td style="color:var(--muted);font-size:.75rem">SUP</td><td>1/1/18</td><td>35</td><td>11,589</td><td>13,540</td><td>56%</td></tr>
+<tr class="team-header"><td colspan="8">🔴 Red Team</td></tr>
+<tr><td>SHAYANT</td><td><div class="champ-cell"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Darius.png" onerror="this.style.display='none'">Darius</div></td><td style="color:var(--muted);font-size:.75rem">TOP</td><td>3/**14**/3</td><td>201</td><td>12,830</td><td>23,046</td><td>38%</td></tr>
+<tr><td>OneYordle</td><td><div class="champ-cell"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Kayn.png" onerror="this.style.display='none'">Kayn</div></td><td style="color:var(--muted);font-size:.75rem">JNG</td><td>9/9/2</td><td>272</td><td>17,682</td><td>35,512</td><td>69%</td></tr>
+<tr><td>Senah</td><td><div class="champ-cell"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Orianna.png" onerror="this.style.display='none'">Orianna</div></td><td style="color:var(--muted);font-size:.75rem">MID</td><td>3/3/7</td><td>350</td><td>17,390</td><td>34,615</td><td>62%</td></tr>
+<tr><td>ramdonooby</td><td><div class="champ-cell"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Jinx.png" onerror="this.style.display='none'">Jinx</div></td><td style="color:var(--muted);font-size:.75rem">BOT</td><td>1/3/9</td><td>418</td><td>20,198</td><td>35,186</td><td>62%</td></tr>
+<tr class="you"><td>ahrisoo<span class="you-badge">YOU</span></td><td><div class="champ-cell"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Lulu.png" onerror="this.style.display='none'">Lulu</div></td><td style="color:var(--muted);font-size:.75rem">SUP</td><td>0/5/12</td><td>32</td><td>10,229</td><td>6,062</td><td>75%</td></tr>
+</tbody>
+</table>
+</div>
+<h2>Findings</h2>
+<div class="phase-divider"><span>Phase 1</span></div>
+<div class="finding LOW">
+  <div class="finding-meta"><span class="sev-badge sev-LOW">LOW</span><span class="phase-badge">DRAFT – WIN CONDITION</span></div>
+  <div style="font-size:.7rem;color:var(--muted);margin-bottom:5px">—</div>
+  <h3>Lulu + Jinx is textbook; your job is to peel Jinx to 3 items and explode in late teamfights</h3>
+  <p>Ally Lulu's W (Whimsy polymorph) directly counters dive assassins targeting Ally Jinx. Lulu's E (Help, Pix! shield) and R (Wild Growth knockup) are specifically designed to keep a hyperscaling carry alive through burst. Ally Jinx on 418 CS in a 42-minute game should be an unkillable teamfight monster — the pairing is correct.</p>
+  <div class="fix-line err">Fix: No draft issue. The problem was execution.</div>
+</div>
+<div class="finding MEDIUM">
+  <div class="finding-meta"><span class="sev-badge sev-MEDIUM">MEDIUM</span><span class="phase-badge">DRAFT – THREAT RECOGNITION</span></div>
+  <div style="font-size:.7rem;color:var(--muted);margin-bottom:5px">—</div>
+  <h3>Enemy Garen + Enemy Akali are the dive threats to track every fight</h3>
+  <p>Enemy Garen and Enemy Akali are both hard-engage dive champions that will go past the frontline to reach Ally Jinx. Enemy Akali killed Ally Jinx twice (30:39, 41:50) and killed you at 18:24 and 38:32. Enemy Garen ended 11/2 — once fed, his Demacian Justice one-shots Ally Jinx instantly. In both Jinx deaths you contributed to, Ally Akali was the executor.</p>
+  <div class="fix-line err">Fix: Before casting any spell in a teamfight, locate Enemy Garen and Enemy Akali on the minimap. If either is diving, immediately cast W (polymorph) on them the moment they reach Ally Jinx — not after. Polymorph breaks Akali's engage window completely.</div>
+</div>
+<div class="phase-divider"><span>Phase 2</span></div>
+<div class="finding MEDIUM">
+  <div class="finding-meta"><span class="ts-badge">11:50</span><span class="sev-badge sev-MEDIUM">MEDIUM</span><span class="phase-badge">EARLY – POSITIONING</span></div>
+  <div style="font-size:.7rem;color:var(--muted);margin-bottom:5px">top side river</div>
+  <h3>First death; both Lulu and Jinx roaming top at 11 minutes</h3>
+  <p>Enemy Lucian killed you at 11:50 in the top side river (Enemy Nami assisting). At the same time, Ally Jinx was also in the top area — she got assists on Ally Kayn kills at 11:58 and 12:47. Both you and Ally Jinx had roamed from bot to top side at minute 11. For a hyperscaling carry who needs CS over kills, roaming at 11 minutes with one item delays her power spike.</p>
+  <div class="fix-line err">Fix: Ally Jinx's scaling comes from items, not kills. At 11 minutes she should still be in bot lane farming toward her second item. Stay with her through 13–14 minutes. If she decides to roam, you follow — but ideally neither of you leaves bot lane this early.</div>
+</div>
+<div class="finding MEDIUM">
+  <div class="finding-meta"><span class="ts-badge">14:48</span><span class="sev-badge sev-MEDIUM">MEDIUM</span><span class="phase-badge">EARLY – RESOURCE EFFICIENCY</span></div>
+  <div style="font-size:.7rem;color:var(--muted);margin-bottom:5px">—</div>
+  <h3>Ardent Censer completed at 14:48; target is 12–13 minutes</h3>
+  <p>Your first complete item was Ardent Censer at 14:48 — correct choice for Ally Jinx, but 2 minutes slow. You had Forbidden Idol (05:30) and Aether Wisp (09:57) — the two main components — by 10 minutes, but then bought a second Aether Wisp at 12:08 and a Glowing Mote at 10:11, splitting your gold before committing.</p>
+  <div class="fix-line err">Fix: Once you buy Forbidden Idol → Aether Wisp, go straight to completing Ardent without buying components from a different item path. Don't buy the second Aether Wisp until Ardent is done.</div>
+</div>
+<div class="phase-divider"><span>Phase 3</span></div>
+<div class="finding HIGH">
+  <div class="finding-meta"><span class="ts-badge">18:13–18:35</span><span class="sev-badge sev-HIGH">HIGH</span><span class="phase-badge">MID – TEAMFIGHT</span></div>
+  <div style="font-size:.7rem;color:var(--muted);margin-bottom:5px">top side / top side river</div>
+  <h3>The game-breaking fight; Lulu dies, Jinx dies 10 seconds later</h3>
+  <p>At 18:13 in the top lane, Enemy Udyr killed Ally Darius and Enemy Garen killed Ally Kayn simultaneously — Red team lost its two frontliners in under 1 second. Rather than retreating Ally Jinx, you died to Enemy Akali at 18:24 in the top side river, and Enemy Lucian killed Ally Jinx 10 seconds later at 18:35 in the same location. Blue team took Red's bot outer turret 3 seconds after that (18:38). This 22-second window swung the gold from -181 at 15 minutes to -3,231 at 20 minutes.</p>
+  <div class="fix-line err">Fix: When your team loses 2 players in quick succession, immediately cast W (Whimsy) on the nearest chasing enemy and walk Ally Jinx backward. Lulu's W is 2+ seconds of complete shutdown on Enemy Akali's dash — more than enough time to create distance. The critical error was staying in the fight after Darius and Kayn died instead of polymorphing the first enemy who chased you and running.</div>
+</div>
+<div class="finding HIGH">
+  <div class="finding-meta"><span class="ts-badge">23:03</span><span class="sev-badge sev-HIGH">HIGH</span><span class="phase-badge">MID – OBJECTIVE PRIORITY</span></div>
+  <div style="font-size:.7rem;color:var(--muted);margin-bottom:5px">Baron pit</div>
+  <h3>Uncontested Baron; no ward, no threat</h3>
+  <p>Enemy Garen walked into the Baron pit at 23:03 and Blue team killed Baron without contest or vision from Red team. At -3,231 gold deficit, Red team couldn't win a direct Baron fight — but they also had zero information it was starting. Blue team converted Baron into Red's top inner (24:37) and mid inner (27:49).</p>
+  <div class="fix-line err">Fix: Drop a control ward in the Baron pit entrance at 22:30 regardless of whether you can contest. The ward gives your team 15–20 seconds of reaction time to threaten a pick on the exit path. A Lulu R (Wild Growth knockup) on an enemy walking out of Baron buys 2–3 seconds for your team to scatter. Being blind to Baron is never correct even when you can't fight for it.</div>
+</div>
+<div class="phase-divider"><span>Phase 4</span></div>
+<div class="finding HIGH">
+  <div class="finding-meta"><span class="ts-badge">30:30–30:39</span><span class="sev-badge sev-HIGH">HIGH</span><span class="phase-badge">LATE – POSITIONING</span></div>
+  <div style="font-size:.7rem;color:var(--muted);margin-bottom:5px">top lane</div>
+  <h3>Second Lulu-dies-then-Jinx-dies; 9-second gap, 5 structures lost</h3>
+  <p>At 30:30 in the top lane, Enemy Nami killed you (full-team assist from Enemy Garen, Udyr, Akali, Lucian). 9 seconds later at 30:39, Enemy Akali killed Ally Jinx in the same area. In the 36 seconds after Jinx died, Blue team demolished Red's mid inhibitor turret (31:02), mid inhibitor (31:06), and top base turret (31:25). Three critical structures fell directly off the back of you dying first.</p>
+  <div class="fix-line err">Fix: In a 5v5 where your team is outnumbered (Ally Darius is 3/13 by this point, it's effectively a 4v5), prioritize survival above all output. Position 300+ units behind Ally Jinx. If enemies are targeting you, use W (Whimsy) on yourself as a last resort and Shurelya's active to speed Jinx away. One assist is not worth what happened in the following 36 seconds.</div>
+</div>
+<div class="finding MEDIUM">
+  <div class="finding-meta"><span class="ts-badge">38:32</span><span class="sev-badge sev-MEDIUM">MEDIUM</span><span class="phase-badge">LATE – POSITIONING</span></div>
+  <div style="font-size:.7rem;color:var(--muted);margin-bottom:5px">top side river</div>
+  <h3>Fourth death; Jinx survives but you die before Baron spawns</h3>
+  <p>Enemy Akali killed you at 38:32 in the top side river (Enemy Udyr, Enemy Lucian, Enemy Nami assisting). Red's third Baron spawned at 41:36 — you died 3 minutes before it. Ally Jinx survived this fight and Ally Kayn/Orianna got kills, but your death meant you were barely respawned for the Baron setup.</p>
+  <div class="fix-line err">Fix: In the 3 minutes before Baron spawn, don't take fights in the open. Let your team secure positioning first, then fight on the approach. Dying 3 minutes before an objective you need is a significant timing mistake.</div>
+</div>
+<div class="finding HIGH">
+  <div class="finding-meta"><span class="ts-badge">41:33–41:50</span><span class="sev-badge sev-HIGH">HIGH</span><span class="phase-badge">LATE – POSITIONING</span></div>
+  <div style="font-size:.7rem;color:var(--muted);margin-bottom:5px">top lane</div>
+  <h3>Fifth death; Jinx dies 17 seconds later; game ends</h3>
+  <p>Enemy Lucian killed you at 41:33 in the top lane (Enemy Nami assisting). 17 seconds later at 41:50, Enemy Akali killed Ally Jinx. Blue team pushed the nexus down at 42:21. This is the third time in the game the pattern repeated: Lulu dies → Jinx dies within 18 seconds. The game ended because Jinx could no longer defend.</p>
+  <div class="fix-line err">Fix: Same as deaths 2 and 3 — be behind Jinx, not beside her. Enemy Lucian should not be able to reach you without passing through Ally Jinx first.</div>
+</div>
+<h2>3 Things to Work On</h2>
+<div class="work-card">
+  <h3><span style="color:var(--yellow)">#1 Stop dying before Ally Jinx</span></h3>
+  <p>you died first in 3 fights and she followed within 9–18 seconds each time; Lulu's job is to react to threats on Jinx, not engage forward of her</p>
+</div>
+<div class="work-card">
+  <h3><span style="color:var(--yellow)">#2 Complete Shurelya's Battlesong before 20 minutes</span></h3>
+  <p>it was finished at 26:20, 8 minutes too late; the active movement boost was exactly what was needed at 18:13 to disengage Jinx from the losing fight</p>
+</div>
+<div class="work-card">
+  <h3><span style="color:var(--yellow)">#3 Jinx is always your win condition when you're playing Lulu</span></h3>
+  <p>Kayn was volatile (9 kills, 9 deaths); Jinx was +487 gold ahead of Enemy Lucian at 10 minutes with 418 final CS, the correct call was always to peel her</p>
+</div>
+</body>
+</html>
