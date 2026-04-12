@@ -1,5 +1,8 @@
 # Local / secrets
 .claude/settings.local.json
+
+# Internal exports / eval artifacts (not for publication)
+archive/
 .env
 .env.*
 *.pem
