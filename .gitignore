@@ -1,0 +1,19 @@
+# Local / secrets
+.claude/settings.local.json
+.env
+.env.*
+*.pem
+
+# Python
+__pycache__/
+*.py[cod]
+.Python
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Optional: keep generated reports out of git (uncomment if you want)
+# reviews/*.md
+# reviews/*.html
+# !reviews/.gitkeep

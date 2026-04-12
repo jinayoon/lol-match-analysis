@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Post-Match Report — Braum | NA1_5537107040</title>
+<style>
+  :root {
+    --bg:        #0e0f14;
+    --surface:   #16181f;
+    --surface2:  #1e2029;
+    --border:    #2a2d3a;
+    --text:      #dde1f0;
+    --muted:     #7b8099;
+    --blue:      #4e9eff;
+    --gold:      #c89b3c;
+    --green:     #3dca7e;
+    --red:       #e55c5c;
+    --yellow:    #f0b429;
+    --purple:    #9b7fe8;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    padding: 32px 16px 64px;
+  }
+
+  /* ── layout ── */
+  .container { max-width: 900px; margin: 0 auto; }
+  .section { margin-bottom: 32px; }
+  h1, h2, h3, h4 { font-weight: 600; letter-spacing: .01em; }
+  h1 { font-size: 1.5rem; color: var(--gold); margin-bottom: 4px; }
+  h2 { font-size: 1.05rem; color: var(--blue); text-transform: uppercase;
+       letter-spacing: .08em; margin-bottom: 14px; padding-bottom: 6px;
+       border-bottom: 1px solid var(--border); }
+  h3 { font-size: .95rem; color: var(--text); margin-bottom: 6px; }
+
+  .subtitle { font-size: .85rem; color: var(--muted); margin-bottom: 18px; }
+  .match-id { font-family: monospace; background: var(--surface2);
+              border: 1px solid var(--border); border-radius: 4px;
+              padding: 2px 7px; font-size: .8rem; color: var(--muted); }
+
+  /* ── hero header ── */
+  .hero {
+    display: flex; gap: 20px; align-items: flex-start;
+    margin-bottom: 28px;
+  }
+  .hero-portrait {
+    flex-shrink: 0;
+    position: relative;
+  }
+  .hero-portrait img.champ-splash {
+    width: 120px; height: 120px;
+    border-radius: 10px;
+    border: 2px solid var(--gold);
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+  }
+  .hero-portrait .abilities-strip {
+    display: flex; gap: 4px; margin-top: 6px; justify-content: center;
+  }
+  .hero-portrait .abilities-strip img {
+    width: 26px; height: 26px;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    cursor: default;
+  }
+  .hero-portrait .abilities-strip img:hover {
+    border-color: var(--gold);
+    transform: scale(1.15);
+    transition: all .12s;
+  }
+  .hero-text { flex: 1; }
+
+  /* ── verdict cards ── */
+  .verdict-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--green);
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin-bottom: 10px;
+  }
+  .verdict-card .label { font-size: .7rem; text-transform: uppercase;
+    letter-spacing: .1em; color: var(--muted); margin-bottom: 5px; }
+  .verdict-card p { color: var(--text); line-height: 1.7; }
+
+  /* ── quick stats ── */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 10px;
+  }
+  .stat-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+    text-align: center;
+  }
+  .stat-box .val { font-size: 1.25rem; font-weight: 700; color: var(--gold); }
+  .stat-box .key { font-size: .7rem; color: var(--muted); text-transform: uppercase;
+                   letter-spacing: .07em; margin-top: 3px; }
+  .stat-box.highlight .val { color: var(--green); }
+  .stat-box.warn .val { color: var(--red); }
+
+  /* ── tables ── */
+  table { width: 100%; border-collapse: collapse; font-size: .82rem; }
+  th { text-align: left; padding: 7px 10px; background: var(--surface2);
+       color: var(--muted); font-weight: 500; text-transform: uppercase;
+       letter-spacing: .06em; font-size: .7rem; }
+  td { padding: 7px 10px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  tr:last-child td { border-bottom: none; }
+  .team-header td { background: var(--surface2); color: var(--muted);
+                    font-size: .75rem; font-weight: 600; }
+  .you-row td { background: #c89b3c18; }
+  .you-badge { font-size: .7rem; background: var(--gold); color: #000;
+               border-radius: 3px; padding: 1px 5px; font-weight: 700; }
+
+  /* ── champion / item / spell icons ── */
+  .champ-icon {
+    width: 26px; height: 26px;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    vertical-align: middle;
+    margin-right: 7px;
+    object-fit: cover;
+  }
+  .item-icon {
+    width: 30px; height: 30px;
+    border-radius: 5px;
+    border: 1px solid var(--border);
+    vertical-align: middle;
+    margin-right: 8px;
+  }
+  .item-icon-sm {
+    width: 22px; height: 22px;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    vertical-align: middle;
+    margin: 0 3px;
+    position: relative; top: -1px;
+  }
+  .spell-icon {
+    width: 22px; height: 22px;
+    border-radius: 4px;
+    border: 1px solid #4e9eff55;
+    vertical-align: middle;
+    margin: 0 3px;
+    position: relative; top: -1px;
+  }
+  .spell-key {
+    font-size: .65rem; font-weight: 700; background: #4e9eff22;
+    color: var(--blue); border-radius: 3px; padding: 1px 4px;
+    vertical-align: middle; margin-right: 2px; font-family: monospace;
+  }
+
+  /* inline icon row for items */
+  .item-row {
+    display: flex; align-items: center; gap: 6px;
+    margin-bottom: 8px; flex-wrap: wrap;
+  }
+  .item-chip {
+    display: flex; align-items: center; gap: 5px;
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 6px; padding: 4px 8px; font-size: .78rem;
+  }
+  .item-chip img { width: 24px; height: 24px; border-radius: 3px; }
+  .item-chip .item-time { color: var(--muted); font-size: .7rem; margin-left: 4px; }
+
+  /* ── timeline ── */
+  .timeline-wrap {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px 24px 28px;
+  }
+  .tl-legend {
+    display: flex; gap: 16px; flex-wrap: wrap;
+    margin-bottom: 20px; font-size: .75rem; color: var(--muted);
+  }
+  .tl-legend span { display: flex; align-items: center; gap: 5px; }
+  .dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .tl-phases {
+    display: flex; height: 22px; border-radius: 4px; overflow: hidden;
+    margin-bottom: 8px;
+  }
+  .phase-block {
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(255,255,255,.45); font-size: .65rem;
+    font-weight: 600; letter-spacing: .05em; text-transform: uppercase;
+  }
+  .phase-early { background: #2563eb30; width: 34.08%; }
+  .phase-mid   { background: #7c3aed30; width: 26.75%; }
+  .phase-late  { background: #c026d330; width: 39.17%; }
+  .tl-ruler-wrap { position: relative; }
+  .tl-ruler {
+    position: relative; height: 6px;
+    background: var(--border); border-radius: 3px;
+  }
+  .tl-divider {
+    position: absolute; top: -22px; width: 1px;
+    height: calc(100% + 22px + 28px);
+    background: rgba(255,255,255,.06); pointer-events: none;
+  }
+  .tl-markers-row { position: relative; height: 48px; }
+  .tl-marker {
+    position: absolute; top: 6px;
+    transform: translateX(-50%); cursor: pointer; z-index: 10;
+  }
+  .tl-marker .pin {
+    width: 12px; height: 12px; border-radius: 50%;
+    border: 2px solid var(--bg); transition: transform .15s;
+    position: relative; z-index: 2;
+  }
+  .tl-marker:hover .pin { transform: scale(1.5); }
+  .tl-marker .stem { width: 1px; height: 10px; background: rgba(255,255,255,.2); margin: 0 auto; }
+  .tl-tooltip {
+    display: none; position: absolute; bottom: 130%; left: 50%;
+    transform: translateX(-50%);
+    background: #1e2029; border: 1px solid var(--border);
+    border-radius: 6px; padding: 9px 12px; font-size: .75rem;
+    width: 220px; box-shadow: 0 8px 24px rgba(0,0,0,.5);
+    z-index: 100; pointer-events: none; line-height: 1.5;
+  }
+  .tl-tooltip.flip { bottom: auto; top: 130%; }
+  .tl-marker:hover .tl-tooltip { display: block; }
+  .tl-tooltip .tt-time { color: var(--muted); font-size: .7rem; margin-bottom: 3px; }
+  .tl-tooltip .tt-title { font-weight: 600; margin-bottom: 4px; }
+  .tl-tooltip .tt-sev { font-size: .68rem; }
+  .tl-axis {
+    display: flex; justify-content: space-between;
+    font-size: .65rem; color: var(--muted); margin-top: 6px;
+  }
+
+  /* ── findings ── */
+  .finding-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 8px; padding: 14px 16px; margin-bottom: 10px; position: relative;
+  }
+  .finding-card::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+    width: 3px; border-radius: 8px 0 0 8px;
+  }
+  .sev-high::before       { background: var(--red); }
+  .sev-medium::before     { background: var(--yellow); }
+  .sev-low-pos::before    { background: var(--green); }
+  .sev-medium-pos::before { background: #7eca9c; }
+  .finding-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; flex-wrap: wrap; }
+  .finding-time {
+    font-family: monospace; font-size: .75rem;
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 4px; padding: 1px 6px; color: var(--muted);
+  }
+  .sev-badge {
+    font-size: .65rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: .07em; border-radius: 3px; padding: 2px 6px;
+  }
+  .badge-high   { background: #e55c5c22; color: var(--red); border: 1px solid #e55c5c44; }
+  .badge-medium { background: #f0b42922; color: var(--yellow); border: 1px solid #f0b42944; }
+  .badge-low    { background: #3dca7e22; color: var(--green); border: 1px solid #3dca7e44; }
+  .badge-pos    { background: #3dca7e22; color: var(--green); border: 1px solid #3dca7e44; }
+  .phase-badge {
+    font-size: .65rem; color: var(--muted); background: var(--surface2);
+    border: 1px solid var(--border); border-radius: 3px; padding: 2px 6px;
+    text-transform: uppercase; letter-spacing: .06em;
+  }
+  .finding-title { font-weight: 600; margin-bottom: 6px; font-size: .9rem; }
+  .finding-body  { color: #b0b8d0; font-size: .82rem; line-height: 1.65; }
+  .finding-fix {
+    margin-top: 9px; padding-top: 9px; border-top: 1px solid var(--border);
+    color: #9bb8d0; font-size: .8rem;
+  }
+  .finding-fix::before { content: 'Fix: '; font-weight: 600; color: var(--blue); }
+  .finding-fix.pos-note { color: var(--green); }
+  .finding-fix.pos-note::before { content: ''; }
+
+  /* ── swing moments ── */
+  .swing-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 8px; padding: 16px 18px; margin-bottom: 12px;
+  }
+  .swing-card .swing-header {
+    display: flex; gap: 10px; align-items: baseline; margin-bottom: 8px; flex-wrap: wrap;
+  }
+  .swing-card .swing-title { font-weight: 700; font-size: .95rem; }
+  .swing-card .swing-time {
+    font-family: monospace; font-size: .75rem; color: var(--muted);
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 4px; padding: 1px 6px;
+  }
+  .swing-card p { color: #b0b8d0; font-size: .83rem; line-height: 1.68; }
+
+  /* ── work on ── */
+  .workon-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-left: 3px solid var(--yellow); border-radius: 8px;
+    padding: 16px 20px; margin-bottom: 12px;
+  }
+  .workon-card h3 { color: var(--yellow); margin-bottom: 8px; }
+  .workon-card p  { color: #b0b8d0; font-size: .83rem; line-height: 1.7; }
+
+  /* ── misc ── */
+  .divider-label {
+    display: flex; align-items: center; gap: 10px;
+    font-size: .7rem; font-weight: 600; color: var(--muted);
+    text-transform: uppercase; letter-spacing: .1em; margin: 24px 0 16px;
+  }
+  .divider-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+  .damage-bar { font-size: .78rem; color: var(--muted); margin-top: 10px; }
+  .dmg-fill { display: inline-block; height: 6px; border-radius: 3px; vertical-align: middle; margin: 0 3px; }
+
+  /* ── table scroll wrapper ── */
+  .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 8px; }
+  .table-scroll table { min-width: 560px; }
+
+  /* ── mobile ── */
+  @media (max-width: 620px) {
+    body { padding: 16px 12px 48px; font-size: 13px; }
+    h1 { font-size: 1.15rem; }
+    h2 { font-size: .9rem; }
+
+    /* hero: stack portrait above text, center it */
+    .hero { flex-direction: column; align-items: center; gap: 14px; }
+    .hero-portrait { display: flex; flex-direction: column; align-items: center; }
+    .hero-portrait img.champ-splash { width: 88px; height: 88px; }
+    .hero-text { width: 100%; }
+
+    /* stats: 3 per row */
+    .stats-grid { grid-template-columns: repeat(3, 1fr); }
+    .stat-box .val { font-size: 1.05rem; }
+
+    /* timeline: bigger tap targets, condensed axis */
+    .tl-marker .pin { width: 14px; height: 14px; }
+    .tl-markers-row { height: 60px; }
+    .tl-tooltip { width: 190px; font-size: .72rem; padding: 8px 10px; }
+    .tl-axis span:nth-child(even) { display: none; }
+    .timeline-wrap { padding: 16px 14px 22px; }
+
+    /* findings: hide phase badge to save width */
+    .phase-badge { display: none; }
+    .finding-card { padding: 12px 13px; }
+
+    /* swing / workon */
+    .swing-card { padding: 13px 14px; }
+    .workon-card { padding: 13px 15px; }
+
+    /* item chips wrap tighter */
+    .item-row { gap: 5px; }
+    .item-chip { font-size: .72rem; padding: 3px 7px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- ── Header ── -->
+  <div class="section">
+    <div class="hero">
+      <div class="hero-portrait">
+        <img class="champ-splash"
+             src="https://ddragon.leagueoflegends.com/cdn/img/champion/loading/Braum_0.jpg"
+             alt="Braum"
+             onerror="this.src='https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Braum.png'">
+        <div class="abilities-strip">
+          <img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/spell/BraumQ.png"
+               title="Q — Winter's Bite" alt="Q" onerror="this.style.display='none'">
+          <img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/spell/BraumW.png"
+               title="W — Stand Behind Me" alt="W" onerror="this.style.display='none'">
+          <img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/spell/BraumE.png"
+               title="E — Unbreakable" alt="E" onerror="this.style.display='none'">
+          <img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/spell/BraumRWrapper.png"
+               title="R — Glacial Fissure" alt="R" onerror="this.style.display='none'">
+        </div>
+      </div>
+      <div class="hero-text">
+        <h1>Post-Match Coaching Report</h1>
+        <div class="subtitle">
+          <strong style="color:var(--text)">ahrisoo</strong> &nbsp;·&nbsp;
+          Braum (Support) &nbsp;·&nbsp;
+          <span style="color:var(--green)">WIN</span> &nbsp;·&nbsp;
+          41:07 &nbsp;·&nbsp;
+          Patch 16.7 &nbsp;&nbsp;
+          <span class="match-id">NA1_5537107040</span>
+        </div>
+
+        <div class="verdict-card">
+          <div class="label">Honest Verdict</div>
+          <p>This was primarily a team win carried by your Lucian (24/9) and your Pantheon (15/4). Your Malzahar going 0/12 would have ended most games, but bot lane established such a deep early lead that your team could absorb it. Your vision was excellent and 69% KP shows you were in every fight — the main personal fix is <strong>8 deaths</strong>, three of which came from staying too long after winning a trade.</p>
+        </div>
+
+        <div class="verdict-card" style="border-left-color:var(--blue)">
+          <div class="label">Game Summary</div>
+          <p>Your team won through early bot lane dominance and two Baron-to-teamfight conversions. You and Lucian killed enemy Miss Fortune four times before the 9-minute mark, building a gold lead that cascaded into tower control and two Barons. The pivotal moment was the <strong>27:41 mid teamfight</strong> where a Baron-buffed Lucian went 4-for-1 in 21 seconds with you assisting on every single kill.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Quick Stats ── -->
+  <div class="section">
+    <h2>Quick Stats</h2>
+    <div class="stats-grid">
+      <div class="stat-box warn"><div class="val">2/8/31</div><div class="key">KDA</div></div>
+      <div class="stat-box"><div class="val">24</div><div class="key">CS</div></div>
+      <div class="stat-box"><div class="val">0.6</div><div class="key">CS/min</div></div>
+      <div class="stat-box"><div class="val">12,902</div><div class="key">Gold</div></div>
+      <div class="stat-box"><div class="val">8,481</div><div class="key">Damage</div></div>
+      <div class="stat-box"><div class="val">5.6%</div><div class="key">Dmg Share</div></div>
+      <div class="stat-box highlight"><div class="val">127</div><div class="key">Vision (3.11/min)</div></div>
+      <div class="stat-box highlight"><div class="val">69%</div><div class="key">Kill Part.</div></div>
+      <div class="stat-box warn"><div class="val">262s</div><div class="key">Time Dead</div></div>
+    </div>
+  </div>
+
+  <!-- ── Team Overview ── -->
+  <div class="section">
+    <h2>Team Overview</h2>
+    <div class="table-scroll">
+    <table>
+      <thead>
+        <tr>
+          <th>Player</th><th>Champion</th><th>Role</th><th>KDA</th>
+          <th>CS</th><th>Gold</th><th>Damage</th><th>KP%</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="team-header"><td colspan="8">🔵 Blue Team</td></tr>
+        <tr>
+          <td>Croastella</td>
+          <td><img class="champ-icon" src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Aatrox.png" alt="Aatrox" onerror="this.style.display='none'">Aatrox</td>
+          <td>TOP</td><td>7/10/13</td><td>259</td><td>16,484</td><td>34,607</td><td>42%</td>
+        </tr>
+        <tr>
+          <td>bibian</td>
+          <td><img class="champ-icon" src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Pantheon.png" alt="Pantheon" onerror="this.style.display='none'">Pantheon</td>
+          <td>JUNGLE</td><td>15/4/18</td><td>299</td><td>21,036</td><td>39,256</td><td>69%</td>
+        </tr>
+        <tr>
+          <td>カビゴン</td>
+          <td><img class="champ-icon" src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Malzahar.png" alt="Malzahar" onerror="this.style.display='none'">Malzahar</td>
+          <td>MID</td><td style="color:var(--red)">0/12/9</td><td>303</td><td>14,102</td><td>20,836</td><td style="color:var(--red)">19%</td>
+        </tr>
+        <tr>
+          <td>Luciferius</td>
+          <td><img class="champ-icon" src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Lucian.png" alt="Lucian" onerror="this.style.display='none'"><span style="color:var(--gold)">Lucian ★</span></td>
+          <td>BOT</td><td style="color:var(--green)">24/9/7</td><td>315</td><td>25,010</td><td>49,125</td><td>65%</td>
+        </tr>
+        <tr class="you-row">
+          <td><strong>ahrisoo</strong></td>
+          <td><img class="champ-icon" src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Braum.png" alt="Braum" onerror="this.style.display='none'"><strong>Braum</strong></td>
+          <td>SUPPORT</td><td>2/8/31</td><td>24</td><td>12,902</td><td>8,481</td>
+          <td><strong>69%</strong> &nbsp;<span class="you-badge">YOU</span></td>
+        </tr>
+        <tr class="team-header"><td colspan="8">🔴 Red Team</td></tr>
+        <tr>
+          <td>김다현</td>
+          <td><img class="champ-icon" src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Vayne.png" alt="Vayne" onerror="this.style.display='none'">Vayne</td>
+          <td>TOP</td><td>7/14/6</td><td>201</td><td>14,134</td><td>28,212</td><td>30%</td>
+        </tr>
+        <tr>
+          <td>His Kitten</td>
+          <td><img class="champ-icon" src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Rengar.png" alt="Rengar" onerror="this.style.display='none'">Rengar</td>
+          <td>JUNGLE</td><td>12/8/8</td><td>290</td><td>17,399</td><td>37,690</td><td>47%</td>
+        </tr>
+        <tr>
+          <td>Soap Tastes Okay</td>
+          <td><img class="champ-icon" src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Viktor.png" alt="Viktor" onerror="this.style.display='none'">Viktor</td>
+          <td>MID</td><td style="color:var(--green)">8/6/11</td><td>316</td><td>18,394</td><td style="color:var(--red)">50,664</td><td>44%</td>
+        </tr>
+        <tr>
+          <td>slaya2120</td>
+          <td><img class="champ-icon" src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/MissFortune.png" alt="Miss Fortune" onerror="this.style.display='none'">Miss Fortune</td>
+          <td>BOT</td><td>16/10/10</td><td>360</td><td>24,432</td><td>38,267</td><td>60%</td>
+        </tr>
+        <tr>
+          <td>5가지 역할...</td>
+          <td><img class="champ-icon" src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Blitzcrank.png" alt="Blitzcrank" onerror="this.style.display='none'">Blitzcrank</td>
+          <td>SUPPORT</td><td>0/10/29</td><td>37</td><td>11,685</td><td>15,526</td><td>67%</td>
+        </tr>
+      </tbody>
+    </table>
+    </div><!-- /table-scroll -->
+    <div class="damage-bar">
+      Damage split — Blue: <span class="dmg-fill" style="width:48px;background:var(--red)"></span> 74% AD &nbsp;
+      <span class="dmg-fill" style="width:16px;background:var(--purple)"></span> 23% AP &nbsp;&nbsp;|&nbsp;&nbsp;
+      Red: <span class="dmg-fill" style="width:37px;background:var(--red)"></span> 53% AD &nbsp;
+      <span class="dmg-fill" style="width:25px;background:var(--purple)"></span> 36% AP
+    </div>
+  </div>
+
+  <!-- ── Timeline ── -->
+  <div class="section">
+    <h2>Match Timeline</h2>
+    <div class="timeline-wrap">
+
+      <div class="tl-legend">
+        <span><span class="dot" style="background:var(--red)"></span> HIGH severity</span>
+        <span><span class="dot" style="background:var(--yellow)"></span> MEDIUM severity</span>
+        <span><span class="dot" style="background:var(--green)"></span> Positive finding</span>
+      </div>
+
+      <div class="tl-phases">
+        <div class="phase-block phase-early">Early (0–14)</div>
+        <div class="phase-block phase-mid">Mid (14–25)</div>
+        <div class="phase-block phase-late">Late (25+)</div>
+      </div>
+
+      <div class="tl-ruler-wrap">
+        <div class="tl-divider" style="left:34.08%"></div>
+        <div class="tl-divider" style="left:60.83%"></div>
+        <div class="tl-ruler"></div>
+
+        <div class="tl-markers-row" style="height:56px">
+
+          <div class="tl-marker" style="left:4.82%">
+            <div class="pin" style="background:var(--green)"></div>
+            <div class="stem"></div>
+            <div class="tl-tooltip">
+              <div class="tt-time">01:59 — Bot Lane</div>
+              <div class="tt-title">
+                <img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/MissFortune.png" style="width:16px;height:16px;border-radius:3px;vertical-align:middle;margin-right:4px" onerror="this.style.display='none'">MF Kill #1
+              </div>
+              <div class="tt-sev" style="color:var(--green)">Positive</div>
+            </div>
+          </div>
+
+          <div class="tl-marker" style="left:10.46%">
+            <div class="pin" style="background:var(--green)"></div>
+            <div class="stem"></div>
+            <div class="tl-tooltip">
+              <div class="tt-time">04:18 — Bot Lane</div>
+              <div class="tt-title">
+                <img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/MissFortune.png" style="width:16px;height:16px;border-radius:3px;vertical-align:middle;margin-right:4px" onerror="this.style.display='none'">MF Kill #2
+              </div>
+              <div class="tt-sev" style="color:var(--green)">Positive</div>
+            </div>
+          </div>
+
+          <div class="tl-marker" style="left:16.46%">
+            <div class="pin" style="background:var(--red); width:14px; height:14px; margin-left:-1px;"></div>
+            <div class="stem"></div>
+            <div class="tl-tooltip">
+              <div class="tt-time">06:46–06:59 — Bot Lane</div>
+              <div class="tt-title">
+                <img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Rengar.png" style="width:16px;height:16px;border-radius:3px;vertical-align:middle;margin-right:4px" onerror="this.style.display='none'">Reverse-Sweep After 3rd Kill
+              </div>
+              <div class="tt-sev" style="color:var(--red)">HIGH</div>
+              <div style="margin-top:5px;color:#b0b8d0;font-size:.72rem">Rengar arrived at 6:49 — killed you, Lucian &amp; Pantheon in 13s.</div>
+            </div>
+          </div>
+
+          <div class="tl-marker" style="left:21.28%">
+            <div class="pin" style="background:var(--green)"></div>
+            <div class="stem"></div>
+            <div class="tl-tooltip">
+              <div class="tt-time">08:45 — Bot Lane</div>
+              <div class="tt-title">
+                <img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/MissFortune.png" style="width:16px;height:16px;border-radius:3px;vertical-align:middle;margin-right:4px" onerror="this.style.display='none'">MF Kill #4 — 4 Kills &lt;9 min
+              </div>
+              <div class="tt-sev" style="color:var(--green)">Positive</div>
+            </div>
+          </div>
+
+          <div class="tl-marker" style="left:26.06%">
+            <div class="pin" style="background:var(--green)"></div>
+            <div class="stem"></div>
+            <div class="tl-tooltip">
+              <div class="tt-time">10:43–11:13 — Mid Map</div>
+              <div class="tt-title">Mid 5v5 Win (4-for-2)</div>
+              <div class="tt-sev" style="color:var(--green)">Positive</div>
+              <div style="margin-top:5px;color:#b0b8d0;font-size:.72rem">You assisted on all 4 team kills.</div>
+            </div>
+          </div>
+
+          <div class="tl-marker" style="left:32.95%">
+            <div class="pin" style="background:var(--yellow)"></div>
+            <div class="stem"></div>
+            <div class="tl-tooltip">
+              <div class="tt-time">13:33 — Top Side Jungle</div>
+              <div class="tt-title">
+                <img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Lucian.png" style="width:16px;height:16px;border-radius:3px;vertical-align:middle;margin-right:4px" onerror="this.style.display='none'">10/0 Carry Caught Out
+              </div>
+              <div class="tt-sev" style="color:var(--yellow)">MEDIUM</div>
+              <div style="margin-top:5px;color:#b0b8d0;font-size:.72rem">You + Lucian caught by Rengar + MF + Blitzcrank deep in unwarded terrain.</div>
+            </div>
+          </div>
+
+          <div class="tl-marker" style="left:42.32%">
+            <div class="pin" style="background:var(--yellow)"></div>
+            <div class="stem"></div>
+            <div class="tl-tooltip">
+              <div class="tt-time">17:24–17:28 — Dragon Pit</div>
+              <div class="tt-title">
+                <img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Blitzcrank.png" style="width:16px;height:16px;border-radius:3px;vertical-align:middle;margin-right:4px" onerror="this.style.display='none'">Caught Without Vision
+              </div>
+              <div class="tt-sev" style="color:var(--yellow)">MEDIUM</div>
+              <div style="margin-top:5px;color:#b0b8d0;font-size:.72rem">Enemy took Chemtech Dragon, bot outer, and mid outer tower after.</div>
+            </div>
+          </div>
+
+          <div class="tl-marker" style="left:54.27%">
+            <div class="pin" style="background:var(--yellow)"></div>
+            <div class="stem"></div>
+            <div class="tl-tooltip">
+              <div class="tt-time">22:19–22:39 — Top/Mid</div>
+              <div class="tt-title">Two Solo Deaths (20s window)</div>
+              <div class="tt-sev" style="color:var(--yellow)">MEDIUM</div>
+              <div style="margin-top:5px;color:#b0b8d0;font-size:.72rem">Gold swing: +2,041 → −1,812 (−3,853g collapse).</div>
+            </div>
+          </div>
+
+          <div class="tl-marker" style="left:60.96%">
+            <div class="pin" style="background:#7eca9c; width:14px; height:14px; margin-left:-1px;"></div>
+            <div class="stem"></div>
+            <div class="tl-tooltip">
+              <div class="tt-time">25:04–25:09 — Baron Pit</div>
+              <div class="tt-title">Baron Exchange</div>
+              <div class="tt-sev" style="color:#7eca9c">MEDIUM · Net Positive</div>
+              <div style="margin-top:5px;color:#b0b8d0;font-size:.72rem">3 deaths traded for Baron + decisive 27:41 teamfight win.</div>
+            </div>
+          </div>
+
+          <div class="tl-marker" style="left:67.33%">
+            <div class="pin" style="background:var(--green); width:16px; height:16px; margin-left:-2px;"></div>
+            <div class="stem"></div>
+            <div class="tl-tooltip flip">
+              <div class="tt-time">27:41–28:02 — Mid Map</div>
+              <div class="tt-title">
+                <img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Lucian.png" style="width:16px;height:16px;border-radius:3px;vertical-align:middle;margin-right:4px" onerror="this.style.display='none'">Baron Buff Teamfight ★
+              </div>
+              <div class="tt-sev" style="color:var(--green)">HIGH · Positive (Swing Moment)</div>
+              <div style="margin-top:5px;color:#b0b8d0;font-size:.72rem">Lucian 4-for-1 in 21s. You assisted every kill.</div>
+            </div>
+          </div>
+
+          <div class="tl-marker" style="left:86.94%">
+            <div class="pin" style="background:var(--yellow)"></div>
+            <div class="stem"></div>
+            <div class="tl-tooltip flip">
+              <div class="tt-time">35:45–35:57 — Top Lane</div>
+              <div class="tt-title">
+                <img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/MissFortune.png" style="width:16px;height:16px;border-radius:3px;vertical-align:middle;margin-right:4px" onerror="this.style.display='none'">Dying First in Top Fight
+              </div>
+              <div class="tt-sev" style="color:var(--yellow)">MEDIUM</div>
+              <div style="margin-top:5px;color:#b0b8d0;font-size:.72rem">Lucian lost shield, died 3s later. Team still won the exchange.</div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="tl-axis">
+          <span>0:00</span>
+          <span>~7:00</span>
+          <span>14:00</span>
+          <span>~21:00</span>
+          <span>25:00</span>
+          <span>~32:00</span>
+          <span>41:07</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Findings ── -->
+  <div class="section">
+    <h2>Findings</h2>
+
+    <div class="divider-label">Phase 1 — Draft</div>
+
+    <div class="finding-card sev-medium">
+      <div class="finding-meta">
+        <span class="finding-time">Pre-game</span>
+        <span class="sev-badge badge-medium">Medium</span>
+        <span class="phase-badge">Draft · Comp Identity</span>
+      </div>
+      <div class="finding-title">Win Condition — Comp Identity</div>
+      <div class="finding-body">
+        Your team drafted <strong>74% physical damage</strong>.
+        <img class="champ-icon" style="width:20px;height:20px;border-radius:3px;margin:0 3px" src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Malzahar.png" alt="Malzahar" onerror="this.style.display='none'">Malzahar was the only AP threat and went 0/12 with 20,836 damage in 41 minutes.
+        <img class="champ-icon" style="width:20px;height:20px;border-radius:3px;margin:0 3px" src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Viktor.png" alt="Viktor" onerror="this.style.display='none'">Viktor alone dealt 50,664 total damage — the highest on either team.
+      </div>
+      <div class="finding-fix">When Malzahar goes down early, recognize your team is nearly mono-AD and cluster tighter around Lucian rather than expecting Malzahar to contribute.</div>
+    </div>
+
+    <div class="finding-card sev-low-pos">
+      <div class="finding-meta">
+        <span class="finding-time">Pre-game</span>
+        <span class="sev-badge badge-low">Low · Positive</span>
+        <span class="phase-badge">Draft · Synergy</span>
+      </div>
+      <div class="finding-title">
+        <img class="champ-icon" style="width:20px;height:20px;border-radius:3px;margin-right:5px;vertical-align:middle" src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Braum.png" alt="Braum" onerror="this.style.display='none'">+
+        <img class="champ-icon" style="width:20px;height:20px;border-radius:3px;margin:0 5px;vertical-align:middle" src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Lucian.png" alt="Lucian" onerror="this.style.display='none'">Braum + Lucian Lane — Executed Correctly
+      </div>
+      <div class="finding-body">Braum + Lucian is a level-2 all-in combo that you played correctly from first contact — <strong>four kills on Miss Fortune before 9 minutes</strong>.</div>
+      <div class="finding-fix pos-note" style="color:var(--green)">Nothing. Executed correctly.</div>
+    </div>
+
+    <div class="divider-label">Phase 2 — Early Game (0–14 min)</div>
+
+    <div class="finding-card sev-high">
+      <div class="finding-meta">
+        <span class="finding-time">06:46 – 06:59</span>
+        <span class="sev-badge badge-high">High</span>
+        <span class="phase-badge">Decision Audit</span>
+      </div>
+      <div class="finding-title">Reverse-Swept After Third Kill</div>
+      <div class="finding-body">
+        <img class="champ-icon" style="width:20px;height:20px;border-radius:3px;margin-right:4px" src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Lucian.png" alt="Lucian" onerror="this.style.display='none'">Lucian killed Miss Fortune at 6:46 — her <strong>third death</strong> in lane. Your team stayed extended.
+        <img class="champ-icon" style="width:20px;height:20px;border-radius:3px;margin:0 4px" src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Rengar.png" alt="Rengar" onerror="this.style.display='none'">Rengar arrived at 6:49 and killed you, Lucian, and Pantheon — a 3-2 trade in 13 seconds.
+      </div>
+      <div class="finding-fix">The third kill on the same opponent in a short window is a signal that their jungler is rotating. After the kill, close distance to your tower for 10–15 seconds before pushing further.</div>
+    </div>
+
+    <div class="finding-card sev-low-pos">
+      <div class="finding-meta">
+        <span class="finding-time">01:59 – 08:45</span>
+        <span class="sev-badge badge-low">Low · Positive</span>
+        <span class="phase-badge">Resource Efficiency</span>
+      </div>
+      <div class="finding-title">Bot Lane Dominance</div>
+      <div class="finding-body">You and Lucian killed
+        <img class="champ-icon" style="width:20px;height:20px;border-radius:3px;margin:0 3px" src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/MissFortune.png" alt="MF" onerror="this.style.display='none'">Miss Fortune <strong>four times</strong> (01:59, 04:18, 06:46, 08:45). Lucian was +1,000g on enemy Miss Fortune at 10 minutes. This bot control is the direct reason your team won.
+      </div>
+      <div class="finding-fix pos-note" style="color:var(--green)">Nothing to change.</div>
+    </div>
+
+    <div class="finding-card sev-low-pos">
+      <div class="finding-meta">
+        <span class="finding-time">10:43 – 11:13</span>
+        <span class="sev-badge badge-low">Low · Positive</span>
+        <span class="phase-badge">Teamfight</span>
+      </div>
+      <div class="finding-title">Mid 5v5 Win (4-for-2)</div>
+      <div class="finding-body">Your team won a chaotic mid fight — taking
+        <img class="champ-icon" style="width:20px;height:20px;border-radius:3px;margin:0 3px" src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Rengar.png" alt="Rengar" onerror="this.style.display='none'">Rengar,
+        <img class="champ-icon" style="width:20px;height:20px;border-radius:3px;margin:0 3px" src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Viktor.png" alt="Viktor" onerror="this.style.display='none'">Viktor,
+        <img class="champ-icon" style="width:20px;height:20px;border-radius:3px;margin:0 3px" src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/MissFortune.png" alt="MF" onerror="this.style.display='none'">Miss Fortune, and
+        <img class="champ-icon" style="width:20px;height:20px;border-radius:3px;margin:0 3px" src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Blitzcrank.png" alt="Blitzcrank" onerror="this.style.display='none'">Blitzcrank while losing Malzahar and you. <strong>You assisted on all four kills.</strong>
+      </div>
+      <div class="finding-fix pos-note" style="color:var(--green)">Correct positioning throughout.</div>
+    </div>
+
+    <div class="finding-card sev-medium">
+      <div class="finding-meta">
+        <span class="finding-time">13:33</span>
+        <span class="sev-badge badge-medium">Medium</span>
+        <span class="phase-badge">Decision Audit</span>
+      </div>
+      <div class="finding-title">10/0 Carry Caught Out</div>
+      <div class="finding-body">You and
+        <img class="champ-icon" style="width:20px;height:20px;border-radius:3px;margin:0 3px" src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Lucian.png" alt="Lucian" onerror="this.style.display='none'">Lucian (10/0) were caught by
+        <img class="champ-icon" style="width:20px;height:20px;border-radius:3px;margin:0 3px" src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Rengar.png" alt="Rengar" onerror="this.style.display='none'">Rengar +
+        <img class="champ-icon" style="width:20px;height:20px;border-radius:3px;margin:0 3px" src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/MissFortune.png" alt="MF" onerror="this.style.display='none'">MF +
+        <img class="champ-icon" style="width:20px;height:20px;border-radius:3px;margin:0 3px" src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Blitzcrank.png" alt="Blitzcrank" onerror="this.style.display='none'">Blitzcrank deep in top-side jungle. The enemy got a free 2-for-0 and ended Lucian's kill streak.
+      </div>
+      <div class="finding-fix">When your ADC is hyper-fed, deep warding requires vision on the enemy jungler first. Track
+        <img class="champ-icon" style="width:16px;height:16px;border-radius:3px;margin:0 2px" src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Rengar.png" alt="Rengar" onerror="this.style.display='none'">Rengar's position before walking into unwarded terrain with your carry.
+      </div>
+    </div>
+
+    <div class="divider-label">Phase 3 — Mid Game (14–25 min)</div>
+
+    <div class="finding-card sev-medium">
+      <div class="finding-meta">
+        <span class="finding-time">17:24 – 17:28</span>
+        <span class="sev-badge badge-medium">Medium</span>
+        <span class="phase-badge">Decision Audit</span>
+      </div>
+      <div class="finding-title">Caught at Dragon Without Vision</div>
+      <div class="finding-body">
+        <img class="champ-icon" style="width:20px;height:20px;border-radius:3px;margin-right:3px" src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Lucian.png" alt="Lucian" onerror="this.style.display='none'">Lucian died at 17:24, you died at 17:28 at the dragon pit — <strong>no prior vision</strong> in the pit or river entrances.
+        <img class="champ-icon" style="width:20px;height:20px;border-radius:3px;margin:0 3px" src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Blitzcrank.png" alt="Blitzcrank" onerror="this.style.display='none'">Blitzcrank was unaccounted for. Enemy took Chemtech Dragon (17:44), bot outer, and mid outer — a <strong>multi-objective swing from one failed fight</strong>.
+      </div>
+      <div class="finding-fix">Before walking toward dragon, place a control ward inside the pit and check both river flanks. If
+        <img class="champ-icon" style="width:16px;height:16px;border-radius:3px;margin:0 2px" src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Blitzcrank.png" alt="Blitzcrank" onerror="this.style.display='none'">Blitzcrank isn't on the minimap, do not commit — one hook into a 5v4 is not recoverable.
+      </div>
+    </div>
+
+    <div class="finding-card sev-medium">
+      <div class="finding-meta">
+        <span class="finding-time">22:19 – 22:39</span>
+        <span class="sev-badge badge-medium">Medium</span>
+        <span class="phase-badge">Teamfight Breakdown</span>
+      </div>
+      <div class="finding-title">Two Solo Deaths (20-second window)</div>
+      <div class="finding-body">
+        <img class="champ-icon" style="width:20px;height:20px;border-radius:3px;margin-right:3px" src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Viktor.png" alt="Viktor" onerror="this.style.display='none'">Viktor killed Pantheon at 22:19 (top).
+        <img class="champ-icon" style="width:20px;height:20px;border-radius:3px;margin:0 3px" src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/MissFortune.png" alt="MF" onerror="this.style.display='none'">Miss Fortune killed Lucian at 22:39 (mid). Two separate picks in the same window. Gold lead swung from <strong>+2,041 → −1,812</strong> — a 3,853-gold collapse.
+      </div>
+      <div class="finding-fix">When
+        <img class="champ-icon" style="width:16px;height:16px;border-radius:3px;margin:0 2px" src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Rengar.png" alt="Rengar" onerror="this.style.display='none'">Rengar is free-roaming and fed, play grouped in 3+. Both Pantheon and Lucian were caught in different parts of the map simultaneously — both needed vision on Rengar before splitting.
+      </div>
+    </div>
+
+    <div class="finding-card sev-medium-pos">
+      <div class="finding-meta">
+        <span class="finding-time">25:04 – 25:09</span>
+        <span class="sev-badge badge-medium">Medium · Net Positive</span>
+        <span class="phase-badge">Objective Priority</span>
+      </div>
+      <div class="finding-title">Baron Trade</div>
+      <div class="finding-body">
+        <img class="champ-icon" style="width:20px;height:20px;border-radius:3px;margin-right:3px" src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Viktor.png" alt="Viktor" onerror="this.style.display='none'">Viktor,
+        <img class="champ-icon" style="width:20px;height:20px;border-radius:3px;margin:0 3px" src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Rengar.png" alt="Rengar" onerror="this.style.display='none'">Rengar, and
+        <img class="champ-icon" style="width:20px;height:20px;border-radius:3px;margin:0 3px" src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Blitzcrank.png" alt="Blitzcrank" onerror="this.style.display='none'">Blitzcrank killed you, Lucian, and Malzahar near the pit. Lucian secured Baron at 25:05 before dying. Aatrox survived and your team used the buff to win the decisive 27:41 teamfight. <strong>Trading 3 deaths for Baron worked out.</strong>
+      </div>
+      <div class="finding-fix">The Baron call was correct. Execution issue: you died before Baron was secured, leaving
+        <img class="champ-icon" style="width:16px;height:16px;border-radius:3px;margin:0 2px" src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Lucian.png" alt="Lucian" onerror="this.style.display='none'">Lucian exposed to
+        <img class="champ-icon" style="width:16px;height:16px;border-radius:3px;margin:0 2px" src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Rengar.png" alt="Rengar" onerror="this.style.display='none'">Rengar with no shield. Position between Lucian and
+        <img class="champ-icon" style="width:16px;height:16px;border-radius:3px;margin:0 2px" src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Blitzcrank.png" alt="Blitzcrank" onerror="this.style.display='none'">Blitzcrank's hook angle while Lucian finishes the objective.
+      </div>
+    </div>
+
+    <div class="divider-label">Phase 4 — Late Game (25+ min)</div>
+
+    <div class="finding-card sev-low-pos">
+      <div class="finding-meta">
+        <span class="finding-time">27:41 – 28:02</span>
+        <span class="sev-badge badge-low">High · Positive</span>
+        <span class="phase-badge">Teamfight Breakdown</span>
+      </div>
+      <div class="finding-title">Baron Buff Teamfight — Near-Perfect Execution ★</div>
+      <div class="finding-body">Baron-buffed Blue Team won 5-for-2 mid.
+        <img class="champ-icon" style="width:20px;height:20px;border-radius:3px;margin:0 3px" src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Lucian.png" alt="Lucian" onerror="this.style.display='none'">Lucian killed
+        <img class="champ-icon" style="width:20px;height:20px;border-radius:3px;margin:0 3px" src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Vayne.png" alt="Vayne" onerror="this.style.display='none'">Vayne,
+        <img class="champ-icon" style="width:20px;height:20px;border-radius:3px;margin:0 3px" src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Blitzcrank.png" alt="Blitzcrank" onerror="this.style.display='none'">Blitzcrank,
+        <img class="champ-icon" style="width:20px;height:20px;border-radius:3px;margin:0 3px" src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Viktor.png" alt="Viktor" onerror="this.style.display='none'">Viktor, and
+        <img class="champ-icon" style="width:20px;height:20px;border-radius:3px;margin:0 3px" src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/MissFortune.png" alt="MF" onerror="this.style.display='none'">Miss Fortune in <strong>21 seconds</strong>. You assisted on all four kills.
+      </div>
+      <div class="finding-fix pos-note" style="color:var(--green)">Near-perfect execution. Your
+        <img class="spell-icon" src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/spell/BraumE.png" alt="E" title="E — Unbreakable" onerror="this.style.display='none'"><span class="spell-key">E</span> shield uptime and CC through this fight made Lucian's carry performance possible.
+      </div>
+    </div>
+
+    <div class="finding-card sev-medium">
+      <div class="finding-meta">
+        <span class="finding-time">35:45 – 35:57</span>
+        <span class="sev-badge badge-medium">Medium</span>
+        <span class="phase-badge">Decision Audit</span>
+      </div>
+      <div class="finding-title">Dying First in Top Fight</div>
+      <div class="finding-body">You died first at 35:45 — killed by
+        <img class="champ-icon" style="width:20px;height:20px;border-radius:3px;margin:0 3px" src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/MissFortune.png" alt="MF" onerror="this.style.display='none'">Miss Fortune with
+        <img class="champ-icon" style="width:20px;height:20px;border-radius:3px;margin:0 3px" src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Viktor.png" alt="Viktor" onerror="this.style.display='none'">Viktor and
+        <img class="champ-icon" style="width:20px;height:20px;border-radius:3px;margin:0 3px" src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Blitzcrank.png" alt="Blitzcrank" onerror="this.style.display='none'">Blitzcrank assisting. Lucian lost shield coverage and died 3 seconds later. Team still won (took MF and Blitzcrank), but <strong>losing Lucian cost inhibitor push tempo</strong>.
+      </div>
+      <div class="finding-fix">When MF is the primary threat,
+        <img class="spell-icon" src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/spell/BraumW.png" alt="W" title="W — Stand Behind Me" onerror="this.style.display='none'"><span class="spell-key">W</span>-jump to
+        <img class="champ-icon" style="width:16px;height:16px;border-radius:3px;margin:0 2px" src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Lucian.png" alt="Lucian" onerror="this.style.display='none'">Lucian early enough to be positioned between them, then activate
+        <img class="spell-icon" src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/spell/BraumE.png" alt="E" title="E — Unbreakable" onerror="this.style.display='none'"><span class="spell-key">E</span> the moment her Ultimate starts channeling — Bullet Time fires projectiles that Unbreakable directly blocks.
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Swing Moments ── -->
+  <div class="section">
+    <h2>The 3 Swing Moments</h2>
+
+    <div class="swing-card" style="border-left:3px solid var(--red)">
+      <div class="swing-header">
+        <span class="swing-title">
+          <img class="champ-icon" style="width:22px;height:22px;border-radius:3px;margin-right:5px" src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Rengar.png" alt="Rengar" onerror="this.style.display='none'">The Reverse-Sweep
+        </span>
+        <span class="swing-time">06:46 – 06:59 · Bot Lane</span>
+      </div>
+      <p>Your team had the best possible early game at this moment: Miss Fortune 0/2, Lucian 2/0. At 6:46 you secured the third kill on Miss Fortune and pressed further. Enemy Rengar — already 4/0 from earlier bot dives — arrived at 6:49 and killed you, Lucian, and Pantheon in 13 seconds. The third kill in a short window is an alarm, not an invitation.</p>
+    </div>
+
+    <div class="swing-card" style="border-left:3px solid var(--gold)">
+      <div class="swing-header">
+        <span class="swing-title">
+          <img class="champ-icon" style="width:22px;height:22px;border-radius:3px;margin-right:5px" src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Lucian.png" alt="Lucian" onerror="this.style.display='none'">The Baron Exchange
+        </span>
+        <span class="swing-time">25:04 – 25:05 · Baron Pit</span>
+      </div>
+      <p>The enemy team sent Viktor, Rengar, and Blitzcrank to contest. They killed you, Lucian, and Malzahar — three bodies. But Lucian landed the last hit on Baron before dying. Your team converted the Baron buff directly into the 27:41 teamfight. Trading 3 deaths (~2,100g) for Baron and a 5-for-2 teamfight was the correct call — this sequence turned a −1,812 gold deficit into a closed-out game.</p>
+    </div>
+
+    <div class="swing-card" style="border-left:3px solid var(--green)">
+      <div class="swing-header">
+        <span class="swing-title">
+          <img class="champ-icon" style="width:22px;height:22px;border-radius:3px;margin-right:5px" src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Lucian.png" alt="Lucian" onerror="this.style.display='none'">The Baron Buff Teamfight ★
+        </span>
+        <span class="swing-time">27:41 – 28:02 · Mid Map</span>
+      </div>
+      <p>Over 21 seconds, Lucian killed Vayne, Blitzcrank, Viktor, and Miss Fortune. You assisted on all four kills. The gold swing (~8,000 gold) was converted immediately into mid inner tower and eventually inhibitor. After this fight, the enemy team never stabilized. Your
+        <img class="spell-icon" src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/spell/BraumE.png" alt="E" title="E — Unbreakable" onerror="this.style.display='none'"><span class="spell-key">E</span> shield and CC uptime made Lucian's performance possible — this is the moment that validated the entire game plan.</p>
+    </div>
+  </div>
+
+  <!-- ── 3 Things to Work On ── -->
+  <div class="section">
+    <h2>3 Things to Work On</h2>
+
+    <div class="workon-card">
+      <h3>1. Post-Kill Positioning</h3>
+      <p>Deaths at 6:49, 13:33, 17:28, and 35:45 all followed winning exchanges. The pattern: your team wins a skirmish, pressure feels safe, you linger, then the enemy jungler or support arrives. After every kill, physically move toward safety — tower, warded area, lane brush — for 10–15 seconds. This habit alone eliminates 3–4 of your 8 deaths.</p>
+    </div>
+
+    <div class="workon-card">
+      <h3>2. Item Timing — Build Earlier for Your Carry</h3>
+      <div class="item-row" style="margin-top:10px;margin-bottom:10px">
+        <div class="item-chip">
+          <img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/item/2524.png"
+               alt="Bandlepipes" onerror="this.style.display='none'">
+          <span>Bandlepipes</span>
+          <span class="item-time">✓ 11:32</span>
+        </div>
+        <div style="color:var(--muted);font-size:.8rem">→</div>
+        <div class="item-chip" style="border-color:var(--yellow)">
+          <img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/item/3109.png"
+               alt="Knight's Vow" onerror="this.style.display='none'">
+          <span style="color:var(--yellow)">Knight's Vow</span>
+          <span class="item-time" style="color:var(--red)">✗ 25:34 (target: 16–18 min)</span>
+        </div>
+      </div>
+      <p>
+        <img class="champ-icon" style="width:20px;height:20px;border-radius:3px;margin-right:4px" src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Lucian.png" alt="Lucian" onerror="this.style.display='none'">Lucian was your primary carry from minute one. Knight's Vow (12% damage redirect + bonus resistances) wasn't completed until <strong>25:34</strong> — after the 13:33 catch on Lucian, the 17:24 dragon pit death, and the 22:39 solo kill on him. You had
+        <img class="item-icon-sm" src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/item/2524.png" alt="Bandlepipes" onerror="this.style.display='none'">Bandlepipes by 11:32 — Knight's Vow should have followed at 16–18 minutes. Earlier active protection directly prevents the carry deaths that let the enemy team back into the game.
+      </p>
+    </div>
+
+    <div class="workon-card">
+      <h3>3. Vision Before Objectives</h3>
+      <p>Your deaths at 17:28 (dragon) and 25:04 (Baron) followed the same pattern: walking into a contested objective area with
+        <img class="champ-icon" style="width:20px;height:20px;border-radius:3px;margin:0 3px" src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Blitzcrank.png" alt="Blitzcrank" onerror="this.style.display='none'">Blitzcrank unaccounted for and no control ward in the pit. Before your team commits to dragon or Baron: drop a control ward inside the pit and check both river entrances. If Blitzcrank isn't on the minimap, call your team to wait 10 seconds. One ward vs. a failed objective fight isn't close.
+      </p>
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<footer style="max-width:900px;margin:40px auto 0;padding:20px 16px;border-top:1px solid var(--border);
+               font-size:.72rem;color:var(--muted);line-height:1.6;text-align:center">
+  lol-match-analysis isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games
+  or anyone officially involved in producing or managing Riot Games properties. Riot Games and all
+  associated properties are trademarks or registered trademarks of Riot Games, Inc.
+</footer>
+
+<script>
+  // Touch-friendly timeline tooltips: tap to toggle, tap elsewhere to close
+  document.querySelectorAll('.tl-marker').forEach(function(marker) {
+    marker.addEventListener('click', function(e) {
+      e.stopPropagation();
+      var tip = marker.querySelector('.tl-tooltip');
+      var isOpen = tip.style.display === 'block';
+      document.querySelectorAll('.tl-tooltip').forEach(function(t) { t.style.display = 'none'; });
+      tip.style.display = isOpen ? 'none' : 'block';
+    });
+  });
+  document.addEventListener('click', function() {
+    document.querySelectorAll('.tl-tooltip').forEach(function(t) { t.style.display = 'none'; });
+  });
+</script>
+</body>
+</html>

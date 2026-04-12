@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>lentilbebi – Lee Sin Coaching Report</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg:#0e0f14; --surface:#16181f; --surface2:#1e2029;
+  --border:#2a2d3a; --text:#dde1f0; --muted:#7b8099;
+  --blue:#4e9eff; --gold:#c89b3c; --green:#3dca7e;
+  --red:#e55c5c; --yellow:#f0b429; --purple:#9b7fe8;
+}
+body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; font-size:14px; line-height:1.6; padding:24px; max-width:960px; margin:0 auto; }
+h1 { font-size:1.5rem; font-weight:700; }
+h2 { font-size:1.1rem; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:.08em; margin:28px 0 12px; }
+h3 { font-size:.95rem; font-weight:600; margin-bottom:6px; }
+a { color:var(--blue); }
+.card { background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:16px; margin-bottom:12px; }
+.hero { display:flex; gap:20px; align-items:flex-start; margin-bottom:24px; }
+.hero-art { flex-shrink:0; }
+.hero-art img.loading { width:120px; height:120px; border-radius:10px; border:2px solid var(--gold); object-fit:cover; object-position:top; }
+.abilities { display:flex; gap:6px; margin-top:8px; }
+.ability-slot { text-align:center; }
+.ability-slot img { width:26px; height:26px; border-radius:4px; display:block; }
+.ability-slot span { font-size:.6rem; color:var(--muted); }
+.hero-info { flex:1; }
+.subtitle { color:var(--muted); font-size:.85rem; margin:4px 0 12px; display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
+.badge { background:var(--surface2); border:1px solid var(--border); border-radius:4px; padding:2px 8px; font-size:.75rem; font-family:monospace; }
+.verdict-card { background:var(--surface2); border-left:3px solid var(--gold); border-radius:6px; padding:12px 14px; margin-bottom:8px; }
+.verdict-card .label { font-size:.7rem; color:var(--muted); text-transform:uppercase; letter-spacing:.06em; margin-bottom:4px; }
+.stats-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(110px,1fr)); gap:8px; margin-bottom:24px; }
+.stat-box { background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:12px; text-align:center; }
+.stat-box .val { font-size:1.25rem; font-weight:700; }
+.stat-box .lbl { font-size:.7rem; color:var(--muted); margin-top:2px; }
+table { width:100%; border-collapse:collapse; font-size:.82rem; }
+th { background:var(--surface2); color:var(--muted); font-weight:600; text-align:left; padding:8px 10px; font-size:.75rem; text-transform:uppercase; letter-spacing:.05em; }
+td { padding:7px 10px; border-bottom:1px solid var(--border); }
+tr:last-child td { border-bottom:none; }
+tr.you td { background:#c89b3c18; }
+.you-badge { background:var(--gold); color:#000; font-size:.65rem; font-weight:700; padding:2px 6px; border-radius:3px; margin-left:6px; }
+.team-header td { background:var(--surface2); font-weight:700; font-size:.75rem; color:var(--muted); padding:6px 10px; border-bottom:1px solid var(--border); }
+.champ-cell { display:flex; align-items:center; gap:6px; }
+.champ-cell img { width:24px; height:24px; border-radius:4px; }
+.finding { border-radius:8px; padding:14px 16px; margin-bottom:10px; border:1px solid var(--border); border-left-width:3px; background:var(--surface); }
+.finding.HIGH    { border-left-color:var(--red); }
+.finding.MEDIUM  { border-left-color:var(--yellow); }
+.finding.LOW     { border-left-color:var(--green); }
+.finding.POSITIVE{ border-left-color:var(--green); background:#3dca7e0a; }
+.finding-meta { display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin-bottom:6px; }
+.ts-badge { font-family:monospace; font-size:.72rem; background:var(--surface2); padding:2px 7px; border-radius:4px; color:var(--muted); }
+.sev-badge { font-size:.7rem; font-weight:700; padding:2px 8px; border-radius:4px; }
+.sev-HIGH   { background:#e55c5c22; color:var(--red); }
+.sev-MEDIUM { background:#f0b42922; color:var(--yellow); }
+.sev-LOW    { background:#3dca7e22; color:var(--green); }
+.finding-loc { font-size:.7rem; color:var(--muted); margin-bottom:5px; letter-spacing:.02em; }
+.phase-badge { font-size:.7rem; background:var(--surface2); border:1px solid var(--border); padding:2px 8px; border-radius:4px; color:var(--muted); }
+.finding h3 { font-size:.9rem; }
+.finding p  { font-size:.83rem; color:#c0c5d8; margin-top:4px; }
+.fix-line   { font-size:.82rem; margin-top:6px; }
+.fix-line.err  { color:var(--blue); }
+.fix-line.pos  { color:var(--green); font-style:italic; }
+.phase-divider { display:flex; align-items:center; gap:12px; margin:20px 0 12px; }
+.phase-divider .label { font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.1em; color:var(--muted); white-space:nowrap; }
+.phase-divider .line  { flex:1; height:1px; background:var(--border); }
+.swing-card { border-radius:8px; padding:14px 16px; margin-bottom:10px; background:var(--surface); border:1px solid var(--border); border-left:3px solid var(--gold); }
+.work-card  { border-radius:8px; padding:14px 16px; margin-bottom:10px; background:var(--surface); border:1px solid var(--border); border-left:3px solid var(--yellow); }
+.tl-wrap { position:relative; margin-bottom:28px; }
+.tl-phases { display:flex; height:20px; border-radius:4px; overflow:hidden; margin-bottom:6px; }
+.tl-ruler  { height:6px; background:var(--border); border-radius:3px; position:relative; }
+.tl-markers{ position:relative; height:52px; }
+.tl-labels { display:flex; justify-content:space-between; font-size:.65rem; color:var(--muted); margin-top:2px; }
+.marker { position:absolute; transform:translateX(-50%); cursor:default; z-index:10; }
+.marker-dot { width:11px; height:11px; border-radius:50%; border:2px solid var(--bg); transition:transform .15s; }
+.marker:hover .marker-dot { transform:scale(1.6); }
+.tooltip { display:none; position:absolute; bottom:130%; left:50%; transform:translateX(-50%);
+  background:var(--surface2); border:1px solid var(--border); border-radius:6px; padding:9px 12px;
+  font-size:.75rem; width:210px; box-shadow:0 8px 24px rgba(0,0,0,.6); z-index:100;
+  pointer-events:none; line-height:1.5; }
+.tooltip-ts { color:var(--muted); font-size:.68rem; }
+.marker:hover .tooltip { display:block; }
+.marker.flip .tooltip { bottom:auto; top:130%; }
+.top3-list { list-style:none; padding:0; }
+.top3-list li { padding:6px 0; border-bottom:1px solid var(--border); font-size:.85rem; }
+.top3-list li:last-child { border-bottom:none; }
+.top3-list .skill { font-weight:700; color:var(--yellow); }
+
+
+.gnav{position:sticky;top:0;z-index:200;height:38px;background:rgba(14,15,20,.96);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid #1e2029;display:flex;align-items:center;padding:0 24px;}
+.gnav a{display:inline-flex;align-items:center;gap:6px;color:#4a4d5a;text-decoration:none;font-size:.68rem;letter-spacing:.09em;text-transform:uppercase;font-weight:600;transition:color .2s;}
+.gnav a:hover{color:#c89b3c;}
+.gnav a svg{transition:transform .2s;}
+.gnav a:hover svg{transform:translateX(-2px);}
+</style>
+</head>
+<body><nav class="gnav"><a href="index.html"><svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11 5H1M5 1L1 5L5 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Session</a></nav>
+<div class="hero">
+  <div class="hero-art">
+    <img class="loading" src="https://ddragon.leagueoflegends.com/cdn/img/champion/loading/LeeSin_0.jpg" alt="Lee Sin" onerror="this.style.display='none'">
+    <div class="abilities"><div class="ability-slot"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/spell/LeeSinQOne.png" title="Q – Sonic Wave" onerror="this.style.display='none'"><span>Q</span></div><div class="ability-slot"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/spell/LeeSinWOne.png" title="W – Safeguard" onerror="this.style.display='none'"><span>W</span></div><div class="ability-slot"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/spell/LeeSinEOne.png" title="E – Tempest / Cripple" onerror="this.style.display='none'"><span>E</span></div><div class="ability-slot"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/spell/LeeSinR.png" title="R – Dragon's Rage" onerror="this.style.display='none'"><span>R</span></div></div>
+  </div>
+  <div class="hero-info">
+    <h1>Post-Match Coaching Report</h1>
+    <div class="subtitle">
+      <span>lentilbebi</span><span style="color:var(--muted)">·</span>
+      <span><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/LeeSin.png" style="width:18px;height:18px;border-radius:4px;vertical-align:middle" onerror="this.style.display='none'"> Lee Sin</span><span style="color:var(--muted)">·</span>
+      <span style="color:var(--green);font-weight:700">WIN</span>
+      <span style="color:var(--muted)">·</span><span>32:08</span>
+      <span style="color:var(--muted)">·</span><span>Patch 16.7</span>
+      <span class="badge">NA1_5538523104</span>
+    </div>
+    <div class="verdict-card"><div class="label">Honest Verdict</div><div>4/8/9 with 328 seconds spent dead in 32 minutes. Eight deaths as Lee Sin mid is the headline number, and while Enemy Viego collapsing mid repeatedly explains some of it, five deaths in the 15–29 minute window – including three consecutive in a single fight sequence – indicate a decision-making pattern, not just bad luck. Vision score was 18 (0.56/min) and 0 control wards were purchased, which is the exact same problem flagged in the previous game on Nunu & Willump. At this point the vision issue is structural, not champion-specific.</div></div>
+    <div class="verdict-card" style="border-left-color:var(--blue)"><div class="label">Game Summary</div><div>Blue team won despite Lee Sin's 8-death performance because Enemy Brand went 0/10 and Enemy Viego couldn't carry a 5v5 alone. Ally Lee Sin contributed positive plays – killing Viego at 6:04, killing Ahri at 16:14, assisting on the final teamfight wipe – but the 328 dead seconds removed Lee Sin from fights at critical moments. Enemy Viego (16/6) targeted mid-lane repeatedly; Lee Sin's lack of vision made those ganks consistently successful.</div></div>
+    <div style="margin-top:10px">
+      <div style="font-size:.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">3 Things to Work On</div>
+      <ul class="top3-list"><li><span class="skill">#1 Vision control</span> – 18 VS, 0 control wards in 32 minutes – same issue as last game on a different champion.</li><li><span class="skill">#2 Death management against Viego</span> – 5 deaths to Viego or Viego-assisted kills – no ward coverage meant no warning on his approach.</li><li><span class="skill">#3 Build completion</span> – Caulfield's Warhammer and Long Sword both unfinished at game end.</li></ul>
+    </div>
+  </div>
+</div>
+<h2>Quick Stats</h2>
+<div class="stats-grid">
+  <div class="stat-box"><div class="val">4/8/9</div><div class="lbl">KDA</div></div>
+  <div class="stat-box"><div class="val">206</div><div class="lbl">CS</div></div>
+  <div class="stat-box"><div class="val">6.4</div><div class="lbl">CS / min</div></div>
+  <div class="stat-box"><div class="val" style="color:var(--gold)">10,855</div><div class="lbl">Gold</div></div>
+  <div class="stat-box"><div class="val">17,160</div><div class="lbl">Damage</div></div>
+  <div class="stat-box"><div class="val">16%</div><div class="lbl">Dmg% of Team</div></div>
+  <div class="stat-box"><div class="val" style="color:var(--green)">18</div><div class="lbl">Vision Score</div></div>
+  <div class="stat-box"><div class="val">0.56</div><div class="lbl">VS / min</div></div>
+  <div class="stat-box"><div class="val" style="color:var(--blue)">43%</div><div class="lbl">Kill Part.</div></div>
+  <div class="stat-box"><div class="val" style="color:var(--red)">328s</div><div class="lbl">Time Dead</div></div>
+</div>
+<h2>Items</h2>
+<div class="card" style="padding:10px"><div style="display:inline-block;margin:2px"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/item/3074.png" style="width:28px;height:28px;border-radius:4px;vertical-align:middle" onerror="this.style.display='none'"></div><div style="display:inline-block;margin:2px"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/item/1054.png" style="width:28px;height:28px;border-radius:4px;vertical-align:middle" onerror="this.style.display='none'"></div><div style="display:inline-block;margin:2px"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/item/3173.png" style="width:28px;height:28px;border-radius:4px;vertical-align:middle" onerror="this.style.display='none'"></div><div style="display:inline-block;margin:2px"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/item/3156.png" style="width:28px;height:28px;border-radius:4px;vertical-align:middle" onerror="this.style.display='none'"></div><div style="display:inline-block;margin:2px"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/item/3133.png" style="width:28px;height:28px;border-radius:4px;vertical-align:middle" onerror="this.style.display='none'"></div><div style="display:inline-block;margin:2px"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/item/1036.png" style="width:28px;height:28px;border-radius:4px;vertical-align:middle" onerror="this.style.display='none'"></div><div style="display:inline-block;margin:2px"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/item/3340.png" style="width:28px;height:28px;border-radius:4px;vertical-align:middle" onerror="this.style.display='none'"></div></div>
+<h2>Team Overview</h2>
+<div class="card" style="padding:0;overflow:hidden"><table>
+  <thead><tr><th>Champion</th><th>Player</th><th>Role</th>
+  <th>KDA</th><th>CS</th><th>Gold</th><th>Damage</th><th>KP%</th></tr></thead>
+  <tbody><tr class="team-header"><td colspan="8">🔵 Blue Team</td></tr><tr><td><div class="champ-cell"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Ornn.png" style="width:24px;height:24px;border-radius:4px;vertical-align:middle" onerror="this.style.display='none'"> Ornn</div></td><td>BodaciousMango</td><td style="color:var(--muted);font-size:.78rem">TOP</td><td>4/2/5</td><td>268</td><td style="color:var(--gold)">12,636</td><td>22,786</td><td style="color:var(--blue)">30%</td></tr><tr><td><div class="champ-cell"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Shaco.png" style="width:24px;height:24px;border-radius:4px;vertical-align:middle" onerror="this.style.display='none'"> Shaco</div></td><td>Moist</td><td style="color:var(--muted);font-size:.78rem">JUNGLE</td><td>12/3/7</td><td>262</td><td style="color:var(--gold)">16,496</td><td>22,412</td><td style="color:var(--blue)">63%</td></tr><tr class="you"><td><div class="champ-cell"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/LeeSin.png" style="width:24px;height:24px;border-radius:4px;vertical-align:middle" onerror="this.style.display='none'"> Lee Sin<span class="you-badge">YOU</span></div></td><td>lentilbebi</td><td style="color:var(--muted);font-size:.78rem">MIDDLE</td><td>4/8/9</td><td>206</td><td style="color:var(--gold)">10,855</td><td>17,160</td><td style="color:var(--blue)">43%</td></tr><tr><td><div class="champ-cell"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Tristana.png" style="width:24px;height:24px;border-radius:4px;vertical-align:middle" onerror="this.style.display='none'"> Tristana</div></td><td>RAW JOHNSON</td><td style="color:var(--muted);font-size:.78rem">BOTTOM</td><td>9/6/6</td><td>239</td><td style="color:var(--gold)">16,160</td><td>34,329</td><td style="color:var(--blue)">50%</td></tr><tr><td><div class="champ-cell"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Nami.png" style="width:24px;height:24px;border-radius:4px;vertical-align:middle" onerror="this.style.display='none'"> Nami</div></td><td>ahrisoo</td><td style="color:var(--muted);font-size:.78rem">UTILITY</td><td>1/5/15</td><td>44</td><td style="color:var(--gold)">8,782</td><td>10,064</td><td style="color:var(--blue)">53%</td></tr><tr class="team-header"><td colspan="8">🔴 Red Team</td></tr><tr><td><div class="champ-cell"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Sion.png" style="width:24px;height:24px;border-radius:4px;vertical-align:middle" onerror="this.style.display='none'"> Sion</div></td><td>KaerrotZ</td><td style="color:var(--muted);font-size:.78rem">TOP</td><td>3/4/2</td><td>268</td><td style="color:var(--gold)">12,255</td><td>14,222</td><td style="color:var(--blue)">21%</td></tr><tr><td><div class="champ-cell"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Viego.png" style="width:24px;height:24px;border-radius:4px;vertical-align:middle" onerror="this.style.display='none'"> Viego</div></td><td>IMBrickedUPASF</td><td style="color:var(--muted);font-size:.78rem">JUNGLE</td><td>16/6/5</td><td>231</td><td style="color:var(--gold)">19,590</td><td>39,232</td><td style="color:var(--blue)">88%</td></tr><tr><td><div class="champ-cell"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Ahri.png" style="width:24px;height:24px;border-radius:4px;vertical-align:middle" onerror="this.style.display='none'"> Ahri</div></td><td>Danielson524</td><td style="color:var(--muted);font-size:.78rem">MIDDLE</td><td>3/8/8</td><td>226</td><td style="color:var(--gold)">11,437</td><td>24,897</td><td style="color:var(--blue)">46%</td></tr><tr><td><div class="champ-cell"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Brand.png" style="width:24px;height:24px;border-radius:4px;vertical-align:middle" onerror="this.style.display='none'"> Brand</div></td><td>jinu oppar</td><td style="color:var(--muted);font-size:.78rem">BOTTOM</td><td>0/10/13</td><td>179</td><td style="color:var(--gold)">10,124</td><td>19,032</td><td style="color:var(--blue)">54%</td></tr><tr><td><div class="champ-cell"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Rell.png" style="width:24px;height:24px;border-radius:4px;vertical-align:middle" onerror="this.style.display='none'"> Rell</div></td><td>Rootini</td><td style="color:var(--muted);font-size:.78rem">UTILITY</td><td>2/2/17</td><td>53</td><td style="color:var(--gold)">9,545</td><td>10,250</td><td style="color:var(--blue)">79%</td></tr></tbody></table></div>
+<h2>Match Timeline</h2>
+<div class="card"><div class="tl-wrap">
+  <div class="tl-phases">
+    <div style="width:43.6%;background:#2563eb30;display:flex;align-items:center;justify-content:center;font-size:.6rem;color:rgba(255,255,255,.4)">Early 0–14</div>
+    <div style="width:34.2%;background:#7c3aed30;display:flex;align-items:center;justify-content:center;font-size:.6rem;color:rgba(255,255,255,.4)">Mid 14–25</div>
+    <div style="width:22.2%;background:#c026d330;display:flex;align-items:center;justify-content:center;font-size:.6rem;color:rgba(255,255,255,.4)">Late 25+</div>
+  </div>
+  <div style="position:relative">
+    <div class="tl-ruler"></div>
+    <div style="position:absolute;top:-2px;left:43.6%;width:1px;height:10px;background:rgba(255,255,255,.2)"></div>
+    <div style="position:absolute;top:-2px;left:77.8%;width:1px;height:10px;background:rgba(255,255,255,.2)"></div>
+    <div class="tl-markers"><div class="marker" style="position:absolute;top:4px;left:18.9%;transform:translateX(-50%)"><div class="marker-dot" style="background:#3dca7e"></div><div class="tooltip"><div class="tooltip-ts">6:04 – mid map<br><b>Kill:</b> Viego</div></div></div><div class="marker" style="position:absolute;top:30px;left:21.3%;transform:translateX(-50%)"><div class="marker-dot" style="background:#c89b3c"></div><div class="tooltip"><div class="tooltip-ts">6:51<br><b>Item:</b> Tiamat</div></div></div><div class="marker" style="position:absolute;top:30px;left:28.4%;transform:translateX(-50%)"><div class="marker-dot" style="background:#e55c5c"></div><div class="tooltip"><div class="tooltip-ts">9:08 – bot side jungle / dragon pit<br><b>Death</b> to Sion</div></div></div><div class="marker" style="position:absolute;top:30px;left:29.8%;transform:translateX(-50%)"><div class="marker-dot" style="background:#c89b3c"></div><div class="tooltip"><div class="tooltip-ts">9:33<br><b>Item:</b> Mercury's Treads</div></div></div><div class="marker" style="position:absolute;top:4px;left:32.5%;transform:translateX(-50%)"><div class="marker-dot" style="background:#3dca7e"></div><div class="tooltip"><div class="tooltip-ts">10:26 – mid map<br><b>Kill:</b> Brand</div></div></div><div class="marker" style="position:absolute;top:30px;left:39.6%;transform:translateX(-50%)"><div class="marker-dot" style="background:#e55c5c"></div><div class="tooltip"><div class="tooltip-ts">12:44 – bot side jungle / dragon pit<br><b>Death</b> to Ahri</div></div></div><div class="marker" style="position:absolute;top:4px;left:50.6%;transform:translateX(-50%)"><div class="marker-dot" style="background:#3dca7e"></div><div class="tooltip"><div class="tooltip-ts">16:14 – mid lane<br><b>Kill:</b> Ahri</div></div></div><div class="marker" style="position:absolute;top:30px;left:50.6%;transform:translateX(-50%)"><div class="marker-dot" style="background:#e55c5c"></div><div class="tooltip"><div class="tooltip-ts">16:15 – mid lane<br><b>Death</b> to Viego</div></div></div><div class="marker" style="position:absolute;top:30px;left:51.1%;transform:translateX(-50%)"><div class="marker-dot" style="background:#c89b3c"></div><div class="tooltip"><div class="tooltip-ts">16:25<br><b>Item:</b> Ravenous Hydra</div></div></div><div class="marker" style="position:absolute;top:30px;left:51.7%;transform:translateX(-50%)"><div class="marker-dot" style="background:#c89b3c"></div><div class="tooltip"><div class="tooltip-ts">16:36<br><b>Item:</b> Ravenous Hydra</div></div></div><div class="marker" style="position:absolute;top:4px;left:56.7%;transform:translateX(-50%)"><div class="marker-dot" style="background:#7eca9c"></div><div class="tooltip"><div class="tooltip-ts">18:12 – mid lane<br><b>Assist</b> on Ahri</div></div></div><div class="marker" style="position:absolute;top:30px;left:60.5%;transform:translateX(-50%)"><div class="marker-dot" style="background:#e55c5c"></div><div class="tooltip"><div class="tooltip-ts">19:26 – mid map<br><b>Death</b> to Ahri</div></div></div><div class="marker" style="position:absolute;top:30px;left:62.0%;transform:translateX(-50%)"><div class="marker-dot" style="background:#c89b3c"></div><div class="tooltip"><div class="tooltip-ts">19:55<br><b>Item:</b> Hexdrinker</div></div></div><div class="marker flip" style="position:absolute;top:4px;left:69.1%;transform:translateX(-50%)"><div class="marker-dot" style="background:#7eca9c"></div><div class="tooltip"><div class="tooltip-ts">22:11 – top lane<br><b>Assist</b> on Sion</div></div></div><div class="marker flip" style="position:absolute;top:4px;left:70.2%;transform:translateX(-50%)"><div class="marker-dot" style="background:#3dca7e"></div><div class="tooltip"><div class="tooltip-ts">22:32 – mid lane<br><b>Kill:</b> Rell</div></div></div><div class="marker flip" style="position:absolute;top:30px;left:76.0%;transform:translateX(-50%)"><div class="marker-dot" style="background:#e55c5c"></div><div class="tooltip"><div class="tooltip-ts">24:25 – mid map<br><b>Death</b> to Viego</div></div></div><div class="marker flip" style="position:absolute;top:30px;left:77.2%;transform:translateX(-50%)"><div class="marker-dot" style="background:#c89b3c"></div><div class="tooltip"><div class="tooltip-ts">24:49<br><b>Item:</b> Maw of Malmortius</div></div></div><div class="marker flip" style="position:absolute;top:4px;left:80.3%;transform:translateX(-50%)"><div class="marker-dot" style="background:#7eca9c"></div><div class="tooltip"><div class="tooltip-ts">25:48 – mid lane<br><b>Assist</b> on Brand</div></div></div><div class="marker flip" style="position:absolute;top:30px;left:80.4%;transform:translateX(-50%)"><div class="marker-dot" style="background:#e55c5c"></div><div class="tooltip"><div class="tooltip-ts">25:50 – mid lane<br><b>Death</b> to Viego</div></div></div><div class="marker flip" style="position:absolute;top:4px;left:80.7%;transform:translateX(-50%)"><div class="marker-dot" style="background:#7eca9c"></div><div class="tooltip"><div class="tooltip-ts">25:55 – mid lane<br><b>Assist</b> on Viego</div></div></div><div class="marker flip" style="position:absolute;top:30px;left:87.7%;transform:translateX(-50%)"><div class="marker-dot" style="background:#e55c5c"></div><div class="tooltip"><div class="tooltip-ts">28:11 – bot side jungle / dragon pit<br><b>Death</b> to Viego</div></div></div><div class="marker flip" style="position:absolute;top:30px;left:90.5%;transform:translateX(-50%)"><div class="marker-dot" style="background:#c89b3c"></div><div class="tooltip"><div class="tooltip-ts">29:04<br><b>Item:</b> Caulfield's Warhammer</div></div></div><div class="marker flip" style="position:absolute;top:30px;left:91.7%;transform:translateX(-50%)"><div class="marker-dot" style="background:#e55c5c"></div><div class="tooltip"><div class="tooltip-ts">29:28 – top lane<br><b>Death</b> to Sion</div></div></div><div class="marker flip" style="position:absolute;top:4px;left:96.9%;transform:translateX(-50%)"><div class="marker-dot" style="background:#7eca9c"></div><div class="tooltip"><div class="tooltip-ts">31:07 – mid map<br><b>Assist</b> on Brand</div></div></div><div class="marker flip" style="position:absolute;top:4px;left:97.3%;transform:translateX(-50%)"><div class="marker-dot" style="background:#7eca9c"></div><div class="tooltip"><div class="tooltip-ts">31:16 – mid map<br><b>Assist</b> on Rell</div></div></div><div class="marker flip" style="position:absolute;top:4px;left:97.5%;transform:translateX(-50%)"><div class="marker-dot" style="background:#7eca9c"></div><div class="tooltip"><div class="tooltip-ts">31:19 – mid map<br><b>Assist</b> on Sion</div></div></div><div class="marker flip" style="position:absolute;top:4px;left:97.5%;transform:translateX(-50%)"><div class="marker-dot" style="background:#7eca9c"></div><div class="tooltip"><div class="tooltip-ts">31:20 – mid map<br><b>Assist</b> on Viego</div></div></div><div class="marker flip" style="position:absolute;top:4px;left:98.3%;transform:translateX(-50%)"><div class="marker-dot" style="background:#7eca9c"></div><div class="tooltip"><div class="tooltip-ts">31:34 – mid lane<br><b>Assist</b> on Ahri</div></div></div><div class="marker flip" style="position:absolute;top:4px;left:99.5%;transform:translateX(-50%)"><div class="marker-dot" style="background:#f0b429"></div><div class="tooltip"><div class="tooltip-ts">31:58<br><b>Tower:</b> Mid Nexus</div></div></div></div>
+    <div class="tl-labels"><span>0:00</span><span>32:08</span></div>
+  </div></div></div>
+<h2>Findings</h2>
+<div class="phase-divider"><span class="line"></span><span class="label">Phase 1: Draft</span><span class="line"></span></div><div class="finding POSITIVE">
+  <div class="finding-meta"><span class="sev-badge sev-LOW">✓ LOW</span><span class="phase-badge">DRAFT – WIN_CONDITION</span></div>
+  <h3>Lee Sin mid: roam-oriented fighter in an unusual position</h3>
+  <p>Lee Sin mid is an aggressive pick that trades sustained lane pressure for early roam potential: Sonic Wave (Q) enables long-range gap close and kill setups, Dragon's Rage (R) can kick enemies into tower or team. Against Enemy Ahri – a high-mobility mage – the matchup is difficult in lane but favorable in skirmishes where Lee Sin can dodge Charm. Win condition: don't fall too far behind Ahri in CS, roam to bot for Tristana, find kills on Viego.</p>
+  <div class="fix-line pos">The win condition was partially executed – killed Viego at 6:04 and killed Ahri three times. The lane deficit and vision gap undermined the execution.</div>
+</div><div class="phase-divider"><span class="line"></span><span class="label">Phase 2: Early Game (0–14 min)</span><span class="line"></span></div><div class="finding POSITIVE">
+  <div class="finding-meta"><span class="ts-badge">6:04</span><span class="ts-badge">mid map</span><span class="sev-badge sev-LOW">✓ LOW</span><span class="phase-badge">EARLY – DECISION</span></div>
+  <h3>Kill on Viego at 6:04 – the most impactful early play</h3>
+  <p>Ally Lee Sin killed Enemy Viego at 6:04 in mid map (with Shaco assist). Viego at 6 minutes had already killed Tristana twice (2:50, 5:30) and was building momentum. Stopping Viego at 6:04 – before his first item spike – was the highest-value kill of the early game for Blue team. This kill directly cost Viego a death timer and disrupted his first back timing.</p>
+  <div class="fix-line pos">Perfect target prioritization. Viego was the threat; killing him first was the right call.</div>
+</div><div class="finding MEDIUM">
+  <div class="finding-meta"><span class="ts-badge">0 – 10 min</span><span class="ts-badge">mid lane</span><span class="sev-badge sev-MEDIUM">MEDIUM</span><span class="phase-badge">EARLY – RESOURCES</span></div>
+  <h3>CS deficit vs Ahri: -15 at 10min</h3>
+  <p>CS at 10 min: Lee Sin 68 vs Ahri 83 (–15). Last game on Nunu & Willump, the deficit at 10 min was also -17 against Ahri. The pattern is: losing the CS matchup in mid lane against Ahri specifically. Ahri's Q (Orb of Deception) hits both directions and pushes waves efficiently; Lee Sin's wave clear at low levels requires either Q-ward jump or burning Tiamat early.</p>
+  <div class="fix-line err">Fix: Tiamat was purchased at 6:51 (unusually fast first item timing, before first back on most builds). If the Tiamat is available, use its active to clear waves between fights rather than fighting Ahri for individual last hits. The CS gap should be closer to -5 to -8 at 10 minutes, not -15.</div>
+</div><div class="phase-divider"><span class="line"></span><span class="label">Phase 3: Mid Game (14–25 min)</span><span class="line"></span></div><div class="finding HIGH">
+  <div class="finding-meta"><span class="ts-badge">0 – 32 min</span><span class="ts-badge">entire map</span><span class="sev-badge sev-HIGH">HIGH</span><span class="phase-badge">MID – RESOURCES</span></div>
+  <h3>Vision score: 18 in 32 minutes – second game with near-zero vision</h3>
+  <p>Ally Lee Sin finished with VS 18 (0.56/min), 0 control wards purchased. Last game on Nunu & Willump: VS 5, 0 control wards. The champion changed; the vision contribution did not. Enemy Viego killed Lee Sin five times through mid-lane collapses – in every case, Viego approached from jungle or river. A single control ward in the mid-lane river brush would have provided 5–10 seconds of warning on Viego's approach, which is enough to Safeguard (W) to a nearby minion and exit.</p>
+  <div class="fix-line err">Fix: Buy one control ward per back starting at minute 10 and place it in the mid-lane river entrance. This is not optional and is not role-dependent. Two consecutive games with 0 control wards purchased means this is a habit problem, not a game-state problem.</div>
+</div><div class="finding HIGH">
+  <div class="finding-meta"><span class="ts-badge">16:15 – 28:11</span><span class="ts-badge">mid lane / mid map / dragon pit</span><span class="sev-badge sev-HIGH">HIGH</span><span class="phase-badge">MID – DECISION</span></div>
+  <h3>Five deaths in 15-minute window: 16:15, 19:26, 24:25, 25:50, 28:11</h3>
+  <p>Ally Lee Sin died five times between 16:15 and 28:11 – all five involved Enemy Viego (directly or assisting). The sequence at 16:14 is the clearest case: Lee Sin killed Ahri at 16:14, then died to Viego one second later at 16:15. After a kill, Lee Sin was still in the combat zone and Viego arrived immediately. This is the same pattern from Shaco's games: secure a kill, don't disengage, die to the follow-up.</p>
+  <div class="fix-line err">Fix: After landing a kill on Ahri or any target in mid lane, immediately use Safeguard (W) to ward-jump to safety. Do not stay in the kill zone. Viego's dash range lets him reach you within 1–2 seconds of a kill – the 16:14 to 16:15 death was a 1-second window. Exit the fight the moment the kill registers.</div>
+</div><div class="phase-divider"><span class="line"></span><span class="label">Phase 4: Late Game (25+ min)</span><span class="line"></span></div><div class="finding LOW">
+  <div class="finding-meta"><span class="ts-badge">32:08</span><span class="ts-badge">base</span><span class="sev-badge sev-LOW">LOW</span><span class="phase-badge">LATE – RESOURCES</span></div>
+  <h3>Build incomplete: Caulfield's Warhammer and Long Sword both unfinished</h3>
+  <p>Ally Lee Sin finished with Caulfield's Warhammer (1,050g) and Long Sword (350g) as unfinished components. The intended completed items – likely Youmuu's Ghostblade and another assassin/bruiser item – were never finished. Maw of Malmortius was correctly purchased at 24:49 as an anti-Ahri item, but the build remained at 2.5 completed items at 32 minutes.</p>
+  <div class="fix-line err">Fix: In a game where you're behind in gold (338 GPM vs Ahri's roughly 356 GPM), prioritize completing one item fully before buying components toward the next. A completed Youmuu's gives 18 lethality + 10 AH + movement active; Caulfield's Warhammer gives 12 lethality + 5 AH and no active.</div>
+</div>
+<h2>The 3 Swing Moments</h2>
+<div class="swing-card" style="border-left-color:var(--red)"><div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><span class="ts-badge">6:04</span><b style="font-size:.9rem">Lee Sin kills Viego early – the game's key momentum moment</b><div class="finding-loc">Mid Map</div></div><p style="font-size:.83rem;color:#c0c5d8">Ally Lee Sin killed Enemy Viego at 6:04 with Shaco assist. Viego had already killed Tristana twice in the first 6 minutes and was heading toward a snowball. This kill reset Viego's death timer and disrupted his item spike timing. In retrospect it was one of only two windows before 22:15 where Blue team successfully killed Viego. Lee Sin's aggressive mid roam made this happen – it was the highest-value play of the early game.</p></div><div class="swing-card" style="border-left-color:var(--gold)"><div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><span class="ts-badge">16:14 – 16:15</span><b style="font-size:.9rem">Kill Ahri, die to Viego one second later</b><div class="finding-loc">Mid Lane</div></div><p style="font-size:.83rem;color:#c0c5d8">Ally Lee Sin killed Enemy Ahri at 16:14 and died to Enemy Viego at 16:15 – a 1-second gap between kill and death. This sequence encapsulates the core Lee Sin problem this game: the kills were real, but the disengagement after kills was non-existent. Viego was present in mid lane and waiting for Lee Sin to over-commit. A Safeguard ward-jump immediately on the kill would have survived the 1-second window.</p></div><div class="swing-card" style="border-left-color:var(--green)"><div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><span class="ts-badge">31:07 – 31:34</span><b style="font-size:.9rem">Final teamfight wipe – Lee Sin assists on 3 kills</b><div class="finding-loc">Mid Lane</div></div><p style="font-size:.83rem;color:#c0c5d8">Blue team's 5v5 wipe at 31:07–31:34 included Lee Sin assists on Brand (31:07), Rell (31:16), Sion (31:19), and Viego (31:20). After 8 deaths and 328 dead seconds, Lee Sin was present and functional in the game-deciding fight. The previous death pattern didn't repeat in the final engagement – Lee Sin stayed with the team and contributed. The win came from this fight.</p></div>
+<h2>3 Things to Work On</h2>
+<div class="work-card"><h3><span style="color:var(--yellow)">#1 Control wards – two games, same zero</span></h3><p style="font-size:.83rem;color:#c0c5d8;margin-top:6px">Two games (Nunu & Willump last game, Lee Sin this game) with 0 control wards purchased and near-zero vision score. Viego killed you five times this game through mid-jungle collapses. Every one of those deaths had a ward-preventable window: if the mid-lane river brush had a control ward in it, you see Viego approaching 5–8 seconds before he reaches you. That's enough to W-jump to a ward and exit. Buy one control ward every back starting at minute 10. Place it mid-river. This is the single highest-leverage habit fix available right now.</p></div><div class="work-card"><h3><span style="color:var(--yellow)">#2 Disengaging after kills (the 1-second problem)</span></h3><p style="font-size:.83rem;color:#c0c5d8;margin-top:6px">The 16:14 death (killed Ahri at 16:14, died at 16:15) is the clearest example of a pattern across three players this game: secure a kill, stay in the kill zone, die to Viego. Lee Sin has two disengagement tools: Safeguard (W) to jump to a nearby ward or minion, and Dragon's Rage (R) which can kick an enemy away and create space. Immediately after any kill in mid lane, use Safeguard to exit the area. Ward the jungle entrance before the fight so you have a Safeguard target available.</p></div><div class="work-card"><h3><span style="color:var(--yellow)">#3 CS recovery under Ahri pressure</span></h3><p style="font-size:.83rem;color:#c0c5d8;margin-top:6px">Lost 15 CS to Ahri at 10 minutes for the second consecutive game against that matchup (last game was -17 on Nunu & Willump). Against Ahri's Q wave clear, fight for last hits only when you have a Safeguard target warded to escape Charm. Otherwise, freeze the wave near tower and let her push into you where her trading pattern is weaker. Tiamat was purchased unusually early (6:51) – make sure its active is being used to clear waves between roams rather than just as a stat stick.</p></div>
+</body></html>

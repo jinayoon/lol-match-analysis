@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Coaching: lentilbebi – Ashe BOTTOM – WIN 31:32</title>
+<link rel="icon" type="image/png" href="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Ashe.png">
+<style>
+:root{--bg:#0e0f14;--surface:#16181f;--surface2:#1e2029;--border:#2a2d3a;--text:#dde1f0;--muted:#7b8099;--blue:#4e9eff;--gold:#c89b3c;--green:#3dca7e;--red:#e55c5c;--yellow:#f0b429;--purple:#9b7fe8;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;font-size:.92rem;line-height:1.6;padding:24px;}
+h1{font-size:1.5rem;font-weight:700;color:#fff;}
+h2{font-size:1.1rem;font-weight:700;color:var(--gold);margin:20px 0 10px;}
+h3{font-size:.95rem;font-weight:600;color:var(--text);margin:12px 0 6px;}
+.badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:.72rem;font-weight:700;letter-spacing:.03em;}
+.badge-high{background:#e55c5c22;color:#e55c5c;border:1px solid #e55c5c44;}
+.badge-med{background:#f0b42922;color:#f0b429;border:1px solid #f0b42944;}
+.badge-low{background:#3dca7e22;color:#3dca7e;border:1px solid #3dca7e44;}
+.badge-pos{background:#3dca7e22;color:#3dca7e;border:1px solid #3dca7e44;}
+.badge-posH{background:#4e9eff22;color:#4e9eff;border:1px solid #4e9eff44;}
+.badge-ts{background:var(--surface2);color:var(--muted);border:1px solid var(--border);font-family:monospace;}
+.badge-lens{background:#9b7fe822;color:#9b7fe8;border:1px solid #9b7fe844;}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px;margin:12px 0;}
+.stat-box{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px 12px;text-align:center;}
+.stat-val{font-size:1.35rem;font-weight:700;color:#fff;}
+.stat-lbl{font-size:.7rem;color:var(--muted);margin-top:2px;}
+table{width:100%;border-collapse:collapse;font-size:.85rem;}
+th{background:var(--surface2);color:var(--muted);font-weight:600;padding:7px 10px;text-align:left;border-bottom:1px solid var(--border);}
+td{padding:7px 10px;border-bottom:1px solid #1e2029;}
+tr:hover td{background:#ffffff08;}
+.you-row td{background:#c89b3c14;}
+.you-badge{background:var(--gold);color:#000;font-size:.65rem;font-weight:800;padding:1px 5px;border-radius:3px;margin-left:4px;}
+.star{color:var(--gold);}
+.phase-div{font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:22px 0 8px;display:flex;align-items:center;gap:8px;}
+.phase-div::after{content:'';flex:1;height:1px;background:var(--border);}
+.finding{border-radius:8px;padding:14px 16px;margin-bottom:10px;background:var(--surface);border:1px solid var(--border);}
+.finding-title{font-weight:700;font-size:.95rem;margin:6px 0 4px;}
+.finding-body{color:#b8bdd4;font-size:.875rem;line-height:1.6;}
+.finding-fix{margin-top:8px;font-size:.875rem;}
+.finding-fix .fix-lbl{color:var(--blue);font-weight:600;}
+.finding-fix .fix-lbl.pos{color:var(--green);}
+.tl-wrap{position:relative;margin:16px 0;}
+.tl-markers{position:relative;height:88px;}
+.swing-card{border-radius:8px;padding:16px;margin-bottom:12px;background:var(--surface);border:1px solid var(--border);}
+.swing-title{font-weight:700;font-size:.95rem;margin-bottom:6px;display:flex;align-items:center;gap:8px;}
+.workon-card{border-left:3px solid var(--yellow);border-radius:0 8px 8px 0;padding:14px 16px;margin-bottom:12px;background:var(--surface);border-top:1px solid var(--border);border-right:1px solid var(--border);border-bottom:1px solid var(--border);}
+.workon-num{font-size:1.2rem;font-weight:800;color:var(--yellow);float:left;margin-right:10px;}
+.workon-title{font-weight:700;font-size:.95rem;color:var(--text);margin-bottom:6px;}
+.workon-body{color:#b8bdd4;font-size:.875rem;line-height:1.6;clear:both;}
+.phase-overview{background:#1a1c25;border:1px solid #2a3050;border-radius:8px;padding:14px 16px;margin-bottom:12px;}
+.phase-overview-label{font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#5b6ea8;margin-bottom:10px;}
+.lane-row{display:flex;align-items:flex-start;gap:8px;margin-bottom:7px;font-size:.83rem;}
+.lane-tag{background:#252840;color:#7b90d4;border-radius:4px;padding:1px 7px;font-size:.7rem;font-weight:700;min-width:50px;text-align:center;margin-top:2px;}
+.lane-tag.you{background:#3a3010;color:#c89b3c;}
+.lane-text{color:#9aa3c2;line-height:1.5;}
+.overview-note{margin-top:10px;font-size:.8rem;color:#5b6ea8;border-top:1px solid #2a3050;padding-top:8px;}
+.hero-header{display:flex;gap:20px;align-items:flex-start;margin-bottom:20px;flex-wrap:wrap;}
+.hero-info{flex:1;min-width:200px;}
+.ability-strip{display:flex;gap:6px;margin-top:8px;}
+.ability-strip img{width:26px;height:26px;border-radius:4px;border:1px solid var(--border);}
+.match-badge{background:var(--surface2);color:var(--muted);font-family:monospace;font-size:.75rem;padding:3px 8px;border-radius:4px;display:inline-block;}
+.verdict-card{background:#1a1c25;border:1px solid var(--border);border-radius:8px;padding:12px;margin-top:10px;}
+.verdict-lbl{font-size:.7rem;color:var(--muted);font-weight:700;text-transform:uppercase;margin-bottom:4px;}
+.three-short{background:#1a1c25;border:1px solid #2a3050;border-radius:8px;padding:14px 16px;margin-bottom:12px;}
+.three-short ol{padding-left:20px;color:#9aa3c2;font-size:.875rem;}
+.three-short li{margin-bottom:4px;}
+.item-chip-row{display:flex;gap:6px;margin:8px 0;flex-wrap:wrap;align-items:center;}
+.item-chip{display:flex;align-items:center;gap:5px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:4px 8px;font-size:.78rem;}
+.item-chip img{width:24px;height:24px;border-radius:3px;}
+.finding-loc { font-size:.7rem; color:var(--muted); margin-bottom:5px; letter-spacing:.02em; }
+
+
+.gnav{position:sticky;top:0;z-index:200;height:38px;background:rgba(14,15,20,.96);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid #1e2029;display:flex;align-items:center;padding:0 24px;}
+.gnav a{display:inline-flex;align-items:center;gap:6px;color:#4a4d5a;text-decoration:none;font-size:.68rem;letter-spacing:.09em;text-transform:uppercase;font-weight:600;transition:color .2s;}
+.gnav a:hover{color:#c89b3c;}
+.gnav a svg{transition:transform .2s;}
+.gnav a:hover svg{transform:translateX(-2px);}
+</style>
+</head>
+<body><nav class="gnav"><a href="index.html"><svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11 5H1M5 1L1 5L5 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Session</a></nav>
+
+<div class="hero-header">
+  <div class="hero-art">
+    <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/loading/Ashe_0.jpg" style="width:120px;height:120px;border-radius:10px;border:2px solid var(--gold);" onerror="this.style.display='none'">
+    
+<div class="ability-strip">
+  <img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/spell/AsheFrostShot.png" style="width:26px;height:26px;border-radius:4px;border:1px solid var(--border);" onerror="this.style.display='none'">
+  <img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/spell/AsheVolley.png" style="width:26px;height:26px;border-radius:4px;border:1px solid var(--border);" onerror="this.style.display='none'">
+  <img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/spell/AsheHawkshot.png" style="width:26px;height:26px;border-radius:4px;border:1px solid var(--border);" onerror="this.style.display='none'">
+  <img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/spell/AsheR.png" style="width:26px;height:26px;border-radius:4px;border:1px solid var(--border);" onerror="this.style.display='none'">
+</div>
+  </div>
+  <div class="hero-info">
+    <h1>Post-Match Coaching Report</h1>
+    <div style="color:var(--muted);font-size:.85rem;margin:4px 0 10px;">
+      lentilbebi &nbsp;·&nbsp; <img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Ashe.png" style="width:20px;height:20px;border-radius:3px;vertical-align:middle;" onerror="this.style.display='none'"> Ashe &nbsp;·&nbsp; BOTTOM &nbsp;·&nbsp;
+      <span style="color:var(--green);font-weight:700;">WIN</span> 31:32 &nbsp;·&nbsp; Patch 16.7
+    </div>
+    <span class="match-badge">NA1_5537842078</span>
+    <div class="verdict-card" style="margin-top:10px;">
+      <div class="verdict-lbl">Honest Verdict</div>
+      <div style="font-size:.9rem;">This was a team win, but you left real performance on the table as the primary carry. You went 4/1/11 and participated in 65% of Blue team's kills, but Enemy Viktor ended the game with 30,093 damage to your 22,579 — despite you having Lulu dedicated to keeping you alive. The three issues: Executioner's Calling was never upgraded to Mortal Reminder (Enemy Dr. Mundo's R was a 20% max HP heal), zero control wards placed the entire game as a carry in a triple-engage matchup, and your gold fell –1,877 behind Viktor by 20 minutes despite the game being Blue's favor. The Baron fight bailed you out. Fix these habits and the margin isn't close.</div>
+    </div>
+    <div class="verdict-card" style="margin-top:8px;">
+      <div class="verdict-lbl">Game Summary</div>
+      <div style="font-size:.9rem;">Ally Shaco first-blooded Enemy Dr. Mundo at 2:57 and never let up: all three Void Grubs at 8:52, solo Baron at 29:57. You and Ally Lulu went double-kill at 5:49–5:57 to seed a +2,100 gold team lead at 10 minutes. The 23:35 teamfight collapse — Lulu dying first, you dying 9 seconds later — reset that lead to –913 at 25 minutes before Baron closed it out.</div>
+    </div>
+  </div>
+</div>
+
+<div class="three-short">
+  <h3 style="color:var(--yellow);margin-bottom:8px;">3 Things To Work On</h3>
+  <ol>
+    <li><strong>Mortal Reminder upgrade</strong> — Bought Executioner's Calling at 14:30 and never upgraded it. Enemy Dr. Mundo's R heals ~20% of his max HP. You needed Mortal Reminder, not a base-tier item sitting in your inventory until 31:32.</li>
+    <li><strong>Control wards as the primary carry</strong> — 0 control wards placed the entire game. Red team ran triple-engage (Skarner + Dr. Mundo + Rakan). Knowing where Rakan was before the 23:35 fight could have changed your positioning entirely.</li>
+    <li><strong>Gold differential vs Viktor</strong> — You fell from –180 at 10 min to –1,877 at 20 min, then –3,504 at 25 min while Blue team was winning the rest of the map. Viktor finishing with 30k damage vs your 22k reflects this gap.</li>
+  </ol>
+</div>
+
+<h2>Quick Stats</h2>
+<div class="stat-grid">
+  <div class="stat-box"><div class="stat-val">4/1/11</div><div class="stat-lbl">KDA</div></div>
+  <div class="stat-box"><div class="stat-val">227</div><div class="stat-lbl">CS (7.2/min)</div></div>
+  <div class="stat-box"><div class="stat-val" style="color:var(--gold);">13,169</div><div class="stat-lbl">Gold</div></div>
+  <div class="stat-box"><div class="stat-val">22,579</div><div class="stat-lbl">Damage</div></div>
+  <div class="stat-box"><div class="stat-val">22.6%</div><div class="stat-lbl">Dmg % of Team</div></div>
+  <div class="stat-box"><div class="stat-val" style="color:#f0b429;">18</div><div class="stat-lbl">Vision Score (0.57/min)</div></div>
+  <div class="stat-box"><div class="stat-val" style="color:var(--green);">65%</div><div class="stat-lbl">Kill Participation</div></div>
+  <div class="stat-box"><div class="stat-val" style="color:var(--green);">1</div><div class="stat-lbl">Deaths</div></div>
+  <div class="stat-box"><div class="stat-val" style="color:#e55c5c;">0</div><div class="stat-lbl">Control Wards 🚨</div></div>
+</div>
+
+<h2>Team Overview</h2>
+<table>
+<thead><tr><th>Player</th><th>Champion</th><th>Role</th><th>KDA</th><th>CS</th><th>Gold</th><th>Damage</th><th>KP%</th><th></th></tr></thead>
+<tbody>
+<tr><td colspan="9" style="background:#1a2040;color:#4e9eff;font-weight:700;font-size:.75rem;padding:5px 10px;">🔵 Blue Team</td></tr>
+<tr><td>BodaciousMango</td><td><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Kled.png" style="width:26px;height:26px;border-radius:3px;vertical-align:middle;" onerror="this.style.display='none'"> Kled</td><td>TOP</td><td>3/4/7</td><td>208</td><td>12,329</td><td>22,741</td><td>43%</td><td></td></tr>
+<tr><td>Moist</td><td><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Shaco.png" style="width:26px;height:26px;border-radius:3px;vertical-align:middle;" onerror="this.style.display='none'"> Shaco</td><td>JUNGLE</td><td>11/4/5</td><td>256</td><td>14,853</td><td>21,179</td><td>70%</td><td class="star">★</td></tr>
+<tr><td>BugR</td><td><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Ahri.png" style="width:26px;height:26px;border-radius:3px;vertical-align:middle;" onerror="this.style.display='none'"> Ahri</td><td>MIDDLE</td><td>3/1/6</td><td>251</td><td>11,571</td><td>25,661</td><td>39%</td><td></td></tr>
+<tr class="you-row"><td>lentilbebi <span class="you-badge">← YOU</span></td><td><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Ashe.png" style="width:26px;height:26px;border-radius:3px;vertical-align:middle;" onerror="this.style.display='none'"> Ashe</td><td>BOTTOM</td><td>4/1/11</td><td>227</td><td>13,169</td><td>22,579</td><td>65%</td><td></td></tr>
+<tr><td>ahrisoo</td><td><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Lulu.png" style="width:26px;height:26px;border-radius:3px;vertical-align:middle;" onerror="this.style.display='none'"> Lulu</td><td>SUPPORT</td><td>2/3/15</td><td>34</td><td>8,930</td><td>8,643</td><td>74%</td><td></td></tr>
+<tr><td colspan="9" style="background:#401a1a;color:#e55c5c;font-weight:700;font-size:.75rem;padding:5px 10px;">🔴 Red Team</td></tr>
+<tr><td>TheWillfulLoser</td><td><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Skarner.png" style="width:26px;height:26px;border-radius:3px;vertical-align:middle;" onerror="this.style.display='none'"> Skarner</td><td>TOP</td><td>2/3/5</td><td>201</td><td>10,409</td><td>29,442</td><td>54%</td><td></td></tr>
+<tr><td>tiangener</td><td><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/DrMundo.png" style="width:26px;height:26px;border-radius:3px;vertical-align:middle;" onerror="this.style.display='none'"> Dr. Mundo</td><td>JUNGLE</td><td>4/5/6</td><td>198</td><td>11,641</td><td>18,633</td><td>77%</td><td></td></tr>
+<tr><td>Bread Car Car</td><td><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Yone.png" style="width:26px;height:26px;border-radius:3px;vertical-align:middle;" onerror="this.style.display='none'"> Yone</td><td>MIDDLE</td><td>1/5/2</td><td>254</td><td>13,916</td><td>9,992</td><td>23%</td><td></td></tr>
+<tr><td>ChenI77</td><td><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Viktor.png" style="width:26px;height:26px;border-radius:3px;vertical-align:middle;" onerror="this.style.display='none'"> Viktor</td><td>BOTTOM</td><td>6/4/3</td><td>267</td><td>15,819</td><td>30,093</td><td>69%</td><td class="star">★</td></tr>
+<tr><td>灵魂咆哮</td><td><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/Rakan.png" style="width:26px;height:26px;border-radius:3px;vertical-align:middle;" onerror="this.style.display='none'"> Rakan</td><td>SUPPORT</td><td>0/6/9</td><td>26</td><td>7,691</td><td>4,776</td><td>69%</td><td></td></tr>
+</tbody>
+</table>
+<div style="color:var(--muted);font-size:.8rem;margin-top:6px;">Damage split: Blue 58% AD / 32% AP – Red 37% AD / 59% AP</div>
+
+<h2>Match Timeline</h2>
+
+<div class="tl-wrap">
+  <div style="display:flex;height:22px;border-radius:4px;overflow:hidden;margin-bottom:8px;">
+    <div style="width:44.4%;background:#2563eb30;display:flex;align-items:center;justify-content:center;font-size:.65rem;color:rgba(255,255,255,.45);">Early (0–14)</div>
+    <div style="width:34.88%;background:#7c3aed30;display:flex;align-items:center;justify-content:center;font-size:.65rem;color:rgba(255,255,255,.45);">Mid (14–25)</div>
+    <div style="width:20.72%;background:#c026d330;display:flex;align-items:center;justify-content:center;font-size:.65rem;color:rgba(255,255,255,.45);">Late (25+)</div>
+  </div>
+  <div style="position:relative;">
+    <div style="position:absolute;left:44.4%;top:0;bottom:0;width:1px;background:rgba(255,255,255,.12);z-index:1;"></div>
+    <div style="position:absolute;left:79.28%;top:0;bottom:0;width:1px;background:rgba(255,255,255,.12);z-index:1;"></div>
+    <div style="height:6px;background:var(--border);border-radius:3px;position:absolute;top:40px;left:0;right:0;"></div>
+    <div class="tl-markers" style="position:relative;height:88px;"><div style="position:absolute;top:4px;left:18.45%;transform:translateX(-50%);cursor:pointer;z-index:10;"
+  onmouseover="this.querySelector('.tt').style.display='block'"
+  onmouseout="this.querySelector('.tt').style.display='none'">
+  <div style="width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-bottom:12px solid #3dca7e;transition:transform .15s;"
+       onmouseover="this.style.transform='scale(1.4)'" onmouseout="this.style.transform='scale(1)'"></div>
+  <div style="width:1px;height:16px;background:rgba(255,255,255,.15);margin:0 auto;"></div>
+  <div class="tt" style="display:none;position:absolute;bottom:130%;left:50%;transform:translateX(-50%);background:#1e2029;border:1px solid var(--border);border-radius:6px;padding:9px 12px;font-size:.75rem;width:220px;box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:100;pointer-events:none;line-height:1.5;"><div style="color:var(--muted);font-size:.7rem">5:49–5:57 – bot lane</div><div style="font-weight:600;margin:3px 0">Double Kill: Viktor + Rakan</div><div>Ashe assists on Viktor kill (5:49) and kills Rakan (5:57). Bot lane double in 8 seconds.</div></div>
+</div><div style="position:absolute;top:4px;left:31.13%;transform:translateX(-50%);cursor:pointer;z-index:10;"
+  onmouseover="this.querySelector('.tt').style.display='block'"
+  onmouseout="this.querySelector('.tt').style.display='none'">
+  <div style="width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-bottom:12px solid #3dca7e;transition:transform .15s;"
+       onmouseover="this.style.transform='scale(1.4)'" onmouseout="this.style.transform='scale(1)'"></div>
+  <div style="width:1px;height:16px;background:rgba(255,255,255,.15);margin:0 auto;"></div>
+  <div class="tt" style="display:none;position:absolute;bottom:130%;left:50%;transform:translateX(-50%);background:#1e2029;border:1px solid var(--border);border-radius:6px;padding:9px 12px;font-size:.75rem;width:220px;box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:100;pointer-events:none;line-height:1.5;"><div style="color:var(--muted);font-size:.7rem">9:49 – bot lane outer turret</div><div style="font-weight:600;margin:3px 0">Kills Rakan</div><div>Ashe picks up Rakan kill – then gets 3v2 dove 3 seconds later.</div></div>
+</div><div style="position:absolute;top:4px;left:35.1%;transform:translateX(-50%);cursor:pointer;z-index:10;"
+  onmouseover="this.querySelector('.tt').style.display='block'"
+  onmouseout="this.querySelector('.tt').style.display='none'">
+  <div style="width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-bottom:12px solid #3dca7e;transition:transform .15s;"
+       onmouseover="this.style.transform='scale(1.4)'" onmouseout="this.style.transform='scale(1)'"></div>
+  <div style="width:1px;height:16px;background:rgba(255,255,255,.15);margin:0 auto;"></div>
+  <div class="tt" style="display:none;position:absolute;bottom:130%;left:50%;transform:translateX(-50%);background:#1e2029;border:1px solid var(--border);border-radius:6px;padding:9px 12px;font-size:.75rem;width:220px;box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:100;pointer-events:none;line-height:1.5;"><div style="color:var(--muted);font-size:.7rem">11:04 – base</div><div style="font-weight:600;margin:3px 0">BotRK Completed</div><div>First item at 11:04 – on-hit + Grievous Wounds application vs Dr. Mundo.</div></div>
+</div><div style="position:absolute;top:4px;left:51.53%;transform:translateX(-50%);cursor:pointer;z-index:10;"
+  onmouseover="this.querySelector('.tt').style.display='block'"
+  onmouseout="this.querySelector('.tt').style.display='none'">
+  <div style="width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-bottom:12px solid #3dca7e;transition:transform .15s;"
+       onmouseover="this.style.transform='scale(1.4)'" onmouseout="this.style.transform='scale(1)'"></div>
+  <div style="width:1px;height:16px;background:rgba(255,255,255,.15);margin:0 auto;"></div>
+  <div class="tt" style="display:none;position:absolute;bottom:130%;left:50%;transform:translateX(-50%);background:#1e2029;border:1px solid var(--border);border-radius:6px;padding:9px 12px;font-size:.75rem;width:220px;box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:100;pointer-events:none;line-height:1.5;"><div style="color:var(--muted);font-size:.7rem">16:51 – bot lane river</div><div style="font-weight:600;margin:3px 0">Kills Rakan Again</div><div>Third Rakan kill this game.</div></div>
+</div><div style="position:absolute;top:4px;left:97.3%;transform:translateX(-50%);cursor:pointer;z-index:10;"
+  onmouseover="this.querySelector('.tt').style.display='block'"
+  onmouseout="this.querySelector('.tt').style.display='none'">
+  <div style="width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-bottom:12px solid #4e9eff;transition:transform .15s;"
+       onmouseover="this.style.transform='scale(1.4)'" onmouseout="this.style.transform='scale(1)'"></div>
+  <div style="width:1px;height:16px;background:rgba(255,255,255,.15);margin:0 auto;"></div>
+  <div class="tt" style="display:none;position:absolute;bottom:auto;top:130%;left:50%;transform:translateX(-50%);background:#1e2029;border:1px solid var(--border);border-radius:6px;padding:9px 12px;font-size:.75rem;width:220px;box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:100;pointer-events:none;line-height:1.5;"><div style="color:var(--muted);font-size:.7rem">30:33–30:54 – mid lane</div><div style="font-weight:600;margin:3px 0">Two Kills in Baron Teamfight</div><div>Kills Skarner (30:33) and Viktor (30:54). Baron fight closer.</div></div>
+</div><div style="position:absolute;top:46px;left:74.79%;transform:translateX(-50%);cursor:pointer;z-index:10;"
+  onmouseover="this.querySelector('.tt').style.display='block'"
+  onmouseout="this.querySelector('.tt').style.display='none'">
+  <div style="width:1px;height:16px;background:rgba(255,255,255,.15);margin:0 auto;"></div>
+  <div style="width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-top:12px solid #e55c5c;transition:transform .15s;"
+       onmouseover="this.style.transform='scale(1.4)'" onmouseout="this.style.transform='scale(1)'"></div>
+  <div class="tt" style="display:none;position:absolute;bottom:130%;left:50%;transform:translateX(-50%);background:#1e2029;border:1px solid var(--border);border-radius:6px;padding:9px 12px;font-size:.75rem;width:220px;box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:100;pointer-events:none;line-height:1.5;"><div style="color:var(--muted);font-size:.7rem">23:44 – mid-side river</div><div style="font-weight:600;margin:3px 0">Death: Teamfight Collapse</div><div>Killed 9 seconds after Lulu fell. Gold deficit vs Viktor: -1,877.</div></div>
+</div></div>
+    <div style="display:flex;justify-content:space-between;font-size:.65rem;color:var(--muted);margin-top:2px;">
+      <span>0:00</span><span>7:50</span><span>15:40</span><span>23:30</span><span>31:32</span>
+    </div>
+  </div>
+</div>
+
+<div class="phase-div">Phase 1 — Draft</div>
+
+<div class="phase-overview">
+  <div class="phase-overview-label">Draft Context</div>
+  <div class="lane-row"><span class="lane-tag you">BOT ←</span><span class="lane-text">Ashe + Lulu vs Viktor + Rakan. Viktor (AP ADC) is an unconventional scaling threat — his range lets him poke through Lulu's shields from a distance. Rakan is a playmaking engage support who amplifies Dr. Mundo + Skarner dives. Ashe + Lulu is the correct counter-comp: Ashe R provides vision + CC from any range, Lulu W polymorphs Rakan's engage, and Ardent Censer gives Ashe bonus attack speed + damage on every shielded auto.</span></div><div class="lane-row"><span class="lane-tag">JGL</span><span class="lane-text">Ally Shaco's pressure kept Dr. Mundo starved early. With Mundo suppressed, Red team's triple-engage required Rakan to initiate without his primary frontline — a weaker version of their combo.</span></div><div class="lane-row"><span class="lane-tag">MAP</span><span class="lane-text">Red team's Skarner + Dr. Mundo + Rakan are designed to dive the Ashe + Lulu backline. Your positioning as Ashe relative to Lulu matters in every teamfight: stay behind her to receive the shield + polymorph protection.</span></div>
+  <div class="overview-note">Win condition: survive laning, outscale Viktor through the Lulu protection package, and be alive when Shaco gets Baron. You were alive for the Baron fight. The deficit vs Viktor (–1,877 at 20 min) shows the comp executed but the lane phase underperformed.</div>
+</div>
+
+<div class="finding" style="border-left:3px solid #3dca7e;">
+  <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+    <span class="badge badge-ts">Pre-game</span>
+    <span class="badge badge-pos">▲ POSITIVE</span>
+    <span class="badge badge-lens">DRAFT</span>
+  </div>
+  <div class="finding-title">Ashe + Lulu – Correct Protection Comp</div>
+  <div class="finding-body">Ally Lulu's Ardent Censer is the correct first item in this matchup – it gives Ally Ashe stacking attack speed and on-hit AP damage with every shielded auto. The comp's win condition is two-phase: Ally Shaco snowballs early while Ally Ashe + Ally Lulu scale into a protected hypercarry. Enemy Viktor in the ADC role is the primary damage threat to neutralize.</div>
+  <div class="finding-fix"><span class="fix-lbl pos">Keep doing this:</span> Understanding the comp's win condition (keep Ashe alive and attacking) is the correct frame. Execute it by staying behind Lulu in every fight.</div>
+</div>
+
+<div class="phase-div">Phase 2 — Early Game (0–14 min)</div>
+
+<div class="phase-overview">
+  <div class="phase-overview-label">Early Game Context</div>
+  <div class="lane-row"><span class="lane-tag you">BOT ←</span><span class="lane-text">Double kill at 5:49–5:57 seeded Blue team's +2,100 gold lead at 10 minutes. After that, Ashe's gold differential vs Viktor was only -180 at 10 min — essentially even despite Viktor being an AP build in the ADC role that requires time to scale.</span></div><div class="lane-row"><span class="lane-tag">JGL</span><span class="lane-text">Dr. Mundo was forced to play reactive by Shaco's early invasions. His two bot lane ganks at 9:52 and 11:02 succeeded because Blue team was pushed up without vision after the 9:49 kill — standard gank pattern, but the second one was preventable.</span></div>
+  <div class="overview-note">The early lane played well: double kill at 5:49–5:57 established lane dominance. The gold deficit vs Viktor grew almost entirely in the 10–15 min window, not through deaths but through Viktor's item scaling outpacing Ashe's farm pace.</div>
+</div>
+
+<div class="finding" style="border-left:3px solid #3dca7e;">
+  <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+    <span class="badge badge-ts">5:49–5:57 | bot lane outer turret area</span>
+    <span class="badge badge-pos">▲ POSITIVE</span>
+    <span class="badge badge-lens">DECISION AUDIT</span>
+  </div>
+  <div class="finding-title">Double Kill in 8 Seconds</div>
+  <div class="finding-body">Ally Lulu kills Enemy Viktor at 5:49 with Ally Shaco and Ally Ashe assists. Ally Ashe kills Enemy Rakan at 5:57 with Ally Shaco and Ally Lulu assists. Two kills in 8 seconds before 6 minutes seeded the +2,100 gold team lead at 10 minutes and gave Ally Ashe a clean farm window.</div>
+  <div class="finding-fix"><span class="fix-lbl pos">Keep doing this:</span> Correct lane execution. The double kill opened up the lane for Ashe to farm without pressure.</div>
+</div>
+
+<div class="finding" style="border-left:3px solid #3dca7e;">
+  <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+    <span class="badge badge-ts">11:04 | base</span>
+    <span class="badge badge-pos">▲ POSITIVE</span>
+    <span class="badge badge-lens">RESOURCE EFFICIENCY</span>
+  </div>
+  <div class="finding-title">BotRK First Item – Correct Situational Rush</div>
+  <div class="finding-body">Blade of the Ruined King completed at 11:04 is strong first-item reasoning against Enemy Viktor (high HP scaling mage) and contributes Grievous Wounds application through Executioner's Calling purchased at 14:30. BotRK's on-hit also synergizes with Lulu's Ardent Censer attack speed buff.</div>
+  <div class="finding-fix"><span class="fix-lbl pos">Keep doing this:</span> First item BotRK into AP-heavy frontline is the correct call here.</div>
+</div>
+
+<div class="phase-div">Phase 3 — Mid Game (14–25 min)</div>
+
+<div class="phase-overview">
+  <div class="phase-overview-label">Mid Game Context</div>
+  <div class="lane-row"><span class="lane-tag you">BOT ←</span><span class="lane-text">Gold vs Viktor: –180 at 10min, –1,288 at 15min, –1,877 at 20min. The deficit widened by over 1,100 gold in the 10–15 minute window. Viktor completed his first major item (Blighting Jewel path) during this window and pulled ahead through mid-game scaling.</span></div><div class="lane-row"><span class="lane-tag">MAP</span><span class="lane-text">Red team secured 2 dragons uncontested before Blue team got their first at 19:57. The 23:35 teamfight collapse — Lulu first, Ashe 9 seconds later — converted Blue's +216 gold lead into –913.</span></div>
+  <div class="overview-note">Viktor ADC with full AP build (Zhonya's, Rabadon's, Luden's, Shadowflame) outscales most bot-lane matchups if left alone through mid game. He ended with 30,093 damage despite going 6/4 — the gap vs Ashe's 22,579 is the gold deficit expressing itself as damage.</div>
+</div>
+
+<div class="finding" style="border-left:3px solid #e55c5c;">
+  <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+    <span class="badge badge-ts">14:30 → 31:32 | base</span>
+    <span class="badge badge-high">▼ HIGH IMPACT</span>
+    <span class="badge badge-lens">RESOURCE EFFICIENCY</span>
+  </div>
+  <div class="finding-title">Executioner's Calling Never Upgraded to Mortal Reminder</div>
+  <div class="finding-body">Enemy Dr. Mundo's R (Maximum Dosage) heals approximately 20% of his max HP over 10 seconds. At 40 magic resist (Spirit Visage), that's a significant mid-game sustain tool. Ally Ashe bought Executioner's Calling at 14:30 — correct situational purchase — but never upgraded it to Mortal Reminder for the entire 31-minute game. Mortal Reminder costs an additional 850 gold and is the completed form designed for this matchup. Executioner's Calling applies only 40% Grievous Wounds; Mortal Reminder applies the same 40% with additional armor penetration from the Last Whisper component.</div>
+  <div class="finding-fix"><span class="fix-lbl ">Fix:</span> The build sequence should read: BotRK (11:04) → Executioner's Calling (14:30) → Mortal Reminder (target ~19–21 min) → Lord Dominik's Regards → complete the build. You bought Last Whisper at 17:22 and Lord Dominik's at 22:11, but skipped completing Mortal Reminder entirely. This cost you the dedicated Grievous Wounds upgrade vs Dr. Mundo for the entire game.</div>
+</div>
+
+
+<div class="item-chip-row">
+  <div class="item-chip"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/item/3153.png" style="width:24px;height:24px;border-radius:3px;" onerror="this.style.display='none'"> <span>Blade of the Ruined King</span> <span style="color:var(--muted);font-size:.7rem">✓ 11:04</span></div>
+  <span style="color:var(--muted);">→</span>
+  <div class="item-chip"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/item/3123.png" style="width:24px;height:24px;border-radius:3px;" onerror="this.style.display='none'"> <span>Executioner's Calling</span> <span style="color:var(--muted);font-size:.7rem">✓ 14:30</span></div>
+  <span style="color:var(--muted);">→</span>
+  <div class="item-chip"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/item/3036.png" style="width:24px;height:24px;border-radius:3px;" onerror="this.style.display='none'"> <span>Lord Dominik's Regards</span> <span style="color:var(--muted);font-size:.7rem">✓ 22:11</span></div>
+  <span style="color:var(--muted);">→</span>
+  <div class="item-chip" style="border-color:#e55c5c44;"><img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/item/3123.png" style="width:24px;height:24px;border-radius:3px;" onerror="this.style.display='none'"> <span>Executioner's never upgraded</span> <span style="color:#e55c5c;font-size:.7rem">✗ Mortal Reminder</span></div>
+</div>
+
+<div class="finding" style="border-left:3px solid #f0b429;">
+  <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+    <span class="badge badge-ts">14:00–25:00 | bot lane</span>
+    <span class="badge badge-med">▼ MEDIUM IMPACT</span>
+    <span class="badge badge-lens">RESOURCE EFFICIENCY</span>
+  </div>
+  <div class="finding-title">Gold Deficit vs Viktor Widened from –180 to –1,877</div>
+  <div class="finding-body">Ally Ashe's gold vs Enemy Viktor: –168 at 5 min (essentially even), –180 at 10 min, –1,288 at 15 min, –1,877 at 20 min, –3,504 at 25 min. The 10–15 minute window saw a 1,108-gold swing in Viktor's favor. Viktor is an AP scaling ADC — his first complete item generates more combat power per gold than BotRK components because it includes ability power scaling. The gap is partly inherent to the matchup, but staying within 500 gold of Viktor through 20 minutes is achievable with faster CS.</div>
+  <div class="finding-fix"><span class="fix-lbl ">Fix:</span> Ashe's 227 CS at 7.2/min is below the ADC standard of 8–9/min for a scaling carry who needs to hit item spikes. At 8.5/min average, that's ~270 CS — adding 43 CS is roughly 600–800 more gold over the game. Prioritize CS in calm windows over extended poke trades that don't result in kills.</div>
+</div>
+
+<div class="finding" style="border-left:3px solid #e55c5c;">
+  <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+    <span class="badge badge-ts">Entire game | various</span>
+    <span class="badge badge-high">▼ HIGH IMPACT</span>
+    <span class="badge badge-lens">RESOURCE EFFICIENCY</span>
+  </div>
+  <div class="finding-title">Zero Control Wards as Primary Carry in Triple-Engage Matchup</div>
+  <div class="finding-body">Enemy team ran triple-engage: Enemy Skarner (R suppression), Enemy Dr. Mundo (tanky dive), Enemy Rakan (all-in CC). Red team's entire win condition was to dive the Ashe + Lulu backline. Ally Ashe placed 0 control wards the entire game. The oracle lens was swapped at 17:25, which sweeps enemy wards but doesn't provide permanent vision. Three Blue team members died in or near the 23:35 fight location, which was deep in the blue-side jungle — a corridor where a control ward in the river entry would have given 15+ seconds of warning.</div>
+  <div class="finding-fix"><span class="fix-lbl ">Fix:</span> As the primary carry in a triple-engage matchup, buying 1–2 control wards per recall and placing them in the bot-side river (for laning) and mid river (for mid-game rotations) is the minimum. Your support Lulu was providing shields but also carrying the team's vision at 112 score vs your 18. That gap shouldn't exist between a carry and their support.</div>
+</div>
+
+<div class="finding" style="border-left:3px solid #f0b429;">
+  <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+    <span class="badge badge-ts">23:44 | mid-side river</span>
+    <span class="badge badge-med">▼ MEDIUM IMPACT</span>
+    <span class="badge badge-lens">TEAMFIGHT BREAKDOWN</span>
+  </div>
+  <div class="finding-title">Death in the 23:35 Collapse</div>
+  <div class="finding-body">The 23:35 teamfight: Enemy Dr. Mundo killed Ally Lulu first (23:35) in the blue-side upper jungle. Ally Ashe then died 9 seconds later in the mid-side river (x:5961, y:5864) — Enemy Dr. Mundo, Enemy Skarner, Enemy Viktor, and Enemy Rakan all assisted. Lulu's death removed your shield and polymorph protection before the dive reached you. Position: mid-side river, meaning you were still in the transition zone when the engage happened.</div>
+  <div class="finding-fix"><span class="fix-lbl ">Fix:</span> With Enemy Rakan and Enemy Skarner unaccounted for, the position should be east of mid lane (closer to your base) rather than in the open river. Once Lulu died, the correct play is to use Ashe R immediately and retreat toward the nearest Blue structure. Standing in the river after losing your support to a dive is a positioning check — the answer is always: back up.</div>
+</div>
+
+<div class="phase-div">Phase 4 — Late Game (25+ min)</div>
+
+<div class="phase-overview">
+  <div class="phase-overview-label">Late Game Context</div>
+  <div class="lane-row"><span class="lane-tag you">BOT ←</span><span class="lane-text">Gold vs Viktor at 25min: –3,504. He had completed Zhonya's + Rabadon's + Luden's. You had BotRK + Executioner's + LDR + components. Viktor's damage advantage (30,093 vs 22,579 final) reflects this build gap. Despite this, you survived to the Baron fight and contributed two kills.</span></div><div class="lane-row"><span class="lane-tag">MAP</span><span class="lane-text">Solo Baron at 29:57 by Ally Shaco gave Blue team the objective advantage they needed. You were alive and participating — that was the critical requirement.</span></div>
+  <div class="overview-note">The late game worked out because Shaco's Baron solo created a forced teamfight where Blue team had the buff and Red team didn't. Your job was to be alive and output damage. You did both.</div>
+</div>
+
+<div class="finding" style="border-left:3px solid #4e9eff;">
+  <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+    <span class="badge badge-ts">30:33–30:54 | mid lane</span>
+    <span class="badge badge-posH">▲ HIGH IMPACT</span>
+    <span class="badge badge-lens">TEAMFIGHT BREAKDOWN</span>
+  </div>
+  <div class="finding-title">Two Kills in the 5-for-0 Baron Teamfight</div>
+  <div class="finding-body">Ally Ashe kills Enemy Skarner at 30:33 and Enemy Viktor at 30:54 during the Baron teamfight. Also assists on Enemy Kled (30:31) and Enemy Dr. Mundo (30:41). Enemy Viktor was the primary Red team carry and killing him while under Baron buff was the decisive outcome.</div>
+  <div class="finding-fix"><span class="fix-lbl pos">Keep doing this:</span> Correct execution in the final fight — staying alive and outputting damage when Baron buff was active is the correct priority.</div>
+</div>
+
+<h2>The 3 Swing Moments</h2>
+
+<div class="swing-card" style="border-left:3px solid #3dca7e;">
+  <div class="swing-title"><span class="badge badge-ts">5:49–5:57 | bot lane outer turret area</span> Double Kill Builds Blue Team's Early Lead</div>
+  <div style="color:#b8bdd4;font-size:.875rem;line-height:1.6;">Ally Ashe and Ally Lulu picked up two kills in 8 seconds — Enemy Viktor at 5:49 and Enemy Rakan at 5:57. Blue team's gold differential with the rest of the map expanded to +2,100 by 10 minutes. This double kill gave Ashe a clean farm window and removed bot lane pressure for the next 3–4 minutes. Without this early advantage, the Viktor + Rakan lane would have established vision control and set up the Dr. Mundo dives at 9:52 and 11:02 even earlier.</div>
+</div>
+
+<div class="swing-card" style="border-left:3px solid #e55c5c;">
+  <div class="swing-title"><span class="badge badge-ts">23:35–23:44 | blue-side jungle and mid river</span> Collapse Costs Three Champions</div>
+  <div style="color:#b8bdd4;font-size:.875rem;line-height:1.6;">Ally Lulu died at 23:35 (blue-side upper jungle), Ally Ashe died at 23:44 (mid-side river) — 9 seconds apart. The 23:35 fight converted a +216 gold team advantage at 20 minutes into –913 at 25 minutes. Ashe dying with no Baron buff on the board and Viktor fully scaled was the closest this game came to a Red team win. Your death removed the primary carry and the comp's DPS core from a fight Blue team should not have lost given the resource lead.</div>
+</div>
+
+<div class="swing-card" style="border-left:3px solid #c89b3c;">
+  <div class="swing-title"><span class="badge badge-ts">29:57–30:54 | Baron pit and mid lane</span> Baron Buff Closes the Gold Gap</div>
+  <div style="color:#b8bdd4;font-size:.875rem;line-height:1.6;">Ally Shaco solos Baron at 29:57. Blue team kills all five Red champions in 23 seconds at 30:31. Ally Ashe kills Enemy Skarner and Enemy Viktor — removing the two most dangerous Red team members. Mid inhibitor at 31:15, nexus at 31:25. The –913 gold deficit at 25 minutes was erased entirely through Baron pressure. Viktor's 30,093 damage became irrelevant because he died first in the teamfight.</div>
+</div>
+
+<h2>3 Things To Work On</h2>
+
+<div class="workon-card">
+  <span class="workon-num">1.</span>
+  <div class="workon-title">Complete Mortal Reminder vs Healing Champions</div>
+  <div class="workon-body">Executioner's Calling (750 gold) applies 40% Grievous Wounds on hit — a temporary reduction in enemy healing. Mortal Reminder (1,600 gold total) is its completion: same Grievous Wounds, plus Last Whisper's 20% armor penetration. Against Enemy Dr. Mundo, whose R heals ~20% max HP over 10 seconds, you need Mortal Reminder specifically — not the base component. The habit: if you buy Executioner's Calling in laning phase (correct situational purchase), the next recall where you have 850+ gold, you complete it before buying any other item. You bought Last Whisper at 17:22 but built it into Lord Dominik's Regards instead of Mortal Reminder. Both LDR and Mortal Reminder are correct in this matchup — buy Mortal Reminder first.</div>
+</div>
+
+<div class="workon-card">
+  <span class="workon-num">2.</span>
+  <div class="workon-title">Control Wards as Carry Standard Practice</div>
+  <div class="workon-body">As the primary carry in a dive-heavy matchup (Skarner + Dr. Mundo + Rakan), your survival depends on seeing the engage before it happens. You placed 0 control wards this game. Enemy Rakan was invisible on the minimap before the 23:35 fight that killed you. A single control ward in the bot-side river at 14–16 minutes, and another in the mid river at 20–22 minutes, creates permanent vision coverage on the two most common engage corridors. At 75 gold each, two control wards per recall is 150 gold — a cost that prevents the 300-gold death bounty plus the lost gold advantage from dying while ahead. ADC control wards are not a support responsibility. They are a carry's insurance policy.</div>
+</div>
+
+<div class="workon-card">
+  <span class="workon-num">3.</span>
+  <div class="workon-title">Farm Pace Vs Viktor and High-Gold ADCs</div>
+  <div class="workon-body">Your gold deficit vs Viktor grew from –180 at 10 minutes to –1,877 at 20 minutes — a 1,697-gold gap created in 10 minutes without a single death on your side. Viktor's AP ADC build scales steeply: each ability power item is multiplicatively more powerful than the last. Keeping pace requires hitting 8–9 CS/min (you finished at 7.2/min, or ~40 CS fewer than standard). In the 10–15 minute window, the habit is: after each recall, count the time until the next wave arrives and ensure you return to lane before missing it. Forty missed CS over 10 minutes is 600–800 gold — the exact range that closes the gap between –180 and –1,877.</div>
+</div>
+
+<div style="border-top:1px solid var(--border);margin-top:30px;padding-top:12px;font-size:.75rem;color:var(--muted);text-align:center;">
+  <em>lol-match-analysis isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games and all associated properties are trademarks or registered trademarks of Riot Games, Inc.</em>
+</div>
+
+</body></html>
