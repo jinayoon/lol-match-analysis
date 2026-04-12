@@ -3,7 +3,7 @@
 [![Demo screenshot](assets/demo-screenshot.png)](https://www.awesomescreenshot.com/video/51360222?key=e6d8dd45551a7f17d2cc092a93c839e0)
 
 [![Watch demo](https://img.shields.io/badge/Watch%20demo-%E2%96%B6%20Awesome%20Screenshot-1a1a2e?style=for-the-badge&logo=data:image/svg%2bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0id2hpdGUiIGQ9Ik04IDV2MTRsMTEtN3oiLz48L3N2Zz4=)](https://www.awesomescreenshot.com/video/51360222?key=e6d8dd45551a7f17d2cc092a93c839e0)
-[![Sample report](https://img.shields.io/badge/Sample%20report-%F0%9F%93%84%20Braum%20Support-4e9eff?style=for-the-badge)](https://jinayoon.github.io/lol-match-analysis-pages/sample-braum.html)
+[![Sample report](https://img.shields.io/badge/Sample%20report-%F0%9F%93%84%20Braum%20Support-4e9eff?style=for-the-badge)](https://jinayoon.github.io/lol-reviews/sample-braum.html)
 
 A Claude Code skill that gives you an instant private coaching report for your last League of Legends match.
 
@@ -35,7 +35,7 @@ I find it most helpful to generate and read the analysis right after a game whil
 | [`reviews/`](reviews/) | Local output for `.md` / `.html` reports (**gitignored** — not on GitHub) |
 | [`assets/`](assets/) | Demo screenshot and other assets |
 
-**Sample HTML on the web:** hosted from a **separate** Pages repo ([`lol-match-analysis-pages`](https://github.com/jinayoon/lol-match-analysis-pages) — create it from the `lol-match-analysis-pages` export folder next to this project; see that folder’s `README.md`). Disable Pages on this repo in GitHub Settings if you still have it enabled.
+**Sample HTML on the web:** hosted from a **separate** Pages repo ([`lol-reviews`](https://github.com/jinayoon/lol-reviews) — create it from the `lol-reviews` export folder next to this project; see that folder’s `README.md`). Disable Pages on this repo in GitHub Settings if you still have it enabled.
 
 The **full coaching pipeline** expects a **clone** of this repo so `scripts/` and `docs/` exist. Installing **only** `SKILL.md` with `curl` (below) gives you the skill instructions without the scripts — fine for experimentation, but for the automated flow you want a **full install**.
 
