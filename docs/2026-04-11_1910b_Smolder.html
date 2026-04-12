@@ -47,7 +47,7 @@ tr.you td { background:#c89b3c18; }
 .finding.LOW     { border-left-color:var(--green); }
 .finding.POSITIVE{ border-left-color:var(--green); background:#3dca7e0a; }
 .finding-meta { display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin-bottom:6px; }
-.ts-badge { font-family:monospace; font-size:.72rem; background:var(--surface2); padding:2px 7px; border-radius:4px; color:var(--muted); }
+.ts-badge { font-family:monospace; font-size:.72rem; background:var(--surface2); padding:2px 7px; border-radius:4px; color:var(--blue); border:1px solid #4e9eff33; }
 .sev-badge { font-size:.7rem; font-weight:700; padding:2px 8px; border-radius:4px; }
 .sev-HIGH   { background:#e55c5c22; color:var(--red); }
 .sev-MEDIUM { background:#f0b42922; color:var(--yellow); }
@@ -59,9 +59,10 @@ tr.you td { background:#c89b3c18; }
 .fix-line   { font-size:.82rem; margin-top:6px; }
 .fix-line.err  { color:var(--blue); }
 .fix-line.pos  { color:var(--green); font-style:italic; }
-.phase-divider { display:flex; align-items:center; gap:12px; margin:20px 0 12px; }
-.phase-divider .label { font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.1em; color:var(--muted); white-space:nowrap; }
-.phase-divider .line  { flex:1; height:1px; background:var(--border); }
+.phase-divider { display:flex; align-items:center; gap:10px; margin:24px 0 12px; }
+.phase-divider span, .phase-divider .label { font-size:.68rem; font-weight:700; text-transform:uppercase; letter-spacing:.12em; color:var(--muted); white-space:nowrap; }
+.phase-divider::before, .phase-divider::after { content:''; flex:1; height:1px; background:var(--border); }
+.phase-divider .line { display:none; }
 .swing-card { border-radius:8px; padding:14px 16px; margin-bottom:10px; background:var(--surface); border:1px solid var(--border); border-left:3px solid var(--gold); }
 .work-card  { border-radius:8px; padding:14px 16px; margin-bottom:10px; background:var(--surface); border:1px solid var(--border); border-left:3px solid var(--yellow); }
 .tl-wrap { position:relative; margin-bottom:28px; }
@@ -92,7 +93,7 @@ tr.you td { background:#c89b3c18; }
 .gnav a:hover svg{transform:translateX(-2px);}
 </style>
 </head>
-<body><nav class="gnav"><a href="index.html"><svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11 5H1M5 1L1 5L5 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Session</a></nav>
+<body><nav class="gnav"><a href="flex.html"><svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11 5H1M5 1L1 5L5 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Session</a></nav>
 <div class="hero">
   <div class="hero-art">
     <img class="loading" src="https://ddragon.leagueoflegends.com/cdn/img/champion/loading/Smolder_0.jpg" alt="Smolder" onerror="this.style.display='none'">
