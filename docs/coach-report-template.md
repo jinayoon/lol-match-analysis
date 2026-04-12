@@ -89,6 +89,6 @@ What to do instead: One actionable sentence (no “watch a VOD”).
 
 ## File naming
 
-Save under **`reviews/[YYYY-MM-DD]_[HHMM]_[Champion].md`** at the **repository root** (same folder as `scripts/` and `docs/`), using `gameStartTimestamp` from `match.json`. If you use `LOL_MATCH_ANALYSIS_ROOT`, that path is `$LOL_MATCH_ANALYSIS_ROOT/reviews/...`.
+Save under **`reviews/[YYYY-MM-DD]_[HHMM]_[Champion].md`** at the **repository root** (same folder as `scripts/` and `docs/`), using `gameStartTimestamp` from `match.json`. If you use `ANALYZE_LOL_MATCH_ROOT` (or legacy `LOL_MATCH_ANALYSIS_ROOT`), that path is `$ANALYZE_LOL_MATCH_ROOT/reviews/...` or `$LOL_MATCH_ANALYSIS_ROOT/reviews/...`.
 
 Append the Riot disclaimer from `docs/riot-disclaimer.txt` after a `---` divider (or use `render_coach_report.py --append-disclaimer-md`).

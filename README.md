@@ -1,4 +1,4 @@
-# lol-match-analysis
+# analyze-lol-match
 
 [![Demo screenshot](assets/demo-screenshot.png)](https://www.awesomescreenshot.com/video/51360222?key=e6d8dd45551a7f17d2cc092a93c839e0)
 
@@ -29,7 +29,7 @@ I find it most helpful to generate and read the analysis right after a game whil
 
 | Path | Purpose |
 |------|---------|
-| [`skills/lol-match-analysis/SKILL.md`](skills/lol-match-analysis/SKILL.md) | Skill definition (orchestration + pipeline) |
+| [`skills/analyze-lol-match/SKILL.md`](skills/analyze-lol-match/SKILL.md) | Skill definition (orchestration + pipeline) |
 | [`scripts/`](scripts/) | `fetch_lol_match.py`, `summarize_match_for_coach.py`, `render_coach_report.py` |
 | [`docs/`](docs/) | Reference docs (Riot API, templates, rubric, pitfalls, disclaimers) |
 | [`reviews/`](reviews/) | Local output for `.md` / `.html` reports (**gitignored** — not on GitHub) |
@@ -68,14 +68,14 @@ Type `claude` and hit enter. It'll open a browser to log in – follow the promp
 Back in Terminal, paste:
 
 ```bash
-mkdir -p ~/.claude/skills/lol-match-analysis && curl -o ~/.claude/skills/lol-match-analysis/SKILL.md "https://raw.githubusercontent.com/jinayoon/lol-match-analysis/main/skills/lol-match-analysis/SKILL.md"
+mkdir -p ~/.claude/skills/analyze-lol-match && curl -o ~/.claude/skills/analyze-lol-match/SKILL.md "https://raw.githubusercontent.com/jinayoon/analyze-lol-match/main/skills/analyze-lol-match/SKILL.md"
 ```
 
 **5. Get a Riot API key**  
 Go to [developer.riotgames.com](https://developer.riotgames.com), log in with your League account, and copy the key on your dashboard. Free, takes 30 seconds. *(Keys expire every 24h – grab a fresh one each session.)*
 
 **6. Run it**  
-Type `claude` to start a session, then type `/lol-match-analysis` and hit enter. It'll ask for your API key and Riot ID (`Name#TAG`), then analyze your last game automatically.
+Type `claude` to start a session, then type `/analyze-lol-match` and hit enter. It'll ask for your API key and Riot ID (`Name#TAG`), then analyze your last game automatically.
 
 ---
 
@@ -113,14 +113,14 @@ Type `claude` and hit enter. It'll open a browser to log in – follow the promp
 Back in PowerShell, paste:
 
 ```powershell
-New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.claude\skills\lol-match-analysis"; Invoke-WebRequest -Uri "https://raw.githubusercontent.com/jinayoon/lol-match-analysis/main/skills/lol-match-analysis/SKILL.md" -OutFile "$env:USERPROFILE\.claude\skills\lol-match-analysis\SKILL.md"
+New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.claude\skills\analyze-lol-match"; Invoke-WebRequest -Uri "https://raw.githubusercontent.com/jinayoon/analyze-lol-match/main/skills/analyze-lol-match/SKILL.md" -OutFile "$env:USERPROFILE\.claude\skills\analyze-lol-match\SKILL.md"
 ```
 
 **6. Get a Riot API key**  
 Go to [developer.riotgames.com](https://developer.riotgames.com), log in with your League account, and copy the key on your dashboard. Free, takes 30 seconds. *(Keys expire every 24h – grab a fresh one each session.)*
 
 **7. Run it**  
-Type `claude` to start a session, then type `/lol-match-analysis` and hit enter. It'll ask for your API key and Riot ID (`Name#TAG`), then analyze your last game automatically.
+Type `claude` to start a session, then type `/analyze-lol-match` and hit enter. It'll ask for your API key and Riot ID (`Name#TAG`), then analyze your last game automatically.
 
 ---
 
@@ -129,26 +129,28 @@ Type `claude` to start a session, then type `/lol-match-analysis` and hit enter.
 For the pipeline in `SKILL.md` (`fetch_lol_match.py`, digest, HTML, reading `docs/`), clone the repo and point Claude at the skill folder:
 
 ```bash
-git clone https://github.com/jinayoon/lol-match-analysis.git
-cd lol-match-analysis
+git clone https://github.com/jinayoon/analyze-lol-match.git
+cd analyze-lol-match
 mkdir -p ~/.claude/skills
-ln -sfn "$(pwd)/skills/lol-match-analysis" ~/.claude/skills/lol-match-analysis
+ln -sfn "$(pwd)/skills/analyze-lol-match" ~/.claude/skills/analyze-lol-match
 ```
 
 Optional — if you don’t always `cd` into the repo:
 
 ```bash
-export LOL_MATCH_ANALYSIS_ROOT="$(pwd)"   # e.g. add to ~/.zshrc
+export ANALYZE_LOL_MATCH_ROOT="$(pwd)"   # e.g. add to ~/.zshrc
 ```
+
+(`LOL_MATCH_ANALYSIS_ROOT` still works in `SKILL.md` if you already set it.)
 
 **Windows:** use **Copy** instead of symlink if needed:
 
 ```powershell
-New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.claude\skills\lol-match-analysis"
-Copy-Item "skills\lol-match-analysis\SKILL.md" "$env:USERPROFILE\.claude\skills\lol-match-analysis\SKILL.md"
+New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.claude\skills\analyze-lol-match"
+Copy-Item "skills\analyze-lol-match\SKILL.md" "$env:USERPROFILE\.claude\skills\analyze-lol-match\SKILL.md"
 ```
 
-…and keep a full clone somewhere so `scripts/` and `docs/` exist; set `LOL_MATCH_ANALYSIS_ROOT` to that folder.
+…and keep a full clone somewhere so `scripts/` and `docs/` exist; set `ANALYZE_LOL_MATCH_ROOT` (or `LOL_MATCH_ANALYSIS_ROOT`) to that folder.
 
 ### Manual script usage (from repo root)
 
@@ -196,9 +198,9 @@ If it asks "Do you want to change the execution policy?", type `Y` and hit Enter
 ```bash
 # Mac/Linux — same as published install, or clone + symlink (see Full install above)
 curl -fsSL https://claude.ai/install.sh | bash
-mkdir -p ~/.claude/skills/lol-match-analysis
-curl -o ~/.claude/skills/lol-match-analysis/SKILL.md \
-  "https://raw.githubusercontent.com/jinayoon/lol-match-analysis/main/skills/lol-match-analysis/SKILL.md"
+mkdir -p ~/.claude/skills/analyze-lol-match
+curl -o ~/.claude/skills/analyze-lol-match/SKILL.md \
+  "https://raw.githubusercontent.com/jinayoon/analyze-lol-match/main/skills/analyze-lol-match/SKILL.md"
 ```
 
 Contributors: use a **full clone**; keep `SKILL.md` lean and put long reference in `docs/`.
@@ -218,4 +220,4 @@ Contributions welcome! If you want to extend the analysis, add support for other
 
 ---
 
-lol-match-analysis isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games and all associated properties are trademarks or registered trademarks of Riot Games, Inc.
+analyze-lol-match isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games and all associated properties are trademarks or registered trademarks of Riot Games, Inc.

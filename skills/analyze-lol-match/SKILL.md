@@ -1,5 +1,5 @@
 ---
-name: lol-match-analysis
+name: analyze-lol-match
 description: >
   Acts as a League of Legends post-match coach. Fetches the latest Ranked SR match
   via scripts/fetch_lol_match.py, builds coach_digest.json via summarize_match_for_coach.py,
@@ -13,7 +13,7 @@ description: >
 
 # LoL Post-Match Coach (slim orchestration)
 
-**Repository:** [github.com/jinayoon/lol-match-analysis](https://github.com/jinayoon/lol-match-analysis) — this skill assumes you have a **full clone** (not only `SKILL.md`), so `scripts/` and `docs/` exist.
+**Repository:** [github.com/jinayoon/analyze-lol-match](https://github.com/jinayoon/analyze-lol-match) — this skill assumes you have a **full clone** (not only `SKILL.md`), so `scripts/` and `docs/` exist.
 
 ## Repository root (`$REPO`)
 
@@ -24,9 +24,9 @@ All paths below are under the repo root (the folder that contains `scripts/` and
 1. `cd` into your clone, then use the snippets as-is with `$REPO` replaced by `.` or set  
    `export REPO="$(pwd)"`, **or**
 2. Set once:  
-   `export LOL_MATCH_ANALYSIS_ROOT="/path/to/lol-match-analysis"`  
-   and use  
-   `REPO="${LOL_MATCH_ANALYSIS_ROOT:-$PWD}"` in each shell session.
+   `export ANALYZE_LOL_MATCH_ROOT="/path/to/analyze-lol-match"`  
+   (legacy: `LOL_MATCH_ANALYSIS_ROOT` still works) and use  
+   `REPO="${ANALYZE_LOL_MATCH_ROOT:-${LOL_MATCH_ANALYSIS_ROOT:-$PWD}}"` in each shell session.
 
 In bash examples below, `REPO` means that directory.
 
@@ -56,7 +56,7 @@ Paths are relative to **repository root**:
 ### 2) Fetch match + static data
 
 ```bash
-REPO="${LOL_MATCH_ANALYSIS_ROOT:-$PWD}"
+REPO="${ANALYZE_LOL_MATCH_ROOT:-${LOL_MATCH_ANALYSIS_ROOT:-$PWD}}"
 export RIOT_API_KEY="…"
 export MATCH_EXPORT="/tmp/lol_match_export"
 rm -rf "$MATCH_EXPORT" && mkdir -p "$MATCH_EXPORT"
@@ -72,7 +72,7 @@ By default this also downloads **Data Dragon** `items.json` + `champion.json` in
 ### 3) Digest (structured data for analysis + HTML)
 
 ```bash
-REPO="${LOL_MATCH_ANALYSIS_ROOT:-$PWD}"
+REPO="${ANALYZE_LOL_MATCH_ROOT:-${LOL_MATCH_ANALYSIS_ROOT:-$PWD}}"
 python3 "$REPO/scripts/summarize_match_for_coach.py" \
   --dir "$MATCH_EXPORT" --focus-riot "GameName#TAG" --write-md
 ```
@@ -96,7 +96,7 @@ Resolve item names only via **`$MATCH_EXPORT/items.json`**.
 ### 7) Render HTML (optional but default for full deliverable)
 
 ```bash
-REPO="${LOL_MATCH_ANALYSIS_ROOT:-$PWD}"
+REPO="${ANALYZE_LOL_MATCH_ROOT:-${LOL_MATCH_ANALYSIS_ROOT:-$PWD}}"
 python3 "$REPO/scripts/render_coach_report.py" \
   --digest "$MATCH_EXPORT/coach_digest.json" \
   --markdown "$REPO/reviews/….md" \
