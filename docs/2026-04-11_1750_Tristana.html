@@ -87,20 +87,15 @@ tr.you td { background:#c89b3c18; }
 .top3-list li:last-child { border-bottom:none; }
 .top3-list .skill { font-weight:700; color:var(--yellow); }
 
-.game-nav{display:flex;align-items:center;gap:0;background:#12131a;border-bottom:1px solid #2a2d3a;padding:0 16px;flex-wrap:wrap;font-size:.75rem;position:sticky;top:0;z-index:200;}
-.game-nav-back{color:#7b8099;text-decoration:none;padding:10px 12px 10px 0;border-right:1px solid #2a2d3a;margin-right:12px;white-space:nowrap;display:flex;align-items:center;gap:5px;}
-.game-nav-back:hover{color:#dde1f0;}
-.game-nav-meta{color:#7b8099;margin-right:14px;white-space:nowrap;}
-.game-nav-players{display:flex;gap:4px;flex-wrap:wrap;padding:6px 0;}
-.gnp{display:flex;align-items:center;gap:5px;padding:4px 8px;border-radius:5px;text-decoration:none;color:#dde1f0;transition:background .12s;}
-.gnp:hover{background:#1e2029;}
-.gnp.current{background:#c89b3c1a;border:1px solid #c89b3c55;color:#c89b3c;}
-.gnp img{border-radius:3px;flex-shrink:0;}
-.gnp .gnp-name{font-weight:500;}
-.gnp .gnp-champ{color:#7b8099;font-size:.7rem;}
+
+.gnav{position:sticky;top:0;z-index:200;height:38px;background:rgba(14,15,20,.96);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid #1e2029;display:flex;align-items:center;padding:0 24px;}
+.gnav a{display:inline-flex;align-items:center;gap:6px;color:#4a4d5a;text-decoration:none;font-size:.68rem;letter-spacing:.09em;text-transform:uppercase;font-weight:600;transition:color .2s;}
+.gnav a:hover{color:#c89b3c;}
+.gnav a svg{transition:transform .2s;}
+.gnav a:hover svg{transform:translateX(-2px);}
 </style>
 </head>
-<body><nav class="game-nav"><a href="index.html">← All matches</a></nav>
+<body><nav class="gnav"><a href="index.html"><svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11 5H1M5 1L1 5L5 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Session</a></nav>
 
 <div class="hero">
   <div class="hero-art">
