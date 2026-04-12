@@ -37,64 +37,33 @@ I find it most helpful to generate and read the analysis right after a game whil
 
 **Sample HTML on the web:** hosted from a **separate** Pages repo ([`lol-reviews`](https://github.com/jinayoon/lol-reviews) — create it from the `lol-reviews` export folder next to this project; see that folder’s `README.md`). Disable Pages on this repo in GitHub Settings if you still have it enabled.
 
-The **full coaching pipeline** expects a **clone** of this repo so `scripts/` and `docs/` exist. Installing **only** `SKILL.md` with `curl` (below) gives you the skill instructions without the scripts — fine for experimentation, but for the automated flow you want a **full install**.
+The coaching pipeline needs a **full clone** of this repository so `scripts/`, `docs/`, and the skill folder under `skills/` are all present. `SKILL.md` runs `python3` against those paths; downloading only the skill file is not enough.
 
 ---
 
-## Quick start (no coding required)
+## Install (for people brand new to using Claude Code)
 
-### Mac
-
-**1. Install Node.js**  
-Go to [nodejs.org/en/download](https://nodejs.org/en/download) and click the green button that says **macOS Installer**. Download and run it.
-
-**2. Install Claude Code**  
-Open Terminal (search "Terminal" in Spotlight) and paste these **two commands**, one at a time:
-
-```bash
-curl -fsSL https://claude.ai/install.sh | bash
-```
-
-```bash
-npm install -g @anthropic-ai/claude-code
-```
-
-When both finish, **close Terminal completely and reopen it** before continuing. This is required for the `claude` command to be recognized.
-
-**3. Connect your account**  
-Type `claude` and hit enter. It'll open a browser to log in – follow the prompts, then come back to Terminal. Once you're in, type `/exit` to close the session.
-
-**4. Install the skill**  
-Back in Terminal, paste:
-
-```bash
-mkdir -p ~/.claude/skills/analyze-lol-match && curl -o ~/.claude/skills/analyze-lol-match/SKILL.md "https://raw.githubusercontent.com/jinayoon/analyze-lol-match/main/skills/analyze-lol-match/SKILL.md"
-```
-
-**5. Get a Riot API key**  
-Go to [developer.riotgames.com](https://developer.riotgames.com), log in with your League account, and copy the key on your dashboard. Free, takes 30 seconds. *(Keys expire every 24h – grab a fresh one each session.)*
-
-**6. Run it**  
-Type `claude` to start a session, then type `/analyze-lol-match` and hit enter. It'll ask for your API key and Riot ID (`Name#TAG`), then analyze your last game automatically.
-
----
+These steps install Claude Code, clone the repo, register the skill, and set the repo root so the skill can find `scripts/` and `docs/`.
 
 ### Windows
 
 **1. Install Node.js**  
-Go to [nodejs.org/en/download](https://nodejs.org/en/download) and click the green button that says **Windows Installer**. Download and run it.
+Go to [nodejs.org/en/download](https://nodejs.org/en/download) and use the **Windows Installer** (LTS). Download, run the installer, and finish the wizard (including the option to install tools for native modules if the installer offers it).
 
-**2. Install Git for Windows**  
-Go to [git-scm.com/downloads/win](https://git-scm.com/downloads/win) and click the download button for the 64-bit installer. Required for Claude Code to work on Windows.
+**2. Install Python 3**  
+Go to [python.org/downloads](https://www.python.org/downloads/) and install **Python 3** for Windows. In the installer, enable **Add python.exe to PATH** (or add it manually afterward). Open a new PowerShell window and confirm `python3 --version` or `python --version` works; the skill runs `python3` in its commands.
 
-**3. Install Claude Code**  
-Open PowerShell (search "PowerShell" in the Start menu) and paste these **two commands**, one at a time:
+**3. Install Git for Windows**  
+Go to [git-scm.com/downloads/win](https://git-scm.com/downloads/win) and install the 64-bit build. Git is required for `git clone` and for Claude Code on Windows.
+
+**4. Install Claude Code**  
+Open **PowerShell** and run these commands **one at a time**:
 
 ```powershell
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 ```
 
-*(This unlocks script execution – Windows blocks it by default. If it asks "Do you want to change the execution policy?", type `Y` and hit Enter.)*
+*(If Windows asks to confirm the policy change, type `Y` and press Enter.)*
 
 ```powershell
 irm https://claude.ai/install.ps1 | iex
@@ -104,29 +73,84 @@ irm https://claude.ai/install.ps1 | iex
 npm install -g @anthropic-ai/claude-code
 ```
 
-When both finish, **close PowerShell completely and reopen it** before continuing. This is required for the `claude` command to be recognized.
+When everything finishes, **close PowerShell completely and open a new window** so `claude` is recognized.
 
-**4. Connect your account**  
-Type `claude` and hit enter. It'll open a browser to log in – follow the prompts, then come back to PowerShell. Once you're in, type `/exit` to close the session.
+**5. Connect your account**  
+Run `claude`, finish browser login, then type `/exit` in the session.
 
-**5. Install the skill**  
-Back in PowerShell, paste:
+**6. Clone this repo and wire the skill**  
+Choose a folder (for example `Documents\Source` or your user folder), then:
 
 ```powershell
-New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.claude\skills\analyze-lol-match"; Invoke-WebRequest -Uri "https://raw.githubusercontent.com/jinayoon/analyze-lol-match/main/skills/analyze-lol-match/SKILL.md" -OutFile "$env:USERPROFILE\.claude\skills\analyze-lol-match\SKILL.md"
+cd $HOME
+git clone https://github.com/jinayoon/analyze-lol-match.git
+cd analyze-lol-match
+New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.claude\skills"
 ```
 
-**6. Get a Riot API key**  
-Go to [developer.riotgames.com](https://developer.riotgames.com), log in with your League account, and copy the key on your dashboard. Free, takes 30 seconds. *(Keys expire every 24h – grab a fresh one each session.)*
+Link Claude’s skill folder to the skill inside your clone. From the **`analyze-lol-match` repo root**, run (adjust if your clone lives elsewhere):
 
-**7. Run it**  
-Type `claude` to start a session, then type `/analyze-lol-match` and hit enter. It'll ask for your API key and Riot ID (`Name#TAG`), then analyze your last game automatically.
+```powershell
+$target = "$env:USERPROFILE\.claude\skills\analyze-lol-match"
+$source = (Resolve-Path ".\skills\analyze-lol-match").Path
+if (Test-Path $target) { Remove-Item $target -Recurse -Force }
+cmd /c mklink /J "$target" "$source"
+```
+
+`mklink /J` creates a **directory junction** so Claude reads `SKILL.md` from your clone without copying files. If that command fails, create the skills folder and copy the skill file, **and** you must still set the repo root in the next step:
+
+```powershell
+New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.claude\skills\analyze-lol-match"
+Copy-Item ".\skills\analyze-lol-match\SKILL.md" "$env:USERPROFILE\.claude\skills\analyze-lol-match\SKILL.md"
+```
+
+**7. Point the skill at the repo root (recommended)**  
+Set a user environment variable to the folder that contains `scripts` and `docs` (your clone path), for example:
+
+```powershell
+setx ANALYZE_LOL_MATCH_ROOT "$HOME\analyze-lol-match"
+```
+
+Close PowerShell and open a **new** window so `setx` takes effect.  
+(Legacy: `LOL_MATCH_ANALYSIS_ROOT` still works in `SKILL.md`.)
+
+**8. Get a Riot API key**  
+Go to [developer.riotgames.com](https://developer.riotgames.com), sign in with your Riot account, and copy the key from the dashboard. *(Developer keys expire about every 24 hours — use a fresh key when you start a session.)*
+
+**9. Run it**  
+Start `claude`, then `/analyze-lol-match`, and provide your key and Riot ID when asked.
 
 ---
 
-## Full install (recommended — scripts + `docs/`)
+### Mac
 
-For the pipeline in `SKILL.md` (`fetch_lol_match.py`, digest, HTML, reading `docs/`), clone the repo and point Claude at the skill folder:
+**1. Install Node.js**  
+Go to [nodejs.org/en/download](https://nodejs.org/en/download) and use the **macOS Installer** (LTS). Download, run the installer, and finish the wizard.
+
+**2. Install Python 3**  
+Go to [python.org/downloads](https://www.python.org/downloads/) and install the latest **Python 3** for macOS. The scripts use the standard library only, but you need the `python3` command available in Terminal.
+
+**3. Install Git (if you do not have it)**  
+Open Terminal and run `git --version`. If macOS offers to install the **Command Line Developer Tools**, accept and wait for the install to finish.
+
+**4. Install Claude Code**  
+In Terminal, run these **two commands**, one at a time:
+
+```bash
+curl -fsSL https://claude.ai/install.sh | bash
+```
+
+```bash
+npm install -g @anthropic-ai/claude-code
+```
+
+When both finish, **quit Terminal completely and open a new window** so the `claude` command is on your `PATH`.
+
+**5. Connect your account**  
+Run `claude` and press Enter. Complete login in the browser, return to Terminal, then type `/exit` to leave the session.
+
+**6. Clone this repo and wire the skill**  
+Pick a folder where you keep projects, then:
 
 ```bash
 git clone https://github.com/jinayoon/analyze-lol-match.git
@@ -135,24 +159,48 @@ mkdir -p ~/.claude/skills
 ln -sfn "$(pwd)/skills/analyze-lol-match" ~/.claude/skills/analyze-lol-match
 ```
 
-Optional — if you don’t always `cd` into the repo:
+That symlink makes Claude load `SKILL.md` from your clone. The pipeline still needs to know the **repository root** (the folder that contains `scripts/` and `docs/`).
+
+**7. Point the skill at the repo root (recommended)**  
+So you do not have to `cd` into the clone every time, add this to `~/.zshrc` (or `~/.bash_profile` if you use bash), using the real path to your clone:
 
 ```bash
-export ANALYZE_LOL_MATCH_ROOT="$(pwd)"   # e.g. add to ~/.zshrc
+export ANALYZE_LOL_MATCH_ROOT="$HOME/path/to/analyze-lol-match"
 ```
 
-(`LOL_MATCH_ANALYSIS_ROOT` still works in `SKILL.md` if you already set it.)
+Open a **new** Terminal tab or run `source ~/.zshrc`.  
+(Legacy: `LOL_MATCH_ANALYSIS_ROOT` still works in `SKILL.md` if you already set it.)
 
-**Windows:** use **Copy** instead of symlink if needed:
+**8. Get a Riot API key**  
+Go to [developer.riotgames.com](https://developer.riotgames.com), sign in with your Riot account, and copy the key from the dashboard. *(Developer keys expire about every 24 hours — use a fresh key when you start a session.)*
 
-```powershell
-New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.claude\skills\analyze-lol-match"
-Copy-Item "skills\analyze-lol-match\SKILL.md" "$env:USERPROFILE\.claude\skills\analyze-lol-match\SKILL.md"
+**9. Run it**  
+Start `claude`, then run `/analyze-lol-match`. It will ask for your API key and Riot ID (`Name#TAG`) and walk through the full pipeline using your clone.
+
+---
+
+## Install (for developers)
+
+Assume **Node.js**, **Python 3**, **Git**, and **Claude Code** are already installed and you can run `claude` from a terminal.
+
+**1. Clone and register the skill (macOS / Linux)**
+
+```bash
+git clone https://github.com/jinayoon/analyze-lol-match.git
+cd analyze-lol-match
+mkdir -p ~/.claude/skills
+ln -sfn "$(pwd)/skills/analyze-lol-match" ~/.claude/skills/analyze-lol-match
 ```
 
-…and keep a full clone somewhere so `scripts/` and `docs/` exist; set `ANALYZE_LOL_MATCH_ROOT` (or `LOL_MATCH_ANALYSIS_ROOT`) to that folder.
+**2. Repo root for scripts** — either `cd` into the clone whenever you run the pipeline or set (e.g. in your shell profile):
 
-### Manual script usage (from repo root)
+```bash
+export ANALYZE_LOL_MATCH_ROOT="$(pwd)"   # or an absolute path to the clone
+```
+
+**Windows (from repo root in PowerShell):** junction as in the beginner steps, or copy `skills\analyze-lol-match\SKILL.md` into `%USERPROFILE%\.claude\skills\analyze-lol-match\` and set `ANALYZE_LOL_MATCH_ROOT` to the clone path.
+
+**3. Manual script usage** (from repository root, same as `SKILL.md`):
 
 ```bash
 export RIOT_API_KEY="RGAPI-..."
@@ -168,6 +216,8 @@ python3 scripts/render_coach_report.py \
   --append-disclaimer-md
 ```
 
+**Contributing:** Keep [`skills/analyze-lol-match/SKILL.md`](skills/analyze-lol-match/SKILL.md) lean; put long reference material in [`docs/`](docs/).
+
 ---
 
 ## Troubleshooting
@@ -178,7 +228,7 @@ You need to close your Terminal or PowerShell window completely and reopen it af
 If it still doesn't work after reopening:
 
 - **Mac:** Run `echo $PATH` and confirm it includes `~/.npm-global/bin` or wherever Claude Code was installed. If not, re-run the install script in the new terminal window.
-- **Windows:** Make sure you installed Git for Windows (Step 2) before Claude Code. Some Windows setups also require running PowerShell as Administrator for the install to complete.
+- **Windows:** Make sure you installed Git for Windows before Claude Code (see **Install** above). Some Windows setups also require running PowerShell as Administrator for the install to complete.
 
 **`execution of scripts is disabled on this system` (Windows)**  
 PowerShell blocks scripts by default. Run this first, then re-run the Claude Code install:
@@ -192,18 +242,6 @@ If it asks "Do you want to change the execution policy?", type `Y` and hit Enter
 **Riot API 429 / rate limits** — `fetch_lol_match.py` retries; avoid hammering the API manually.
 
 ---
-
-## For developers
-
-```bash
-# Mac/Linux — same as published install, or clone + symlink (see Full install above)
-curl -fsSL https://claude.ai/install.sh | bash
-mkdir -p ~/.claude/skills/analyze-lol-match
-curl -o ~/.claude/skills/analyze-lol-match/SKILL.md \
-  "https://raw.githubusercontent.com/jinayoon/analyze-lol-match/main/skills/analyze-lol-match/SKILL.md"
-```
-
-Contributors: use a **full clone**; keep `SKILL.md` lean and put long reference in `docs/`.
 
 ## Contributing
 
