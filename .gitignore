@@ -13,7 +13,6 @@ __pycache__/
 .DS_Store
 Thumbs.db
 
-# Optional: keep generated reports out of git (uncomment if you want)
-# reviews/*.md
-# reviews/*.html
-# !reviews/.gitkeep
+# Generated coaching reports (keep folder with .gitkeep only)
+reviews/*
+!reviews/.gitkeep
